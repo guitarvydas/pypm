@@ -4,6 +4,7 @@ import re
 class OmitComments (leaf.Leaf):
     def __init__ (self, parent, name): super().__init__ (parent, name)
     def handler (self, port, data):
+        super ().handler (port, data)
         if (port == 'text'):
             result = re.sub (r'\#.*\n', '\n', data)
             self.send ('text', result)

@@ -4,11 +4,13 @@ class Leaf (component.Component):
     def send (self, portname, data):
         self.appendOutputMessage ({ 'port': portname, 'data': data })
     def tick (self):
+        super ().tick ()
         if self.ready ():
             message = self.dequeueInputMessage ()
             self.handler (message['port'], message['data'])
+            return True
         else:
-            pass
+            return False
     def ready (self):
         return len (self.inputq) > 0
     def busy (self):

@@ -2,8 +2,15 @@ import component
 class Container (component.Component):
     def __init__ (self, parent, instanceName): super ().__init__ (parent, instanceName)
     def tick (self):
+        super ().tick ()
+        workDone = False
         for c in self.children:
-            c.tick ()
+            workDone = workDone or c.tick ()
+        if ((not workDone) and self.ready ()):
+            message = self.dequeueInputMessage ()
+            self.delegateMessage ({'sender':self, 'port':message['port']}, message['data']) 
+            workDone = True
+        return workDone
     def busy (self):
         for c in self.children:
             if (c.inputQueueNotEmpty () or c.busy ()):
@@ -35,7 +42,9 @@ class Container (component.Component):
                 pass
         return None
     def route (self):
+        super ().route ()
         for c in self.children:
+            c.route ()
             if c.outputQueueNotEmpty ():
                 self.routeChildOutputs (c)
                 c.resetOutputQueue ()
@@ -47,5 +56,7 @@ class Container (component.Component):
             self.copyMessage (source, data)
     def beginAtomic (self, connection): pass # non-pass for bare-metal               
     def endAtomic (self, connection): pass   # non-pass for bare-metal
+    def handler (self, port, data):
+        super ().handler (port, data)
     
                 

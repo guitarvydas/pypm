@@ -31,3 +31,11 @@ class Component:
         return self.outputq
     def resetOutputQueue (self):
         self.outputq = []
+    def handler (self, port, data):
+        print (f'handler {self.name}')
+    def ready (self):
+        return self.inputQueueNotEmpty ()
+    def route (self):
+        pass
+    def tick (self):
+        print (f'tick {self.name}')
