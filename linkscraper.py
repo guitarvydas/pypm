@@ -1,36 +1,21 @@
+import leaf
 import re
 
-class Linkscraper ():
-    def __init__ (self):
-        self.output = []
-    def send (self, portname, data):
-        self.output.append ({ 'port': portname, 'data': data })
+class LinkScraper (leaf.Leaf):
+    def __init__ (self, parent, name): super().__init__ (parent, name)
     def handler (self, port, data):
-        if (port == 'text'):
-            text = data.split ('\n')
-            result = []
-            for line in text:
-                matchList = re.findall (r'[^`]\[\[([^]])\]\][^`]', line)
-                result = result + matchList
-            self.send ('output', result)
-    def call (self, text):
-        self.handler ('text', text)
-        return self.outputs2dict ()['output']
-    def outputs2dict (self):
-        # this could be done more efficiently
-        # map all output values into a single dict,
-        #    overriding each key/value pair with the most recent value at that key
-        # (TODO: should this return a stack of values (alist) for each key instead
-        #    of 1 value for each key?)
-        resultdict = {}
-        for message in self.output:
-            resultdict [message ['port']] = message ['data']
-        pass
-        return resultdict
-            
-                                
-tester = Linkscraper ()
-tester.handler ('text', 'abc[[def]]ghi\n')
-print (tester.outputs2dict ()['output'])
-#print (tester.call ('uvw', 'def'))
+        result = []
+        if (port == '[text]'):
+            for line in data:
+                result += re.findall ('(\[\[[^\]]+\]\])',line)
+            self.send ('[links]', result)
+    def call (self, textList):
+        self.handler ('[text]', textList)
+        return self.outputs2dict ()['[links]']
 
+def testScraper ():
+    tester = LinkScraper (None, 'link scraper')
+    tester.handler ('[text]', ['abc', '[[hello]]', 'def ', '[[xyz]]', 'ghi'])
+    print (tester.outputs2dict ()['[links]'])
+
+# testScraper ()
