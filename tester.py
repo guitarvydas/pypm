@@ -7,8 +7,7 @@ class Tester (container.Container):
         self.child1 = perfilelinkscraper.PerFileLinkScraper (self, 'file reader')
         self.children = [self.child1]
         self.connections = [
-                { 'sender' : self, 'port' : 'filename', 'receivers' : [ { 'receiver' : self.child1, 'port' : 'filename' }]},
-                { 'sender' : self.child1, 'port' : 'output', 'receivers' : [{'receiver' : self, 'port' : 'output'}]}
+                { 'sender' : self, 'port' : 'filename', 'receivers' : [ { 'receiver' : self.child1, 'port' : 'filename' }]}
             ]
     def handler (self, port, data):
         super ().handler (port, data)
@@ -20,9 +19,9 @@ class Tester (container.Container):
             raise Exception (f'Unrecognized Port for pm {port}')
     def call (self, text):
         self.handler ('text', text)
-        return self.outputs2dict ()['output']
+        return 'done'
 
 tester = Tester (None, 'tester')
 tester.handler ('filename', 'test.txt')
-print (tester.outputs2dict ()['output'])
+print ('done')
 
