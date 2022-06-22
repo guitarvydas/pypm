@@ -22,6 +22,7 @@ class LinkCollection (leaf.Leaf):
             elif (port == 'req next'):
                 if (0 >= len (self.links)):
                     self.send ('no more', True)
+                    self.send ('link', '')
                     self.state = 'idle'
                 else:
                     link = self.links.pop (0)
@@ -29,14 +30,20 @@ class LinkCollection (leaf.Leaf):
             else:
                 raise Exception (f'unrecognized message in state appending /{port}/')
             
-def testLinkCollection ():
-    tester = LinkCollection (None, 'link collection')
-    links = ['[[abc]]', '[[def]]']
-    tester.handler ('[append list]', links)
-    tester.handler ('req next', True)
-    tester.handler ('req next', True)
-    link = tester.outputs2dict ()['link']
-    print (link)
+# def testLinkCollection ():
+#     tester = LinkCollection (None, 'link collection')
+#     links = ['[[abc]]', '[[def]]']
+#     links2 = ['[[ghi]]', '[[jkl]]', '[[mno]]']
+#     tester.handler ('[append list]', links)
+#     tester.handler ('req next', True)
+#     tester.handler ('[append list]', links2)
+#     tester.handler ('req next', True)
+#     tester.handler ('req next', True)
+#     tester.handler ('req next', True)
+#     tester.handler ('req next', True)
+#     tester.handler ('req next', True)
+#     # -- one too many - raises error -- tester.handler ('req next', True)
+#     print (tester.outputs2dict ())
 
-testLinkCollection ()
+# testLinkCollection ()
 
