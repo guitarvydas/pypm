@@ -22,10 +22,10 @@ class Component:
     def outputQueueNotEmpty (self):
         return len (self.outputq) > 0
     def appendInputMessage (self, message):
-        print (f"append input '{self.name}' /{message['port']}/")
+        print (f"  append input '{self.name}' /{message['port']}/")
         self.inputq.append ({'port': message['port'], 'data': message['data']})
     def appendOutputMessage (self, message):
-        print (f"append output '{self.name}' /{message['port']}/")
+        print (f"  append output '{self.name}' /{message['port']}/")
         self.outputq.append ({'port': message['port'], 'data': message['data']})
     def dequeueInputMessage (self):
         return self.inputq.pop (0)
@@ -34,11 +34,11 @@ class Component:
     def resetOutputQueue (self):
         self.outputq = []
     def handler (self, port, data):
-        print (f"handler '{self.name}' '{port}'")
+        print (f"handler '{self.name}' '⟨{port}⟩'")
     def ready (self):
         return self.inputQueueNotEmpty ()
     def route (self):
         pass
     def tick (self):
-        #print (f'tick {self.name}')
+        # print (f'   tick {self.name}')
         pass

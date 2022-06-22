@@ -25,20 +25,20 @@ class LinkToFilename (leaf.Leaf):
             else:
                 self.send ('filename', fnames [0])
             
-def testLinkToFilename ():
-    tester = LinkToFilename (None, 'link 2 filename')
-    bdir = '/Users/tarvydas/Dropbox/ps'
-    suffix = '.md'
-    s1 = '[[whyohm]]'
-    s1a = '[[pm math]]'
-    s2 = '[[ww-book-Hamburger Workbench - A Gentle Introduction to Ohm-JS/Why You Need To Learn Ohm-JS]]'
-    tester.handler ('base directory', bdir)
-    tester.handler ('suffix', suffix)
-    tester.handler ('link', s2)
-    fname = tester.outputs2dict ()['filename']
-    exists = os.path.exists (fname)
-    print (fname)
-    print (exists)
+# def testLinkToFilename ():
+#     tester = LinkToFilename (None, 'link 2 filename')
+#     bdir = '/Users/tarvydas/Dropbox/ps'
+#     suffix = '.md'
+#     s1 = '[[whyohm]]'
+#     s1a = '[[pm math]]'
+#     s2 = '[[ww-book-Hamburger Workbench - A Gentle Introduction to Ohm-JS/Why You Need To Learn Ohm-JS]]'
+#     tester.handler ('base directory', bdir)
+#     tester.handler ('suffix', suffix)
+#     tester.handler ('link', s2)
+#     fname = tester.outputs2dict ()['filename']
+#     exists = os.path.exists (fname)
+#     print (fname)
+#     print (exists)
 
-testLinkToFilename ()
+# testLinkToFilename ()
 

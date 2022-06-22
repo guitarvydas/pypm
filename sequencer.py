@@ -5,14 +5,21 @@ class Sequencer (leaf.Leaf):
         self.state = 'idle'
     def handler (self, port, data):
         super ().handler (port, data)
+        print ('Sequencer.[' + self.state + ']')
         if (self.state == 'idle'):
             if (port == 'filename'):
                 self.send ('output filename', 'out.' + data)
                 self.send ('clear', True)
-                self.enterStateFetching (data)
+                self.enterStateFirstFetching (data)
             else:
                 # pass
                 raise Exception ('unknown message.port in idle')
+        elif (self.state == 'first fetching'):
+            if (port == 'filename'):
+                self.enterStateFetching (data)
+            else:
+                # pass
+                raise Exception ('unknown message.port in first fetching')
         elif (self.state == 'fetching'):
             if (port == 'filename'):
                 self.enterStateFetching (data)
@@ -25,6 +32,9 @@ class Sequencer (leaf.Leaf):
         else:
             # pass
             raise Exception ('unknown state')
+    def enterStateFirstFetching (self, fname):
+        self.state = 'first fetching'
+        self.send ('input filename', fname)
     def enterStateFetching (self, fname):
         self.state = 'fetching'
         self.send ('input filename', fname)

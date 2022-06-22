@@ -7,11 +7,11 @@ class FileReader (leaf.Leaf):
             f = open (data, 'r')
             result = f.read ()
             self.send ('text', result)
-    def call (self, filename):
-        self.handler ('filename', filename)
-        return self.outputs2dict ()['text']
+    # def call (self, filename):
+    #     self.handler ('filename', filename)
+    #     return self.outputs2dict ()['text']
 
-def testFileHandler ():
-    tester = FileReader (None, 'file reader')
-    tester.handler ('filename', 'test.txt')
-    print (tester.outputs2dict ()['text'])
+# def testFileHandler ():
+#     tester = FileReader (None, 'file reader')
+#     tester.handler ('filename', 'test.txt')
+#     print (tester.outputs2dict ()['text'])

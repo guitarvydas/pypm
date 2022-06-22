@@ -40,17 +40,15 @@ class GenerateLinksFile (container.Container):
             ]
     def handler (self, port, data):
         super ().handler (port, data)
-        if (port == 'filename'):
-            self.delegateMessage ({'sender' : self, 'port' : 'filename'}, data)
-            self.route ()
-            self.runToCompletion ()
-        else:
-            raise Exception (f'Unrecognized Port for pm {port}')
+        print (f'generate {port} {data}')
+        self.delegateMessage ({'sender' : self, 'port' : port}, data)
+        self.route ()
+        self.runToCompletion ()
 
 tester = GenerateLinksFile (None, 'generate links file')
 bdir = '/Users/tarvydas/Dropbox/ps'
 suffix = '.md'
-testfile = 'text.txt'
+testfile = 'test.txt'
 tester.handler ('base directory', bdir)
 tester.handler ('suffix', suffix)
 tester.handler ('filename', testfile)
