@@ -9,11 +9,14 @@ class LinkCollection (leaf.Leaf):
         self.state = 'idle'
     def handler (self, port, data):
         super ().handler (port, data)
+        print (f'link collection.[{self.state}]')
         if (self.state == 'idle'):
             if (port == '[append list]'):
                 # data is a list of links, each item a string of the form '[[abc]]'
                 self.links = self.links + data
                 self.state = 'appending'
+            elif (port == 'req next'):
+                self.send ('first time', True)
             else:
                 raise Exception (f'unrecognized message in state idle /{port}/')
         elif (self.state == 'appending'):

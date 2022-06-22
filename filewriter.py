@@ -14,7 +14,6 @@ class FileWriter (leaf.Leaf):
                 f.close ()
             else:
                 if (port == 'append'):
-                    print (f"appending to {self.filename}")
                     f = open (self.filename, 'a')
                     f.write (data)
                     f.close ()
