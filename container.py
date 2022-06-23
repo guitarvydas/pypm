@@ -11,7 +11,7 @@ class Container (component.Component):
             workDone = workDone or c.tick ()
         if ((not workDone) and self.ready ()):
             message = self.dequeueInputMessage ()
-            self.delegateMessage ({'sender':self, 'port':message['port']}, message['data']) 
+            self.delegateMessage (message) 
             workDone = True
         return workDone
     def busy (self):

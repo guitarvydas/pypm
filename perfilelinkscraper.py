@@ -37,4 +37,4 @@ def testPerFileLinkScraper ():
     tester.handler (Message (tester, 'filename', 'test.txt'))
     print (tester.outputs2dict ()['output'])
 
-testPerFileLinkScraper ()
+# testPerFileLinkScraper ()

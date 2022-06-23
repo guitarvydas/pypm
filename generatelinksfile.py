@@ -1,3 +1,4 @@
+from message import Message
 import container
 import sequencer
 import loopbackscraper
@@ -28,9 +29,9 @@ class GenerateLinksFile (container.Container):
 
                 { 'sender' : self.child3, 'port' : 'text', 'receivers' : [ { 'receiver' : self.child4, 'port' : 'append' }]}
             ]
-    def handler (self, port, data):
-        super ().handler (port, data)
-        self.delegateMessage ({'sender' : self, 'port' : port}, data)
+    def handler (self, message):
+        super ().handler (message)
+        self.delegateMessage (message)
         self.route ()
         self.runToCompletion ()
 
@@ -38,9 +39,9 @@ tester = GenerateLinksFile (None, 'generate links file')
 bdir = '/Users/tarvydas/Dropbox/ps'
 suffix = '.md'
 testfile = 'test.txt'
-tester.handler ('base directory', bdir)
-tester.handler ('suffix', suffix)
-tester.handler ('filename', testfile)
+tester.handler (Message (tester, 'base directory', bdir))
+tester.handler (Message (tester, 'suffix', suffix))
+tester.handler (Message (tester, 'filename', testfile))
 done = tester.outputs2dict ()['done']
 print (done)
 

@@ -1,4 +1,4 @@
-import Message from message
+from message import Message
 import leaf
 
 class LoopTrigger (leaf.Leaf):

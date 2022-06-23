@@ -35,10 +35,9 @@ class LoopbackScraper (container.Container):
 
                 { 'sender':self.child4, 'port':'trigger', 'receivers':[{'receiver':self.child1,'port':'req next'}]}
             ]
-    def handler (self, port, data):
-        super ().handler (port, data)
-        print (f'generate {port} {data}')
-        self.delegateMessage ({'sender' : self, 'port' : port}, data)
+    def handler (self, message):
+        super ().handler (message)
+        self.delegateMessage (message)
         self.route ()
         self.runToCompletion ()
 
