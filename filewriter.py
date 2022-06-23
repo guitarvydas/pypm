@@ -1,21 +1,22 @@
+from message import Message
 import leaf
 class FileWriter (leaf.Leaf):
     def __init__ (self, parent, name):
         super ().__init__ (parent, name)
         self.filename = ''
         self.fd = None
-    def handler (self, port, data):
-        super ().handler (port, data)
-        if (port == 'filename'):
-            self.filename = data
+    def handler (self, message):
+        super ().handler (message)
+        if (message.port == 'filename'):
+            self.filename = message.data
         else:
-            if (port == 'clear'):
+            if (message.port == 'clear'):
                 f = open (self.filename, 'w')
                 f.close ()
             else:
-                if (port == 'append'):
+                if (message.port == 'append'):
                     f = open (self.filename, 'a')
-                    f.write (data)
+                    f.write (message.data)
                     f.close ()
                 else:
                     raise Exception ('unkown port')

@@ -1,11 +1,12 @@
+from message import Message
 class Component:
     def __init__ (self, parent, instanceName):
         self.parent = parent
         self.name = instanceName
         self.inputq = []
         self.outputq = []
-    def send (self, portname, data):
-        self.appendOutputMessage ({ 'port': portname, 'data': data })
+    def send (self, sender, portname, data):
+        self.appendOutputMessage (Message (sender, portname, data))
     def outputs2dict (self):
         # this could be done more efficiently
         # map all output values into a single dict,
@@ -23,17 +24,19 @@ class Component:
         return len (self.outputq) > 0
     def appendInputMessage (self, message):
         # print (f"  append input '{self.name}' /{message['port']}/")
-        self.inputq.append ({'port': message['port'], 'data': message['data']})
+        m = Message (message.sender, message.port, message.data)
+        self.inputq.append (m)
     def appendOutputMessage (self, message):
         # print (f"  append output '{self.name}' /{message['port']}/")
-        self.outputq.append ({'port': message['port'], 'data': message['data']})
+        m = Message (self, message.port, message.data)
+        self.outputq.append (m)
     def dequeueInputMessage (self):
         return self.inputq.pop (0)
     def outputQueueAsList (self):
         return self.outputq
     def resetOutputQueue (self):
         self.outputq = []
-    def handler (self, port, data):
+    def handler (self, message):
         # print (f"handler '{self.name}' '⟨{port}⟩'")
         pass
     def ready (self):

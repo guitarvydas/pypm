@@ -1,13 +1,14 @@
+from message import Message
 import component
 class Leaf (component.Component):
     def __init__ (self, parent, instanceName): super ().__init__ (parent, instanceName)
-    def send (self, portname, data):
-        self.appendOutputMessage ({ 'port': portname, 'data': data })
+    def send (self, sender, portname, data):
+        self.appendOutputMessage (Message (sender, portname, data))
     def tick (self):
         super ().tick ()
         if self.ready ():
             message = self.dequeueInputMessage ()
-            self.handler (message['port'], message['data'])
+            self.handler (message)
             return True
         else:
             return False
@@ -23,7 +24,7 @@ class Leaf (component.Component):
         #    of 1 value for each key?)
         resultdict = {}
         for message in self.outputQueueAsList ():
-            resultdict [message ['port']] = message ['data']
+            resultdict [message.port] = message.data
         pass
         return resultdict
 

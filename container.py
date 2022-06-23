@@ -1,6 +1,8 @@
 import component
 class Container (component.Component):
-    def __init__ (self, parent, instanceName): super ().__init__ (parent, instanceName)
+    def __init__ (self, parent, instanceName): 
+        super ().__init__ (parent, instanceName)
+        self.failOnNC = True
     def tick (self):
         super ().tick ()
         workDone = False
@@ -20,26 +22,28 @@ class Container (component.Component):
         while (self.busy ()):
             self.tick ()
             self.route ()
-    def delegateMessage (self, source, data):
-        self.copyMessage (source, data)
-    def copyMessage (self, source, data):
-        connection = self.findConnection (source)
+    def delegateMessage (self, message):
+        self.propagateMessage (self, message.port, message)
+    def propagateMessage (self, sender, senderPort, message):
+        connection = self.findConnection (sender, senderPort)
         if (connection != None):
             self.beginAtomic (connection)
             for conn in connection['receivers']:
                 receiver = conn['receiver']
                 port = conn['port']
                 if (receiver != self):
-                    receiver.appendInputMessage ({'port': port, 'data': data})
+                    receiver.appendInputMessage (message)
                 else:
-                    receiver.appendOutputMessage ({'port': port, 'data': data})
+                    receiver.appendOutputMessage (message)
             self.endAtomic (connection)
-    def findConnection (self, source):
+    def findConnection (self, sender, senderPort):
         for conn in self.connections:
-            if (conn['port'] == source['port'] and conn['sender'] == source['sender']):
+            if (conn['port'] == senderPort and conn['sender'] == sender):
                 return conn
-            else:
-                pass
+        if (self.failOnNC):
+            raise Exception (f"No Connection Found in {self.name} :: {sender.name} {senderPort}")
+        else:   
+            pass
         return None
     def route (self):
         super ().route ()
@@ -48,15 +52,15 @@ class Container (component.Component):
             if c.outputQueueNotEmpty ():
                 self.routeChildOutputs (c)
                 c.resetOutputQueue ()
+            else:
+                pass
     def routeChildOutputs (self, child):
-        for output in child.outputQueueAsList ():
-            port = output['port']
-            data = output['data']
-            source = {'sender': child, 'port': port}
-            self.copyMessage (source, data)
+        for outputMessage in child.outputQueueAsList ():
+            assert child == outputMessage.sender, "internal error in routeChildOutputs"
+            self.propagateMessage (child, outputMessage.port, outputMessage.data)
     def beginAtomic (self, connection): pass # non-pass for bare-metal               
     def endAtomic (self, connection): pass   # non-pass for bare-metal
-    def handler (self, port, data):
-        super ().handler (port, data)
+    def handler (self, message):
+        super ().handler (message)
     
                 

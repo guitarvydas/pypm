@@ -1,3 +1,4 @@
+from message import Messag
 import container
 import testhelper
 import perfilelinkscraper
@@ -22,10 +23,10 @@ class Tester (container.Container):
                 { 'sender' : self.child3, 'port' : 'output', 'receivers' : [ { 'receiver' : self.child4, 'port' : '[text]' }]},
                 { 'sender' : self.child4, 'port' : 'text', 'receivers' : [ { 'receiver' : self.child5, 'port' : 'append' }]}
             ]
-    def handler (self, port, data):
-        super ().handler (port, data)
+    def handler (self, message):
+        super ().handler (message)
         if (port == 'filename'):
-            self.delegateMessage ({'sender' : self, 'port' : 'filename'}, data)
+            self.delegateMessage (message)
             self.route ()
             self.runToCompletion ()
         else:

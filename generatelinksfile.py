@@ -20,7 +20,7 @@ class GenerateLinksFile (container.Container):
                 { 'sender' : self.child1, 'port' : 'output filename', 'receivers' : [{'receiver' : self.child4, 'port':'filename'}]},
                 { 'sender' : self.child1, 'port' : 'clear', 'receivers' : [{'receiver' : self.child4, 'port':'clear'}]},
                 { 'sender' : self.child1, 'port' : 'input filename', 'receivers' : [{'receiver' : self.child2, 'port':'filename'}]},
-                { 'sender' : self.child1, 'port' : 'req', 'receivers' : [{'receiver' : self.child2, 'port':'req next'}]},
+                { 'sender' : self.child1, 'port' : 'req', 'receivers' : [{'receiver' : self.child2, 'port':'start'}]},
                 { 'sender' : self.child1, 'port' : 'done', 'receivers' : [{'receiver' : self, 'port':'done'}]},
 
                 { 'sender' : self.child2, 'port' : 'output', 'receivers' : [{'receiver' : self.child3, 'port':'[text]'}]},
@@ -30,7 +30,6 @@ class GenerateLinksFile (container.Container):
             ]
     def handler (self, port, data):
         super ().handler (port, data)
-        print (f'generate {port} {data}')
         self.delegateMessage ({'sender' : self, 'port' : port}, data)
         self.route ()
         self.runToCompletion ()

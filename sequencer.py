@@ -1,24 +1,25 @@
+from message import Message
 import leaf
 class Sequencer (leaf.Leaf):
     def __init__ (self, parent, name):
         super ().__init__ (parent, name)
         self.state = 'idle'
-    def handler (self, port, data):
-        super ().handler (port, data)
+    def handler (self, message):
+        super ().handler (message)
         print ('Sequencer.[' + self.state + ']')
         if (self.state == 'idle'):
-            if (port == 'filename'):
-                self.send ('output filename', 'out.' + data)
-                self.send ('clear', True)
-                self.enterStateFetching (data)
+            if (message.port == 'filename'):
+                self.send (self, 'output filename', 'out.' + message.data)
+                self.send (self, 'clear', True)
+                self.enterStateFetching (message.data)
             else:
                 # pass
                 raise Exception ('unknown message.port in idle')
         elif (self.state == 'fetching'):
-            if (port == 'filename'):
-                self.enterStateFetching (data)
-            elif (port == 'no more'):
-                self.send ('done', True)
+            if (message.port == 'filename'):
+                self.enterStateFetching (message.data)
+            elif (message.port == 'no more'):
+                self.send (self, 'done', True)
                 self.state = 'idle'
             else:
                 # pass
@@ -28,5 +29,5 @@ class Sequencer (leaf.Leaf):
             raise Exception ('unknown state')
     def enterStateFetching (self, fname):
         self.state = 'fetching'
-        self.send ('input filename', fname)
-        self.send ('req', True)
+        self.send (self, 'input filename', fname)
+        self.send (self, 'req', True)
