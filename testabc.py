@@ -97,6 +97,19 @@ class TestZ (container.Container):
         self.runToCompletion ()
         
 
+class TestP (container.Container):
+    def __init__ (self, parent, name): 
+        super().__init__ (parent, name)
+        self.children = []
+        self.connections = [
+            { 'sender' : self, 'port' : 'inP', 'receivers' : [{'receiver' : self, 'port':'outP'}]}
+            ]
+    def handler (self, message):
+        super ().handler (message)
+        self.delegateMessage (message)
+        self.route ()
+        self.runToCompletion ()
+        
 def tester ():
     testa = TestA (None, 'test a')
     testb = TestB (None, 'test b')
@@ -105,7 +118,8 @@ def tester ():
     testx = TestX (None, 'test X')
     testy = TestY (None, 'test Y')
     testz = TestZ (None, 'test Z')
-    testz.handler (Message (testz, 'inZ', 'z'))
-    print (testz.outputs2dict ()['outZ'])
+    testp = TestP (None, 'test P')
+    testp.handler (Message (testp, 'inP', 'p'))
+    print (testp.outputs2dict ()['outP'])
 
 tester ()
