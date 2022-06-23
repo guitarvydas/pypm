@@ -1,3 +1,4 @@
+from message import Message
 import component
 class Container (component.Component):
     def __init__ (self, parent, instanceName): 
@@ -31,10 +32,11 @@ class Container (component.Component):
             for conn in connection['receivers']:
                 receiver = conn['receiver']
                 port = conn['port']
+                newm = Message (receiver, port, message.data)
                 if (receiver != self):
-                    receiver.appendInputMessage (message)
+                    receiver.appendInputMessage (newm)
                 else:
-                    receiver.appendOutputMessage (message)
+                    receiver.appendOutputMessage (newm)
             self.endAtomic (connection)
     def findConnection (self, sender, senderPort):
         for conn in self.connections:

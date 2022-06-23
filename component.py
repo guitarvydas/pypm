@@ -5,6 +5,10 @@ class Component:
         self.name = instanceName
         self.inputq = []
         self.outputq = []
+        self.debugTick = False
+        self.debugHandler = False
+        self.debugInput = False
+        self.debugOutput = False
     def send (self, sender, portname, data):
         self.appendOutputMessage (Message (sender, portname, data))
     def outputs2dict (self):
@@ -23,11 +27,13 @@ class Component:
     def outputQueueNotEmpty (self):
         return len (self.outputq) > 0
     def appendInputMessage (self, message):
-        # print (f"  append input '{self.name}' /{message['port']}/")
+        if (self.debugInput):
+            print (f"  append input '{self.name}' /{message.port}/")
         m = Message (message.sender, message.port, message.data)
         self.inputq.append (m)
     def appendOutputMessage (self, message):
-        # print (f"  append output '{self.name}' /{message['port']}/")
+        if (self.debugOutput):
+            print (f"  append output '{self.name}' /{message.port}/")
         m = Message (self, message.port, message.data)
         self.outputq.append (m)
     def dequeueInputMessage (self):
@@ -37,12 +43,14 @@ class Component:
     def resetOutputQueue (self):
         self.outputq = []
     def handler (self, message):
-        # print (f"handler '{self.name}' '⟨{port}⟩'")
+        if (self.debugHandler):
+            print (f"handler '{self.name}' '⟨{message.port}⟩'")
         pass
     def ready (self):
         return self.inputQueueNotEmpty ()
     def route (self):
         pass
     def tick (self):
-        # print (f'   tick {self.name}')
+        if (self.debugTick):
+            print (f'   tick {self.name}')
         pass
