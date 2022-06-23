@@ -42,3 +42,4 @@ def testOmitCodeQuotes ():
     tester.handler (Message (tester, 'text', 'abc\ndef\n```\nthis\nis\ntest\ncode\n```\nghi'))
     print (tester.outputs2dict ()['[text]'])
 
+# testOmitCodeQuotes ()

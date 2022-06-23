@@ -17,4 +17,4 @@ def testFileHandler ():
     tester.handler (Message (tester, 'filename', 'test.txt'))
     print (tester.outputs2dict ()['text'])
 
-testFileHandler ()
+# testFileHandler ()

@@ -15,7 +15,7 @@ class Component:
         #    of 1 value for each key?)
         resultdict = {}
         for message in self.outputQueueAsList ():
-            resultdict [message ['port']] = message ['data']
+            resultdict [message.port] = message.data
         self.resetOutputQueue ()
         return resultdict
     def inputQueueNotEmpty (self):

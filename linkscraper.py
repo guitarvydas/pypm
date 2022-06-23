@@ -19,4 +19,4 @@ def testScraper ():
     tester.handler (Message (tester, '[text]', ['abc', '[[hello]]', 'def ', '[[xyz]]', 'ghi']))
     print (tester.outputs2dict ()['[links]'])
 
-testScraper ()
+# testScraper ()

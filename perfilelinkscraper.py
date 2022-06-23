@@ -1,3 +1,4 @@
+from message import Message
 import container
 import filereader
 import omitcomments
@@ -19,20 +20,21 @@ class PerFileLinkScraper (container.Container):
                 { 'sender' : self.child3, 'port' : '[text]', 'receivers' : [{'receiver' : self.child4, 'port' : '[text]'}]},
                 { 'sender' : self.child4, 'port' : '[links]', 'receivers' : [{'receiver' : self, 'port' : 'output' }]}
             ]
-    def handler (self, port, data):
-        super ().handler (port, data)
-        if (port == 'filename'):
-            self.delegateMessage ({'sender' : self, 'port' : 'filename'}, data)
+    def handler (self, message):
+        super ().handler (message)
+        if (message.port == 'filename'):
+            self.delegateMessage (message)
             self.route ()
             self.runToCompletion ()
         else:
-            raise Exception (f'Unrecognized Port for pm {port}')
+            raise Exception (f'Unrecognized Port for pm {message.port}')
     def call (self, text):
-        self.handler ('text', text)
+        self.handler (Message (self, 'text', text))
         return self.outputs2dict ()['output']
 
 def testPerFileLinkScraper ():
     tester = PerFileLinkScraper (None, 'per file link scraper')
-    tester.handler ('filename', 'test.txt')
+    tester.handler (Message (tester, 'filename', 'test.txt'))
     print (tester.outputs2dict ()['output'])
 
+testPerFileLinkScraper ()

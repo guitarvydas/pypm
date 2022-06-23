@@ -57,7 +57,7 @@ class Container (component.Component):
     def routeChildOutputs (self, child):
         for outputMessage in child.outputQueueAsList ():
             assert child == outputMessage.sender, "internal error in routeChildOutputs"
-            self.propagateMessage (child, outputMessage.port, outputMessage.data)
+            self.propagateMessage (child, outputMessage.port, outputMessage)
     def beginAtomic (self, connection): pass # non-pass for bare-metal               
     def endAtomic (self, connection): pass   # non-pass for bare-metal
     def handler (self, message):
