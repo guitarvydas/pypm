@@ -16,9 +16,13 @@ class LinkToFilename (leaf.Leaf):
         elif (message.port == 'suffix'):
             self.suffix = message.data
         elif (message.port == 'link'):
+            print (f"link to filname '{message.data}'")
             name1 = re.sub (r'\[\[', '', message.data)
             name2 = re.sub (r'\]\]', '', name1)
-            name3 = self.basedirectory + '**/' + name2 + self.suffix
+            if (None != re.search (r'\.png$', name2)):
+                name3 = self.basedirectory + '**/' + name2 # leave .png filenames alone, don't add suffix
+            else:
+                name3 = self.basedirectory + '**/' + name2 + self.suffix
             fnames = glob.glob (name3, recursive=True)
             if (0 >= len (fnames)):
                 errormessage = f'file not found /{name3}/'

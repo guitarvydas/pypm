@@ -31,4 +31,3 @@ class Sequencer (leaf.Leaf):
         print ('Sequencer going to state fetching')
         self.state = 'fetching'
         self.send (self, 'input filename', fname)
-        self.send (self, 'req', True)

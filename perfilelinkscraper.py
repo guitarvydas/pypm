@@ -1,6 +1,6 @@
 from message import Message
 import container
-import filereader
+import mdfilereader
 import omitcomments
 import omitcodequotes
 import linkscraper
@@ -8,7 +8,7 @@ import linkscraper
 class PerFileLinkScraper (container.Container):
     def __init__ (self, parent, instanceName):
         super ().__init__ (parent, instanceName)
-        self.child1 = filereader.FileReader (self, 'file reader')
+        self.child1 = mdfilereader.MDFileReader (self, 'markdown file reader')
         self.child2 = omitcomments.OmitComments (self, 'omit comments')
         self.child3 = omitcodequotes.OmitCodeQuotes (self, 'omit code quotes')
         self.child4 = linkscraper.LinkScraper (self, 'link scraper')
@@ -18,7 +18,7 @@ class PerFileLinkScraper (container.Container):
                 { 'sender' : self.child1, 'port' : 'text', 'receivers' : [{'receiver' : self.child2, 'port' : 'text'}]},
                 { 'sender' : self.child2, 'port' : 'text', 'receivers' : [{'receiver' : self.child3, 'port' : 'text'}]},
                 { 'sender' : self.child3, 'port' : '[text]', 'receivers' : [{'receiver' : self.child4, 'port' : '[text]'}]},
-                { 'sender' : self.child4, 'port' : '[links]', 'receivers' : [{'receiver' : self, 'port' : 'output' }]}
+                { 'sender' : self.child4, 'port' : '[links]', 'receivers' : [{'receiver' : self, 'port' : '[links]' }]}
             ]
     def handler (self, message):
         super ().handler (message)
@@ -30,11 +30,11 @@ class PerFileLinkScraper (container.Container):
             raise Exception (f'Unrecognized Port for pm {message.port}')
     def call (self, text):
         self.handler (Message (self, 'text', text))
-        return self.outputs2dict ()['output']
+        return self.outputs2dict ()['[links]']
 
 def testPerFileLinkScraper ():
     tester = PerFileLinkScraper (None, 'per file link scraper')
     tester.handler (Message (tester, 'filename', 'test.txt'))
-    print (tester.outputs2dict ()['output'])
+    print (tester.outputs2dict ()['[links]'])
 
 # testPerFileLinkScraper ()
