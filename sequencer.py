@@ -6,7 +6,6 @@ class Sequencer (leaf.Leaf):
         self.state = 'idle'
     def handler (self, message):
         super ().handler (message)
-        print ('Sequencer.[' + self.state + ']')
         if (self.state == 'idle'):
             if (message.port == 'filename'):
                 self.send (self, 'output filename', 'out.' + message.data)
@@ -28,6 +27,5 @@ class Sequencer (leaf.Leaf):
             pass
             raise Exception ('unknown state')
     def enterStateFetching (self, fname):
-        print ('Sequencer going to state fetching')
         self.state = 'fetching'
         self.send (self, 'input filename', fname)

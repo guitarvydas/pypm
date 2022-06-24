@@ -10,7 +10,6 @@ class LinkCollection (leaf.Leaf):
         self.state = 'idle'
     def handler (self, message):
         super ().handler (message)
-        print (f'link collection.[{self.state}]')
         if (self.state == 'idle'):
             if (message.port == '[append list]'):
                 # data is a list of links, each item a string of the form '[[abc]]'
@@ -24,7 +23,6 @@ class LinkCollection (leaf.Leaf):
             elif (message.port == 'req next'):
                 if (0 >= len (self.links)):
                     self.send (self, 'no more', True)
-                    self.send (self, 'link', '')
                     self.state = 'idle'
                 else:
                     link = self.links.pop (0)

@@ -8,3 +8,6 @@ class Message:
         m = Message (self.sender, self.port, self.data)
         return m
     
+    def __repr__ (self):
+        # return "{<%s>,...}" % (self.port)
+        return "{<%s>,'%s'}" % (self.port, self.data)

@@ -16,7 +16,6 @@ class LinkToFilename (leaf.Leaf):
         elif (message.port == 'suffix'):
             self.suffix = message.data
         elif (message.port == 'link'):
-            print (f"link to filname '{message.data}'")
             name1 = re.sub (r'\[\[', '', message.data)
             name2 = re.sub (r'\]\]', '', name1)
             if (None != re.search (r'\.png$', name2)):
