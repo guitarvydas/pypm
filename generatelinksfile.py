@@ -26,6 +26,7 @@ class GenerateLinksFile (container.Container):
 
                 { 'sender' : self.child2, 'port' : 'output', 'receivers' : [{'receiver' : self.child3, 'port':'[text]'}]},
                 { 'sender' : self.child2, 'port' : 'no more', 'receivers' : [{'receiver' : self.child1, 'port':'no more'}]},
+                { 'sender' : self.child2, 'port' : 'error', 'receivers' : [{'receiver' : self, 'port':'done'}]},
 
                 { 'sender' : self.child3, 'port' : 'text', 'receivers' : [ { 'receiver' : self.child4, 'port' : 'append' }]}
             ]

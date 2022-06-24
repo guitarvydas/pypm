@@ -17,7 +17,7 @@ class LinkCollection (leaf.Leaf):
                 self.links = self.links + message.data
                 self.state = 'appending'
             else:
-                raise Exception (f'unrecognized message in state idle /{message.port}/')
+                raise Exception (f"unrecognized message in state 'idle' '{message.port}'")
         elif (self.state == 'appending'):
             if (message.port == '[append list]'):
                 self.links = self.links + message.data

@@ -25,6 +25,7 @@ class LoopbackScraper (container.Container):
                 { 'sender' : self.child1, 'port' : 'no more', 'receivers' : [{'receiver' : self, 'port':'no more' }]},
 
                 { 'sender' : self.child2, 'port' : 'filename', 'receivers' : [{'receiver' : self.child3, 'port':'filename'}]},
+                { 'sender' : self.child2, 'port' : 'error', 'receivers' : [{'receiver' : self, 'port':'error'}]},
 
                 { 'sender' : self.child3, 'port' : 'output', 
                   'receivers' : [

@@ -23,6 +23,8 @@ class LinkToFilename (leaf.Leaf):
             if (0 >= len (fnames)):
                 errormessage = f'file not found /{name3}/'
                 self.send (self, 'error', errormessage)
+                # this is incomplete, need a StateChart to enclose all peer operations, that errors-out in this case
+                raise Exception (f"LinkToFilename internal error '{errormessage}'")
             else:
                 self.send (self, 'filename', fnames [0])
             
