@@ -11,7 +11,7 @@ class LoopbackScraper (container.Container):
         self.child2 = linktofilename.LinkToFilename (self, 'link to filename')
         self.child3 = perfilelinkscraper.PerFileLinkScraper (self, 'per file link scraper')
         self.child4 = looptrigger.LoopTrigger (self, 'loop trigger')
-        self.children = [self.child1, self.child2, self.child3]
+        self.children = [self.child1, self.child2, self.child3, self.child4]
         self.connections = [
                 { 'sender' : self, 'port' : 'filename', 'receivers' : [{'receiver' : self.child3, 'port':'filename' }]},
                 { 'sender' : self, 'port' : 'base directory', 'receivers' : [{'receiver' : self.child2, 'port':'base directory' }]},

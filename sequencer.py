@@ -13,7 +13,7 @@ class Sequencer (leaf.Leaf):
                 self.send (self, 'clear', True)
                 self.enterStateFetching (message.data)
             else:
-                # pass
+                pass
                 raise Exception ('unknown message.port in idle')
         elif (self.state == 'fetching'):
             if (message.port == 'filename'):
@@ -22,12 +22,13 @@ class Sequencer (leaf.Leaf):
                 self.send (self, 'done', True)
                 self.state = 'idle'
             else:
-                # pass
+                pass
                 raise Exception ('unknown message.port in fetching')
         else:
-            # pass
+            pass
             raise Exception ('unknown state')
     def enterStateFetching (self, fname):
+        print ('Sequencer going to state fetching')
         self.state = 'fetching'
         self.send (self, 'input filename', fname)
         self.send (self, 'req', True)
