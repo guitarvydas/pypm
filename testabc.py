@@ -110,6 +110,29 @@ class TestP (container.Container):
         self.route ()
         self.runToCompletion ()
         
+        
+class TestQ (container.Container):
+    def __init__ (self, parent, name): 
+        super().__init__ (parent, name)
+        self.childa = TestA (self, 'child a')
+        self.childb = TestB (self, 'child b')
+        self.children = [self.childa, self.childb]
+        self.connections = [
+            { 'sender' : self, 'port' : 'inQ', 
+              'receivers' : [
+                  {'receiver' : self.childa, 'port':'inA'},
+                  {'receiver' : self.childb, 'port':'inB'}
+             ]
+             },
+            { 'sender' : self.childa, 'port' : 'outA', 'receivers' : []},
+            { 'sender' : self.childb, 'port' : 'outB', 'receivers' : [{'receiver' : self, 'port':'outQ'}]},
+            ]
+    def handler (self, message):
+        super ().handler (message)
+        self.delegateMessage (message)
+        self.route ()
+        self.runToCompletion ()
+
 def tester ():
     testa = TestA (None, 'test a')
     testb = TestB (None, 'test b')
@@ -119,7 +142,8 @@ def tester ():
     testy = TestY (None, 'test Y')
     testz = TestZ (None, 'test Z')
     testp = TestP (None, 'test P')
-    testp.handler (Message (testp, 'inP', 'p'))
-    print (testp.outputs2dict ()['outP'])
+    testq = TestQ (None, 'test Q')
+    testq.handler (Message (testp, 'inQ', 'q'))
+    print (testq.outputs2dict ()['outQ'])
 
 tester ()

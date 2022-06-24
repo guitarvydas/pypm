@@ -42,11 +42,7 @@ class Container (component.Component):
         for conn in self.connections:
             if (conn['port'] == senderPort and conn['sender'] == sender):
                 return conn
-        if (self.failOnNC):
-            raise Exception (f"No Connection Found in {self.name} :: {sender.name} {senderPort}")
-        else:   
-            pass
-        return None
+        raise Exception (f"No Connection Found in {self.name} :: {sender.name} {senderPort}")
     def route (self):
         super ().route ()
         for c in self.children:
