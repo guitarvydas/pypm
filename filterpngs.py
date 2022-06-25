@@ -11,9 +11,9 @@ class FilterPNGs (leaf.Leaf):
         if (message.port == 'line'):
             line = message.data
             if (re.search (r'\.png\]\]$', line)):
-                self.send (self, 'png', line)
+                self.send (self, 'png', line, message)
             else:
-                self.send (self, 'md', line)
+                self.send (self, 'md', line, message)
         else:
             raise Exception (f"unrecognized message in FilterPNGs '{message.port}'")
 
@@ -49,22 +49,23 @@ class FilterPNGsTest (container.Container):
         self.children = [self.child_reader, self.child_filter, self.child_PNGprintf, self.child_MDprintf]
         self.connections = [
             { 'sender' : self, 'port' : 'filename', 'receivers' : [ { 'receiver' : self.child_reader, 'port' : 'filename' }]},
-            { 'sender' : self.child_reader, 'port' : 'text', 'receivers' : [ { 'receiver' : self.child_filter, 'port' : 'text' }]},
+            { 'sender' : self.child_reader, 'port' : 'text', 'receivers' : [ { 'receiver' : self.child_filter, 'port' : 'line' }]},
             { 'sender' : self.child_filter, 'port' : 'png', 'receivers' : [ { 'receiver' : self.child_PNGprintf, 'port' : 'in' }]},
             { 'sender' : self.child_filter, 'port' : 'md', 'receivers' : [ { 'receiver' : self.child_MDprintf, 'port' : 'in' }]}
         ]
-        def handler (self, message):
-            super ().handler (message)
-            if (message.port == 'filename'):
-                self.delegateMessage (message)
-                self.route ()
-                self.runToCompletion ()
-            else:
-                raise Exception (f'Unrecognized Port for FilterPNGsTest {message.port}')
+    def handler (self, message):
+        super ().handler (message)
+        if (message.port == 'filename'):
+            self.delegateMessage (message)
+            self.route ()
+            self.runToCompletion ()
+        else:
+            raise Exception (f'Unrecognized Port for FilterPNGsTest {message.port}')
 
 def testFilter ():
     tester = FilterPNGsTest (None, 'tester')
-    tester.handler (Message (tester, 'filename', 'out.test.md', []))
+    m = Message (tester, 'filename', 'out.test.md', [])
+    tester.handler (m)
     print (tester.outputQueueAsList ())
 
 testFilter ()
