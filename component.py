@@ -9,7 +9,9 @@ class Component:
         self.debugHandler = False
         self.debugInput = False
         self.debugOutput = False
-    def send (self, sender, portname, data, trail):
+    def send (self, sender, portname, data, cause):
+        previous_trail = cause.trail
+        trail = [cause, previous_trail]
         self.appendOutputMessage (Message (sender, portname, data, trail))
     def outputs2dict (self):
         # this could be done more efficiently

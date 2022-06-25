@@ -32,10 +32,13 @@ class Container (component.Component):
             for conn in connection['receivers']:
                 receiver = conn['receiver']
                 port = conn['port']
-                newm = Message (receiver, port, message.data, message.trail)
+                trail = message.trail
+                newm = Message (receiver, port, message.data, trail)
                 if (receiver != self):
+                    newm.status = 'routed to input'
                     receiver.appendInputMessage (newm)
                 else:
+                    newm.status = 'routed to output'
                     receiver.appendOutputMessage (newm)
             self.endAtomic (connection)
     def findConnection (self, sender, senderPort):
