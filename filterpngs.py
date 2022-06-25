@@ -2,6 +2,7 @@ from message import Message
 import leaf
 import container
 import mdfilereader
+import texttolines
 import re
 class FilterPNGs (leaf.Leaf):
     def __init__ (self, parent, name): 
@@ -46,10 +47,13 @@ class FilterPNGsTest (container.Container):
         self.child_filter = FilterPNGs (None, 'PNG filter')
         self.child_PNGprintf = PNGprintf (None, 'PNG printf')
         self.child_MDprintf = MDprintf (None, 'MD printf')
-        self.children = [self.child_reader, self.child_filter, self.child_PNGprintf, self.child_MDprintf]
+        self.child_TextToLines = texttolines.TextToLines (None, 'text to lines')
+        self.children = [self.child_reader, self.child_filter, self.child_PNGprintf, self.child_MDprintf,
+                         self.child_TextToLines]
         self.connections = [
             { 'sender' : self, 'port' : 'filename', 'receivers' : [ { 'receiver' : self.child_reader, 'port' : 'filename' }]},
-            { 'sender' : self.child_reader, 'port' : 'text', 'receivers' : [ { 'receiver' : self.child_filter, 'port' : 'line' }]},
+            { 'sender' : self.child_reader, 'port' : 'text', 'receivers' : [ { 'receiver' : self.child_TextToLines, 'port' : 'text' }]},
+            { 'sender' : self.child_TextToLines, 'port' : 'line', 'receivers' : [ { 'receiver' : self.child_filter, 'port' : 'line' }]},
             { 'sender' : self.child_filter, 'port' : 'png', 'receivers' : [ { 'receiver' : self.child_PNGprintf, 'port' : 'in' }]},
             { 'sender' : self.child_filter, 'port' : 'md', 'receivers' : [ { 'receiver' : self.child_MDprintf, 'port' : 'in' }]}
         ]

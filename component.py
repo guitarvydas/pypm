@@ -6,7 +6,7 @@ class Component:
         self.inputq = []
         self.outputq = []
         self.debugTick = False
-        self.debugHandler = True
+        self.debugHandler = False
         self.debugInput = False
         self.debugOutput = False
     def send (self, sender, portname, data, cause):
