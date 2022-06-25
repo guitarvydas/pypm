@@ -31,15 +31,15 @@ class OmitCodeQuotes (leaf.Leaf):
         if (message.port == 'text'):
             text = message.data.split ('\n')
             result = rmCodeQuotesState0 (text)
-            self.send (self, '[text]', result)
+            self.send (self, '[text]', result, message)
     def call (self, basename, link):
-        self.handler (Message (self, 'basename', basename))
-        self.handler (Message(self, 'link', link))
+        self.handler (Message (self, 'basename', basename, []))
+        self.handler (Message(self, 'link', link, []))
         return self.outputs2dict ()['[text]']
 
 def testOmitCodeQuotes ():
     tester = OmitCodeQuotes (None, 'omit code quotes')
-    tester.handler (Message (tester, 'text', 'abc\ndef\n```\nthis\nis\ntest\ncode\n```\nghi'))
+    tester.handler (Message (tester, 'text', 'abc\ndef\n```\nthis\nis\ntest\ncode\n```\nghi', []))
     print (tester.outputs2dict ()['[text]'])
 
 # testOmitCodeQuotes ()

@@ -8,17 +8,17 @@ class Sequencer (leaf.Leaf):
         super ().handler (message)
         if (self.state == 'idle'):
             if (message.port == 'filename'):
-                self.send (self, 'output filename', 'out.' + message.data)
-                self.send (self, 'clear', True)
-                self.enterStateFetching (message.data)
+                self.send (self, 'output filename', 'out.' + message.data, message)
+                self.send (self, 'clear', True, message)
+                self.enterStateFetching (message.data, message)
             else:
                 pass
                 raise Exception ('unknown message.port in idle')
         elif (self.state == 'fetching'):
             if (message.port == 'filename'):
-                self.enterStateFetching (message.data)
+                self.enterStateFetching (message.data, message)
             elif (message.port == 'no more'):
-                self.send (self, 'done', True)
+                self.send (self, 'done', True, message)
                 self.state = 'idle'
             else:
                 pass
@@ -26,6 +26,6 @@ class Sequencer (leaf.Leaf):
         else:
             pass
             raise Exception ('unknown state')
-    def enterStateFetching (self, fname):
+    def enterStateFetching (self, fname, message):
         self.state = 'fetching'
-        self.send (self, 'input filename', fname)
+        self.send (self, 'input filename', fname, message)

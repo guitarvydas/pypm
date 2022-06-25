@@ -10,16 +10,16 @@ class MDFileReader (leaf.Leaf):
             if (re.search (r'\.md$', message.data)):
                 f = open (message.data, 'r')
                 result = f.read ()
-                self.send (self, 'text', result)
+                self.send (self, 'text', result, message)
             else:
-                self.send (self, 'text', '')
+                self.send (self, 'text', '', message)
     # def call (self, filename):
-    #     self.handler (Message (self, 'filename', filename))
+    #     self.handler (Message (self, 'filename', filename, []))
     #     return self.outputs2dict ()['text']
 
 def testMDFileReader ():
     tester = MDFileReader (None, 'file reader')
-    tester.handler (Message (tester, 'filename', 'test.md'))
+    tester.handler (Message (tester, 'filename', 'test.md', []))
     print (tester.outputs2dict ()['text'])
 
 # testMDFileReader ()

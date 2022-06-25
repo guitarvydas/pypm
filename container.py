@@ -32,7 +32,7 @@ class Container (component.Component):
             for conn in connection['receivers']:
                 receiver = conn['receiver']
                 port = conn['port']
-                newm = Message (receiver, port, message.data)
+                newm = Message (receiver, port, message.data, message.trail)
                 if (receiver != self):
                     receiver.appendInputMessage (newm)
                 else:

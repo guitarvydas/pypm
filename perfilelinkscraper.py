@@ -29,12 +29,12 @@ class PerFileLinkScraper (container.Container):
         else:
             raise Exception (f'Unrecognized Port for pm {message.port}')
     def call (self, text):
-        self.handler (Message (self, 'text', text))
+        self.handler (Message (self, 'text', text, []))
         return self.outputs2dict ()['[links]']
 
 def testPerFileLinkScraper ():
     tester = PerFileLinkScraper (None, 'per file link scraper')
-    tester.handler (Message (tester, 'filename', 'test.txt'))
+    tester.handler (Message (tester, 'filename', 'test.txt', []))
     print (tester.outputs2dict ()['[links]'])
 
 # testPerFileLinkScraper ()

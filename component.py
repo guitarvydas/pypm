@@ -9,8 +9,8 @@ class Component:
         self.debugHandler = False
         self.debugInput = False
         self.debugOutput = False
-    def send (self, sender, portname, data):
-        self.appendOutputMessage (Message (sender, portname, data))
+    def send (self, sender, portname, data, trail):
+        self.appendOutputMessage (Message (sender, portname, data, trail))
     def outputs2dict (self):
         # this could be done more efficiently
         # map all output values into a single dict,
@@ -29,12 +29,12 @@ class Component:
     def appendInputMessage (self, message):
         if (self.debugInput):
             print (f"  append input '{self.name}' /{message.port}/")
-        m = Message (message.sender, message.port, message.data)
+        m = Message (message.sender, message.port, message.data, message.trail)
         self.inputq.append (m)
     def appendOutputMessage (self, message):
         if (self.debugOutput):
             print (f"  append output '{self.name}' /{message.port}/")
-        m = Message (self, message.port, message.data)
+        m = Message (self, message.port, message.data, message.trail)
         self.outputq.append (m)
     def dequeueInputMessage (self):
         return self.inputq.pop (0)

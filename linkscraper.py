@@ -9,14 +9,14 @@ class LinkScraper (leaf.Leaf):
         if (message.port == '[text]'):
             for line in message.data:
                 result += re.findall ('(\[\[[^\]]+\]\])',line)
-            self.send (self, '[links]', result)
+            self.send (self, '[links]', result, message)
     def call (self, textList):
         self.handler (Message ('[text]', textList))
         return self.outputs2dict ()['[links]']
 
 def testScraper ():
     tester = LinkScraper (None, 'link scraper')
-    tester.handler (Message (tester, '[text]', ['abc', '[[hello]]', 'def ', '[[xyz]]', 'ghi']))
+    tester.handler (Message (tester, '[text]', ['abc', '[[hello]]', 'def ', '[[xyz]]', 'ghi'], []))
     print (tester.outputs2dict ()['[links]'])
 
 # testScraper ()

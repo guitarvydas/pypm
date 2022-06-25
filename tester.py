@@ -1,4 +1,4 @@
-from message import Messag
+from message import Message
 import container
 import testhelper
 import perfilelinkscraper
@@ -25,17 +25,17 @@ class Tester (container.Container):
             ]
     def handler (self, message):
         super ().handler (message)
-        if (port == 'filename'):
+        if (message.port == 'filename'):
             self.delegateMessage (message)
             self.route ()
             self.runToCompletion ()
         else:
-            raise Exception (f'Unrecognized Port for pm {port}')
+            raise Exception (f'Unrecognized Port for pm {message.port}')
     def call (self, text):
         self.handler ('text', text)
         return 'done'
 
 tester = Tester (None, 'tester')
-tester.handler ('filename', 'test.txt')
+tester.handler (Message (tester, 'filename', 'test.txt', []))
 print ('done')
 

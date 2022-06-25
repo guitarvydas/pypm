@@ -8,7 +8,7 @@ class TestA (leaf.Leaf):
     def handler (self, message):
         super ().handler (message)
         if (message.port == 'inA'):
-            self.send (self, 'outA', message.data + 'a')
+            self.send (self, 'outA', message.data + 'a', message)
         else:
             raise Exception (f'unrecognized message in TestA/{message.port}/')
 
@@ -18,7 +18,7 @@ class TestB (leaf.Leaf):
     def handler (self, message):
         super ().handler (message)
         if (message.port == 'inB'):
-            self.send (self, 'outB', message.data + 'b')
+            self.send (self, 'outB', message.data + 'b', message)
         else:
             raise Exception (f'unrecognized message in TestB/{message.port}/')
 
@@ -28,7 +28,7 @@ class TestC (leaf.Leaf):
     def handler (self, message):
         super ().handler (message)
         if (message.port == 'inC'):
-            self.send (self, 'outC', message.data + 'c')
+            self.send (self, 'outC', message.data + 'c', message)
         else:
             raise Exception (f'unrecognized message in TestC/{message.port}/')
 

@@ -7,5 +7,5 @@ class LinesToText (leaf.Leaf):
         super ().handler (message)
         if (message.port == '[text]'):
             for line in message.data:
-                self.send (self, 'text', line + '\n')
+                self.send (self, 'text', line + '\n', message)
 

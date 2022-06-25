@@ -39,9 +39,9 @@ tester = GenerateLinksFile (None, 'generate links file')
 bdir = '/Users/tarvydas/Dropbox/ps'
 suffix = '.md'
 testfile = 'test.md'
-tester.handler (Message (tester, 'base directory', bdir))
-tester.handler (Message (tester, 'suffix', suffix))
-tester.handler (Message (tester, 'filename', testfile))
+tester.handler (Message (tester, 'base directory', bdir, []))
+tester.handler (Message (tester, 'suffix', suffix, []))
+tester.handler (Message (tester, 'filename', testfile, []))
 done = tester.outputs2dict ()['done']
 print (done)
 

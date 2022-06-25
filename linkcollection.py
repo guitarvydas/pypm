@@ -22,11 +22,11 @@ class LinkCollection (leaf.Leaf):
                 self.links = self.links + message.data
             elif (message.port == 'req next'):
                 if (0 >= len (self.links)):
-                    self.send (self, 'no more', True)
+                    self.send (self, 'no more', True, message)
                     self.state = 'idle'
                 else:
                     link = self.links.pop (0)
-                    self.send (self, 'link', link)
+                    self.send (self, 'link', link, message)
             else:
                 raise Exception (f'unrecognized message in state appending /{message.port}/')
             

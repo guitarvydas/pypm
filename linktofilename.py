@@ -25,11 +25,11 @@ class LinkToFilename (leaf.Leaf):
             fnames = glob.glob (name3, recursive=True)
             if (0 >= len (fnames)):
                 errormessage = f'file not found /{name3}/'
-                self.send (self, 'error', errormessage)
+                self.send (self, 'error', errormessage, message)
                 # this is incomplete, need a StateChart to enclose all peer operations, that errors-out in this case
                 raise Exception (f"LinkToFilename internal error '{errormessage}'")
             else:
-                self.send (self, 'filename', fnames [0])
+                self.send (self, 'filename', fnames [0], message)
             
 # def testLinkToFilename ():
 #     tester = LinkToFilename (None, 'link 2 filename')
@@ -38,9 +38,9 @@ class LinkToFilename (leaf.Leaf):
 #     s1 = '[[whyohm]]'
 #     s1a = '[[pm math]]'
 #     s2 = '[[ww-book-Hamburger Workbench - A Gentle Introduction to Ohm-JS/Why You Need To Learn Ohm-JS]]'
-#     tester.handler (Message (self, 'base directory', bdir))
-#     tester.handler (Message (self, 'suffix', suffix))
-#     tester.handler (Message (self, 'link', s2))
+#     tester.handler (Message (self, 'base directory', bdir, []))
+#     tester.handler (Message (self, 'suffix', suffix, []))
+#     tester.handler (Message (self, 'link', s2, []))
 #     fname = tester.outputs2dict ()['filename']
 #     exists = os.path.exists (fname)
 #     print (fname)

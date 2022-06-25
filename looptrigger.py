@@ -7,6 +7,6 @@ class LoopTrigger (leaf.Leaf):
     def handler (self, message):
         super ().handler (message)
         if (message.port == 'any'):
-            self.send (self, 'trigger', True)
+            self.send (self, 'trigger', True, message)
         else:
             raise Exception (f'unrecognized message in Loop/{message.port}/')
