@@ -4,7 +4,7 @@ tags:
 ---
 [[pm introduction]]
 [[SCN]]
-[[ww-book-parsing Idioms/scn]]
+[[scn2]]
 # Parsing Basics 
     [[Parsing Basics]]
     [[Control Flow in Parsing]]
@@ -49,10 +49,10 @@ tags:
 # Exercises
 [[pm Exercises]]
 # Appendix - Using Ohm-JS
-[[ww-book-parsing Idioms/pm using Ohm]]
+[[pm using Ohm]]
 [[pm Ohm Editor Brief Introduction]]
 # Appendix - What Is So Good About Ohm-JS?
-[[ww-book-Hamburger Workbench - A Gentle Introduction to Ohm-JS/Why You Need To Learn Ohm-JS]]
+[[Why You Need To Learn Ohm-JS]]
 [[whyohm]]
 # Appendix - Other Parsing Technologies
 [[pm Appendix Other Technologies]]
@@ -64,6 +64,4 @@ tags:
 # Appendix - Ohm-JS
 [ohmjs.org](https://ohmjs.org()
 # Appendix - Language Theory vs. PEG
-[[ww-book-parsing Idioms/Language Theory vs PEG]]
-# Appendix - Test PNG
-[[ohmjs.png]]
+[[Language Theory vs PEG]]
