@@ -1,0 +1,109 @@
+container signature {
+  inputs {:iport❲start❳ :iport❲png destination directory❳ :iport❲notify❳ :iport❲png fixed prefix❳}
+  outputs {:oport❲done❳}
+}
+
+container implementation :kind❲Fixup PNG Wrapper❳ {
+  child❲Fixup PNG Wrapper❳/ren {
+    :child❲ls❳ :kind❲ls❳
+    :child❲prefixFilename❳ :kind❲prefix filename❳
+    :child❲fixupPNG❳ :kind❲fixup references to PNG files❳
+    :child❲overwrite❳ :kind❲overwrite file❳
+  }
+  connections {
+    { :self :iport❲start❳ ⤇ { {:child❲ls❳ :iport❲iterate❳} }}
+    { :self :iport❲png destination directory❳ ⤇ { {:child❲ls❳ :iport❲directory❳} }}
+    { :self :iport❲notify❳ ⤇ { {:self :oport❲done❳} }}
+    { :self :iport❲png fixed prefix❳ ⤇ { {:child❲prefixFilename❳ :iport❲prefix❳} }}
+
+    { :child❲ls❳ :oport❲filename❳ ⤇ {
+                                     {:child❲overwrite❳ :iport❲prefix❳}
+                                     {:child❲fixupPNG❳ :iport❲filename❳}
+                                     {:child❲prefixFilename❳ :iport❲filename❳}
+				    }
+    }
+
+    { :child❲prefixFilename❳ :oport❲new filename❳ ⤇ {{:child❲fixupPNG❳ :iport❲new filename❳}}}
+
+    { {:child❲fixupPNG❳ :oport❲newfile❳} ⤇ {{:child❲overwrite❳ :iport❲overwrite filename❳}}}
+  }
+
+
+
+leaf signature ❲ls❳ {
+  inputs {:iport❲iterate❳ :iport❲directory❳}
+  outputs {:oport❲filename❳}
+}
+
+leaf signature ❲prefix filename❳ {
+  inputs {:iport❲prefix❳ :iport❲filename❳}
+  outputs {:oport❲new filename❳}
+}
+
+leaf signature ❲overwrite file❳ {
+  inputs {:iport❲original filename❳ :iport❲overwrite filename❳}
+  outputs {}
+}
+
+leaf signature ❲fixup references to PNG files❳ {
+  inputs {:iport❲filename❳ :iport❲new filename❳}
+  outputs {:oport❲newfile❳}
+}
+
+
+
+
+leaf implementation ❲ls❳ {
+  :codeblock ❲c1❳ ⟪self.dirname - message.data⟫
+  :codeblock ❲c2❳ ⟪
+files = os.listdir (self.dirname)
+for fname in files:
+    name = self.dirname + '/' + fname
+    if (os.path.isfile (name)):
+        self.send (self, 'filename', name, message)
+    else:
+        pass
+⟫
+  :on :iport❲iterate❳ ❲c1❳
+  :on :iport❲directory❳ ❲c2❳ 
+}
+
+leaf implementation ❲prefix filename❳ {
+  :namedcode ❲c1❳ ⟪self.filename = message.data⟫
+  :namedcode ❲c2❳ ⟪self.send (self, 'new filename', self.filename + message.data, message)⟫
+  :on :iport❲prefix❳ ❲c2❳
+  :on :iport❲filename❳ ❲c1❳
+}
+
+leaf implementation ❲overwrite file❳ {
+  :namedcode ❲c1❳ ⟪self.original = message.data⟫
+  :namedcode ❲c2❳ ⟪shutil.copy (message.data, self.original)⟫
+  :on :iport❲original filename❳ ❲c1❳
+  :on :iport❲overwrite filename❳ ❲c2❳
+}
+
+leaf implementation ❲fixup references to PNG files❳ {
+  :namedcode ❲c1❳ ⟪self.filename = message.data⟫
+  :namedcode ❲c2❳ 
+⟪
+result = self.fixup(self.filename)
+send (self, 'new file', result, message)
+⟫
+  :namedcode ❲c3❳ 
+⟪
+def fixup (filename):
+    f = open (filename, 'r')
+    text = f.read ()
+    subbed = re.sub (r'\[\[([^][]+\.png)\]\]', dosub, text)
+    return subbed
+
+def dosub (match):
+    sub1 = match.group (1)
+    sub2 = markua (sub1)
+    sub = f'![resources/{sub2}]'
+    return sub
+⟫
+  :on :iport❲filename❳ ❲c1❳
+  :on :iport❲new filename❳ ❲c2❳
+}
+

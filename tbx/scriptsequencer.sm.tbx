@@ -1,0 +1,56 @@
+machine {
+ start «idle»
+
+ state «idle» {
+   on «start» {
+     callproc ča
+   }
+ }
+
+ state «step 1» {
+   on «done₁» {
+     callproc čb
+   }
+ }
+
+ state «step 2» {
+   on «done₂» {
+     callproc čc
+   }
+ }
+
+ state «step 3» {
+   on «done₃» {
+     callproc čd
+   }
+ }
+
+ state «step 4» {
+   on «done₄» {
+     callproc če
+   }
+ }
+
+
+proc ča {
+  ⟪send (self, '«step₁»', True, message)⟫
+  ⟪send (self, '«notify₁»', True, message)⟫
+}
+proc čb {
+  ⟪send (self, '«step₂»', True, message)⟫
+  ⟪send (self, '«notify₂»', True, message)⟫
+}
+proc čc {
+  ⟪send (self, '«step₃»', True, message)⟫
+  ⟪send (self, '«notify₃»', True, message)⟫
+}
+proc čd {
+  ⟪send (self, '«step₄»', True, message)⟫
+  ⟪send (self, '«notify₄»', True, message)⟫
+}
+proc če {
+  ⟪send (self, '«done»', True, message)⟫
+}
+
+
+   
