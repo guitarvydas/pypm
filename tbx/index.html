@@ -39,76 +39,155 @@ textarea {
 <!-- } -->
 <!-- </textarea> -->
 
+<!-- <p>source:</p> -->
+<!-- <textarea id="src" rows="7" cols="90" placeholder="src" style="background-color:oldlace;"> -->
+<!-- signature ≈❲Copy Script❳ { -->
+<!--   inputs {➢❲start❳ ➢❲done₁❳ ➢❲done₂❳ ➢❲done₃❳ ➢❲done₄❳} -->
+<!--   outputs { -->
+<!--     ◦❲step₁❳ ◦❲notify₁❳ -->
+<!--     ◦❲step₂❳ ◦❲notify₂❳ -->
+<!--     ◦❲step₃❳ ◦❲notify₃❳ -->
+<!--     ◦❲step₄❳ ◦❲notify₄❳ -->
+<!--     ◦❲done❳ -->
+<!--   } -->
+<!-- } -->
+
+<!-- implementation ≈❲Copy Script❳ machine { -->
+<!--  start ą❲idle❳ -->
+
+<!--  state ą❲idle❳ { -->
+<!--    on ➢❲start❳ { -->
+<!--      callproc č❲a❳ -->
+<!--    } -->
+<!--  } -->
+
+<!--  state ą❲step 1❳ { -->
+<!--    on ➢❲done₁❳ { -->
+<!--      callproc č❲b❳ -->
+<!--    } -->
+<!--  } -->
+
+<!--  state ą❲step 2❳ { -->
+<!--    on ➢❲done₂❳ { -->
+<!--      callproc č❲c❳ -->
+<!--    } -->
+<!--  } -->
+
+<!--  state ą❲step 3❳ { -->
+<!--    on ➢❲done₃❳ { -->
+<!--      callproc č❲d❳ -->
+<!--    } -->
+<!--  } -->
+
+<!--  state ą❲step 4❳ { -->
+<!--    on ➢❲done₄❳ { -->
+<!--      callproc č❲e❳ -->
+<!--    } -->
+<!--  } -->
+
+
+<!-- proc č❲a❳ { -->
+<!--   ⟪send (self, 'step₁', True, message)⟫ -->
+<!--   ⟪send (self, 'notify₁', True, message)⟫ -->
+<!-- } -->
+<!-- proc č❲b❳ { -->
+<!--   ⟪send (self, 'step₂', True, message)⟫ -->
+<!--   ⟪send (self, 'notify₂', True, message)⟫ -->
+<!-- } -->
+<!-- proc č❲c❳ { -->
+<!--   ⟪send (self, 'step₃', True, message)⟫ -->
+<!--   ⟪send (self, 'notify₃', True, message)⟫ -->
+<!-- } -->
+<!-- proc č❲d❳ { -->
+<!--   ⟪send (self, 'step₄', True, message)⟫ -->
+<!--   ⟪send (self, 'notify₄', True, message)⟫ -->
+<!-- } -->
+<!-- proc č❲e❳ { -->
+<!--   ⟪send (self, 'done', True, message)⟫ -->
+<!-- } -->
+
+
+<!-- } -->
+<!-- </textarea> -->
 <p>source:</p>
 <textarea id="src" rows="7" cols="90" placeholder="src" style="background-color:oldlace;">
 signature ≈❲Copy Script❳ {
-  inputs {➢❲start❳ ➢❲done₁❳ ➢❲done₂❳ ➢❲done₃❳ ➢❲done₄❳}
-  outputs {
-    ◦❲step₁❳ ◦❲notify₁❳
-    ◦❲step₂❳ ◦❲notify₂❳
-    ◦❲step₃❳ ◦❲notify₃❳
-    ◦❲step₄❳ ◦❲notify₄❳
-    ◦❲done❳
+  inputs {➢❲start❳}
+  outputs {}
+}
+
+implementation ≈❲Copy Script❳ container {
+  constants {
+    įs❲out.test.md❳ 'out.test.md'
+    įs❲test.md❳ 'test.md'
+    įs❲/Users/tarvydas/Dropbox/ps❳ '/Users/tarvydas/Dropbox/ps'
+    įs❲.md❳ '.md'
+    įs❲manuscript❳ 'manuscript'
+    įs❲manuscript/resources❳ 'manuscript/resources'
+    įs❲pngfixed-❳ 'pngfixed-'
+    įs❲mdfixed-❳ 'mdfixed-'
   }
-}
+  
+  initially {
+    š įs❲out.test.md❳                ⇨ ū❲n1❳  
+    š įs❲test.md❳                    ⇨ ū❲n2❳  
+    š įs❲/Users/tarvydas/Dropbox/ps❳ ⇨ ū❲n3❳  
+    š įs❲.md❳                        ⇨ ū❲n4❳  
+    š įs❲manuscript❳                 ⇨ ū❲n5❳  
+    š įs❲manuscript/resources❳       ⇨ ū❲n6❳
+    š įs❲pngfixed-❳                  ⇨ ū❲n19❳  
+    š įs❲mdfixed-❳                   ⇨ ū❲n20❳
+  }
 
-implementation ≈❲Copy Script❳ machine {
- start ą❲idle❳
+  children {
+    ž❲Script Sequencer❳ ≈❲Script Sequencer❳
+    ž❲Generate Links File❳ ≈❲Generate Links File❳
+    ž❲CopierWrapper❳ ≈❲Copier Wrapper❳ 
+    ž❲Fixup PNG Wrapper❳ ≈❲Fixup PNG Wrapper❳
+    ž❲Fixup MD Wrapper❳ ≈❲Fixup MD Wrapper❳
+  }
+  
+  nets {
+    ū❲n1❳ ū❲n2❳ ū❲n3❳ ū❲n4❳ ū❲n5❳ ū❲n6❳ ū❲n7❳ ū❲n8❳ ū❲n9❳ ū❲n10❳
+    ū❲n11❳ ū❲n12❳ ū❲n13❳ ū❲n14❳ ū❲n15❳ ū❲n16❳ ū❲n17❳ ū❲n18❳
+    ū❲n19❳ ū❲n20❳
+    ū❲n21❳
+  }
+  
+  senders {
+    š ➢❲start❳                           ⇨ ū❲n21❳
 
- state ą❲idle❳ {
-   on ➢❲start❳ {
-     callproc č❲a❳
-   }
- }
+    ž❲Script Sequencer❳ ◦❲step 1❳        ⇨ ū❲n7❳  
+    ž❲Script Sequencer❳ ◦❲step 1 notify❳ ⇨ ū❲n8❳  
 
- state ą❲step 1❳ {
-   on ➢❲done₁❳ {
-     callproc č❲b❳
-   }
- }
+    ž❲Script Sequencer❳ ◦❲step 2❳        ⇨ ū❲n10❳  
+    ž❲Script Sequencer❳ ◦❲step 2 notify❳ ⇨ ū❲n11❳  
 
- state ą❲step 2❳ {
-   on ➢❲done₂❳ {
-     callproc č❲c❳
-   }
- }
+    ž❲Script Sequencer❳ ◦❲step 3❳        ⇨ ū❲n13❳  
+    ž❲Script Sequencer❳ ◦❲step 3 notify❳ ⇨ ū❲n14❳  
 
- state ą❲step 3❳ {
-   on ➢❲done₃❳ {
-     callproc č❲d❳
-   }
- }
-
- state ą❲step 4❳ {
-   on ➢❲done₄❳ {
-     callproc č❲e❳
-   }
- }
-
-
-proc č❲a❳ {
-  ⟪send (self, 'step₁', True, message)⟫
-  ⟪send (self, 'notify₁', True, message)⟫
-}
-proc č❲b❳ {
-  ⟪send (self, 'step₂', True, message)⟫
-  ⟪send (self, 'notify₂', True, message)⟫
-}
-proc č❲c❳ {
-  ⟪send (self, 'step₃', True, message)⟫
-  ⟪send (self, 'notify₃', True, message)⟫
-}
-proc č❲d❳ {
-  ⟪send (self, 'step₄', True, message)⟫
-  ⟪send (self, 'notify₄', True, message)⟫
-}
-proc č❲e❳ {
-  ⟪send (self, 'done', True, message)⟫
-}
-
-
-}
-</textarea>
+    ž❲Script Sequencer❳ ◦❲step 4❳        ⇨ ū❲n16❳  
+    ž❲Script Sequencer❳ ◦❲step 4 notify❳ ⇨ ū❲n17❳  
+  }
+  
+  receivers {
+    ū❲n1❳  ⇨ {ž❲Copier Wrapper❳ ➢❲filename❳}
+    ū❲n2❳  ⇨ {ž❲Generate Links File❳ ➢❲filename❳}
+    ū❲n3❳  ⇨ {ž❲Generate Links File❳ ➢❲base directory❳}
+    ū❲n4❳  ⇨ {ž❲Generate Links File❳ ➢❲suffix❳}
+    ū❲n5❳  ⇨ {ž❲Copier Wrapper❳ ➢❲md destination directory❳
+               ž❲Fixup MD Wrapper❳ ➢❲md destination directory❳}
+    ū❲n6❳  ⇨ {ž❲Copier Wrapper❳ ➢❲png destination directory❳
+               ž❲Fixup PNG Wrapper❳ ➢❲png destination directory❳}
+    ū❲n9❳  ⇨ {ž❲Script Sequencer❳ ➢❲done step 1❳}
+    ū❲n12❳ ⇨ {ž❲Script Sequencer❳ ➢❲done step 2❳}
+    ū❲n15❳ ⇨ {ž❲Script Sequencer❳ ➢❲done step 3❳}
+    ū❲n18❳ ⇨ {ž❲Script Sequencer❳ ➢❲done step 4❳}
+    ū❲n19❳ ⇨ {ž❲Fixup PNG Wrapper❳ ➢❲png fixed prefix❳}
+    ū❲n20❳ ⇨ {ž❲Fixup MD Wrapper❳ ➢❲md fixed prefix❳}
+  }
+  
+}</textarea>
 
 
 <p>output:</p>
@@ -351,7 +430,7 @@ LeafDeclaration [kimplementation oPrototype kleaf lb @Handler @Proc rb] = [[~{ki
 Handler [kon oExplicitInput StatementBlock] = [[~{kon}~{oExplicitInput}~{StatementBlock}]]
 
 ContainerDeclaration [kimplementation oPrototype kcontainer lb Constants Initially Children Nets Senders Receivers rb] =
-  [[~{kimplmentation}~{oPrototype}~{kcontainer}~{lb}~{Constants}~{Initially}~{Children}~{Nets}~{Senders}~{Receivers}~{rb}]]
+  [[~{kimplementation}~{oPrototype}~{kcontainer}~{lb}~{Constants}~{Initially}~{Children}~{Nets}~{Senders}~{Receivers}~{rb}]]
 Constants [kconstants lb @ConstantInitializer rb] = [[~{kconstants}~{lb}~{ConstantInitializer}~{rb}]]
 ConstantInitializer_string [name lit] = [[~{name}~{lit}]]
 ConstantInitializer_number [name lit] = [[~{name}~{lit}]]
