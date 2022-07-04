@@ -212,8 +212,10 @@ self.send (self, 'text', result, message)
 
 
 <p>output:</p>
-<textarea id="output" rows="15" cols="90" placeholder="transpiled"  readonly style="background-color:whitesmoke;">
+<textarea id="output" rows="15" cols="60" placeholder="transpiled"  readonly style="background-color:whitesmoke;">
 </textarea>
+<!-- <textarea id="temp" rows="15" cols="50" placeholder="transpiled"  readonly style="background-color:whitesmoke;"> -->
+<!-- </textarea> -->
 <br>
 <br>
 <p id="status" > READY </p>
@@ -416,12 +418,12 @@ Signature [ksignature oPrototype klb kinputs klb2 @oExplicitInput krb2 koutputs 
 
 
 Proc [kproc oProcedure StatementBlock] = 
-{{ let hdr = 'def ' + _oProcedure._glue () + ' ():'; }}
-[[\n~{hdr}~{PY (StatementBlock)}]]
+{{ let hdr = '(.def ' + _oProcedure._glue () + ' ():'; }}
+[[\n~{hdr}~{StatementBlock}.)]]
 
 StatementBlock [lb @Statement rb] = [[~{Statement}]]
 Statement_verbatim [x] = [[~{x}]]
-Statement_callproc [k x] = [[~{SP ()}self.~{x} ()]]
+Statement_callproc [k x] = [[self.~{x} ()]]
 
 Func [kfunc oFunction lb @Expression rb] = [[~{kfunc}~{oFunction}~{lb}~{Expression}~{rb}]]
 Expression_verbatim [x] = [[~{x}]]
@@ -449,11 +451,13 @@ Exit [kexit StatementBlock] = [[~{kexit}~{StatementBlock}]]
 Transition [Handler] = [[~{Handler}]]
 
 LeafDeclaration [kimplementation oPrototype kleaf lb @Handler @Proc rb] = 
-{{ IN (); }}
-[[class ~{oPrototype} (Leaf):~{SP ()}def __init__ (self, parent, name):~{SPmore ()}super().__init__ (parent, name)~{PY (Proc)}~{SP ()}~{dumphandlers ()}~{OUT ()}]]
+[[(.class ~{oPrototype} (Leaf):
+(.def __init__ (self, parent, name):
+(.super().__init__ (parent, name).).)~{Proc}~{dumphandlers ()}
+.)]]
 
 Handler [kon oExplicitInput StatementBlock] = [[
-~{handlerappend ("elif (message.port == '" + oExplicitInput + "'):" + _StatementBlock._glue ())}]]
+~{handlerappend ("\nelif (message.port == '" + oExplicitInput + "'):(.\n" + _StatementBlock._glue ()) + "\n.)"}]]
 
 ContainerDeclaration [kimplementation oPrototype kcontainer lb Constants Initially Children Nets Senders Receivers rb] =
   [[~{kimplementation}~{oPrototype}~{kcontainer}~{lb}~{Constants}~{Initially}~{Children}~{Nets}~{Senders}~{Receivers}~{rb}]]
@@ -511,8 +515,9 @@ ReceiveOutput [oSelf oExplicitOutput] = [[~{oSelf}~{oExplicitOutput}]]
           // if (success3) {
           //     let [success4, step4] = transpile1 (step3, peepholegrammar, peepholefmt, "peephole step");
           //     if (success4) {
-                  document.getElementById('status').innerHTML = "OK " + Date ();
-                  document.getElementById('output').innerHTML = step;
+          document.getElementById('status').innerHTML = "OK " + Date ();
+          //document.getElementById('temp').innerHTML = step;
+          document.getElementById('output').innerHTML = indenter (step);
           //     }
           // }
       } else {
@@ -522,35 +527,35 @@ ReceiveOutput [oSelf oExplicitOutput] = [[~{oSelf}~{oExplicitOutput}]]
 
   // support routines
   function PYNAME (s) {
-      return s.replace (/ /g,'');
+      return s.replace (/ /g,'_');
   }
-  var indentstack = ['']
-  function IN () {
-      var previousindent = indentstack.pop ();
-      indentstack.push (previousindent);
-      var newindent = '  ' + previousindent;
-      indentstack.push (newindent);
-      return '';
-  }
-  function OUT () {
-      indentstack.pop ();
-      return '';
-  }
-  function SP () {
-      let indent = indentstack.pop ();
-      indentstack.push (indent);
-      return '\n' + indent;
-  }
-  function SPmore () {
-      let indent = indentstack.pop ();
-      indentstack.push (indent);
-      return '\n' + indent + indent;
-  }
-  function PY (s) {
-      let indent = indentstack.pop ();
-      indentstack.push (indent);
-      return s.replace (/\n/g, '\n' + indent);
-  }
+  // var indentstack = ['']
+  // function IN () {
+  //     var previousindent = indentstack.pop ();
+  //     indentstack.push (previousindent);
+  //     var newindent = '  ' + previousindent;
+  //     indentstack.push (newindent);
+  //     return '';
+  // }
+  // function OUT () {
+  //     indentstack.pop ();
+  //     return '';
+  // }
+  // function SP () {
+  //     let indent = indentstack.pop ();
+  //     indentstack.push (indent);
+  //     return '\n' + indent;
+  // }
+  // function SPmore () {
+  //     let indent = indentstack.pop ();
+  //     indentstack.push (indent);
+  //     return '\n' + indent + indent;
+  // }
+  // function PY (s) {
+  //     let indent = indentstack.pop ();
+  //     indentstack.push (indent);
+  //     return s.replace (/\n/g, '\n' + indent);
+  // }
 
   var handlercode = '';
   function handlerappend (s) {
@@ -559,8 +564,44 @@ ReceiveOutput [oSelf oExplicitOutput] = [[~{oSelf}~{oExplicitOutput}]]
   }
 
   function dumphandlers () {
-      return SP () + "\ndef handler (self, message):\nif (False):\n" + handlercode;
+      return "\n(.def handler (self, message):\nif (False):(.\npass.)" + handlercode + ".)";
   }
+  
+  var indentation = [];
+  function indent1 (s) {
+      var opens = (s.match (/\(\./g) || []).length;
+      var closes = (s.match (/\.\)/g) || []).length;
+      var r0 = s.trim ();
+      var r1 = r0.replace (/\(\./g, '');
+      var r2 = r1.replace (/\.\)/g, '');
+      var spaces = indentation.join ('');
+      var r  = spaces + r2.replace (/\n/g, spaces);
+      var diff = opens - closes;
+      if (diff > 0) {
+	  while (diff > 0) {
+	      indentation.push ('  ');
+	      diff -=1;
+	  }
+      } else {
+	  while (diff < 0) {
+	      indentation.pop ();
+	      diff += 1;
+	  }
+      }
+      return r;
+  }
+
+  function indenter (str) {
+      var result = '';
+      str.split ('\n').forEach (line => {
+	  var s = indent1 (line);
+	  result += '\n' + s;
+      });
+      return result;
+  }
+
+
+
   
   </script>
 </body>
