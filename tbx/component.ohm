@@ -92,7 +92,7 @@ StateInnard =
   | Exit
   | Transition
 Entry = "enter" StatementBlock
-Exit = "enter" StatementBlock
+Exit = "exit" StatementBlock
 Transition = Handler
 
 LeafDeclaration = "implementation" oPrototype "leaf" "{" Handler+ Proc* "}"

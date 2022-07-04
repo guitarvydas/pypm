@@ -1,0 +1,113 @@
+oExplicitInput [k name] = [[~{k}~{name}]]
+oImplicitInput [k i name] = [[~{k}~{i}~{name}]]
+
+oExplicitOutput [k name] = [[~{k}~{name}]]
+oImplicitOutput [k i name] = [[~{k}~{i}~{name}]]
+
+implicitIndicator [c] = [[~{c}]]
+
+
+oFunction [k name] = [[~{k}~{name}]]
+oProcedure [k name] = [[~{k}~{name}]]
+oChild [k name] = [[~{k}~{name}]]
+oPrototype [k name] = [[~{k}~{name}]]
+oSelf [k name] = [[~{k}~{name}]]
+oString [k name] = [[~{k}~{name}]]
+oNumber [k name] = [[~{k}~{name}]]
+oNet [k name] = [[~{k}~{name}]]
+oState [k name] = [[~{k}~{name}]]
+
+
+oVerbatim [lb @body rb] = [[~{lb}~{body}~{rb}]]
+verbatimBody_rec [ lb verbatimBody rb] = [[~{lb}~{verbatimBody}~{rb}]]
+verbatimBody_bottom [c] = [[~{c}]]
+
+oVerbatimFunction [lb @body rb] = [[~{lb}~{body}~{rb}]]
+verbatimFunctionBody_rec [ lb verbatimBody rb] = [[~{lb}~{verbatimBody}~{rb}]]
+verbatimFunctionBody_bottom [c] = [[~{c}]]
+
+oStringLiteral [lq @cs rq] = [[~{lq}~{cs}~{rq}]]
+
+oNumberLiteral_decimal [@ds] = [[~{ds}]]
+oNumberLiteral_hex [k @ds] = [[~{k}~{ds}]]
+oNumberLiteral_binary [k @ds] = [[~{k}~{ds}]]
+
+binaryDigit [c] = [[~{c}]]
+
+name [lb @cs rb] = [[~{lb}~{cs}~{rb}]]
+nameChar [c] = [[~{c}]]
+
+dq [c] = [[~{c}]]
+sq [c] = [[~{c}]]
+notDQ [x] = [[~{x}]]
+notSQ [x] = [[~{x}]]
+escapedChar [kbackslash any] = [[~{backslash}~{any}]]
+backslash [c] = [[~{c}]]
+
+Signature [ksignature oPrototype klb kinputs klb2 @oExplicitInput krb2 koutputs klb3 @oExplicitOutput krb3 krb] =
+  [[~{ksignature}~{oPrototype}~{klb}~{kinputs}~{klb2}~{oExplicitInput}~{krb2}~{koutputs}~{klb3}~{oExplicitOutput}~{krb3}~{krb}]]
+
+
+Proc [kproc oProcedure StatementBlock] = [[~{kproc}~{oProcedure}~{StatementBlock}]]
+
+StatementBlock [lb @Statement rb] = [[~{lb}~{Statement}~{rb}]]
+Statement_verbatim [x] = [[~{x}]]
+Statement_callproc [x] = [[~{x}]]
+
+Func [kfunc oFunction lb @Expression rb] = [[~{kfunc}~{oFunction}~{lb}~{Expression}~{rb}]]
+Expression_verbatim [x] = [[~{x}]]
+Expression_callfunc [x] = [[~{x}]]
+Expression_stringliteral [x] = [[~{x}]]
+Expression_numberliteral [x] = [[~{x}]]
+
+
+
+
+
+
+topLevel [x] = [[~{x}]]
+TopLevel [@x] = [[~{x}]]
+
+MachineDeclaration [kimplementation oPrototype kmachine lb MachineInnards rb] =
+  [[~{kimplementation}~{oPrototype}~{kmachine}~{lb}~{MachineInnards}~{rb}]]
+MachineInnards [StartState @State @Proc] = [[~{StartState}~{State}~{Proc}]]
+StartState [kstart oState] = [[~{kstart}~{oState}]]
+State [kstate oState lb @StateInnard rb] = [[~{kstate}~{oState}~{lb}~{StateInnard}~{rb}]]
+StateInnard [x] = [[~{x}]]
+
+Entry [kenter StatementBlock] = [[~{kenter}~{StatementBlock}]]
+Exit [kexit StatementBlock] = [[~{kexit}~{StatementBlock}]]
+Transition [Handler] = [[~{Handler}]]
+
+LeafDeclaration [kimplementation oPrototype kleaf lb @Handler @Proc rb] = [[~{kimplementation}~{oPrototype}~{kleaf}~{lb}~{Handler}~{Proc}~{rb}]]
+Handler [kon oExplicitInput StatementBlock] = [[~{kon}~{oExplicitInput}~{StatementBlock}]]
+~{}
+
+ContainerDeclaration [kimplementation oPrototype kcontainer lb Constants Initially Children Nets Senders Receivers rb] =
+  [[~{kimplmentation}~{oPrototype}~{kcontainer}~{lb}~{Constants}~{Initially}~{Children}~{Nets}~{Senders}~{Receivers}~{rb}]]
+Constants [kconstants lb @ConstantInitializer rb] = [[~{kconstants}~{lb}~{ConstantInitializer}~{rb}]]
+ConstantInitializer_string [name lit] = [[~{name}~{lit}]]
+ConstantInitializer_number [name lit] = [[~{name}~{lit}]]
+
+Initially [kinitially lb @SendConstant rb] = [[~{kinitially}~{lb}~{SendConstant}~{rb}]]
+Children [k lb @decl rb] = [[~{k}~{lb}~{decl}~{rb}]]
+Nets [k lb @decl rb] = [[~{k}~{lb}~{decl}~{rb}]]
+Senders [k lb @decl rb] = [[~{k}~{lb}~{decl}~{rb}]]
+Receivers [k lb @decl rb] = [[~{k}~{lb}~{decl}~{rb}]]
+
+ChildDeclaration [oChild oPrototype] = [[~{oChild}~{oPrototype}]]
+
+Sender [s] = [[~{s}]]
+
+ReceiverList [oNet MessageArrow lb @Receiver rb] = [[~{oNet}~{MessageArrow}~{lb}~{Receiver}~{rb}]]
+Receiver [r] = [[~{r}]]
+
+SendConstant [oSelf x MessageArrow oNet] = [[~{oSelf}~{x}~{MessageArrow}~{oNet}]]
+SendInput [oSelf x MessageArrow oNet] = [[~{oSelf}~{x}~{MessageArrow}~{oNet}]]
+SendOutput [oSelf x MessageArrow oNet] = [[~{oSelf}~{x}~{MessageArrow}~{oNet}]]
+MessageArrow [c] = [[~{c}]]
+
+ReceiveInput [oChild oExplicitInput] = [[~{oChild}~{oExplicitInput}]]
+ReceiveOutput [oSelf oExplicitOutput] = [[~{oSelf}~{oExplicitOutput}]]
+
+
