@@ -210,7 +210,7 @@ implementation ≈❲Copy Script❳ container {
 
 
 <p>output:</p>
-<textarea id="output" rows="15" cols="70" placeholder="transpiled"  readonly style="background-color:whitesmoke;">
+<textarea id="output" rows="15" cols="150" placeholder="transpiled"  readonly style="background-color:whitesmoke;">
 </textarea>
 <!-- <textarea id="temp" rows="15" cols="50" placeholder="transpiled"  readonly style="background-color:whitesmoke;"> -->
 <!-- </textarea> -->
@@ -417,7 +417,7 @@ backslash [c] = [[~{c}]]
 Signature [ksignature oPrototype klb kinputs klb2 @oExplicitInput krb2 koutputs klb3 @oExplicitOutput krb3 krb] = 
 {{ 
    var name = _oPrototype._glue (); 
-   newComponentSignature (name);
+   newComponent (name);
    pushComponentName (name);
 }}
 [[~{popComponentName ()}]]
@@ -468,34 +468,38 @@ Handler [kon oExplicitInput StatementBlock] = [[
 ~{handlerappend ("\nelif (message.port == '" + oExplicitInput + "'):(." + _StatementBlock._glue ()) + "\n.)"}]]
 
 ContainerDeclaration [kimplementation oPrototype kcontainer lb Constants Initially Children Nets Senders Receivers rb] =
+{{
+   var name = _oPrototype._glue (); 
+   pushComponentName (name);
+}}
 [[(.class ~{oPrototype} (Container):
 (.def __init__ (self, parent, name):
-(.super().__init__ (parent, name).).)~{lb}~{Constants}~{Initially}~{Children}~{Nets}~{Senders}~{Receivers}~{rb}~{dumpContainerHandler (oPrototype)}
+(.super().__init__ (parent, name).)~{Constants}~{Initially}~{Children}.)~{Nets}~{Senders}~{Receivers}~{dumpContainerHandler (oPrototype)}
 .)]]
 Constants [kconstants lb @ConstantInitializer rb] = [[~{ConstantInitializer}]]
-ConstantInitializer_string [name lit] = [[\n~{name} = ~{lit}]]
-ConstantInitializer_number [name lit] = [[\n~{name} = ~{lit}]]
+ConstantInitializer_string [name lit] = [[\nself.~{name} = ~{lit}]]
+ConstantInitializer_number [name lit] = [[\nself.~{name} = ~{lit}]]
 
-Initially [kinitially lb @SendConstant rb] = [[~{kinitially}~{lb}~{SendConstant}~{rb}]]
-Children [k lb @decl rb] = [[~{k}~{lb}~{decl}~{rb}]]
-Nets [k lb @decl rb] = [[~{k}~{lb}~{decl}~{rb}]]
-Senders [k lb @decl rb] = [[~{k}~{lb}~{decl}~{rb}]]
-Receivers [k lb @decl rb] = [[~{k}~{lb}~{decl}~{rb}]]
+Initially [kinitially lb @SendConstant rb] = [[~{SendConstant}]]
+Children [k lb @decl rb] = [[~{decl}\nself.children = [~{fetchChildren ().join (',')}] ]]
+Nets [k lb @decl rb] = [[]]
+Senders [k lb @decl rb] = [[\n(.self.senders = [~{decl}\n{'sender':'','port':''}]\.) ]]
+Receivers [k lb @decl rb] = [[\n(.self.receivers = [~{decl}\n{'net':'', {}}]\.) ]]
 
-ChildDeclaration [oChild oPrototype] = [[~{oChild}~{oPrototype}]]
+ChildDeclaration [oChild oPrototype] = [[\n~{memoChild (oChild)}self.child_~{oChild} = ~{oPrototype} (self, '~{oPrototype})]]
 
 Sender [s] = [[~{s}]]
 
-ReceiverList [oNet MessageArrow lb @Receiver rb] = [[~{oNet}~{MessageArrow}~{lb}~{Receiver}~{rb}]]
+ReceiverList [oNet MessageArrow lb @Receiver rb] = [[\n{'net':'~{oNet}', 'receivers':[~{Receiver}] ]]
 Receiver [r] = [[~{r}]]
 
-SendConstant [oSelf x MessageArrow oNet] = [[~{oSelf}~{x}~{MessageArrow}~{oNet}]]
-SendInput [oSelf x MessageArrow oNet] = [[~{oSelf}~{x}~{MessageArrow}~{oNet}]]
-SendOutput [oSelf x MessageArrow oNet] = [[~{oSelf}~{x}~{MessageArrow}~{oNet}]]
-MessageArrow [c] = [[~{c}]]
+SendConstant [oSelf x MessageArrow oNet] = [[\nself.send (self, ~{oNet}, ~{x}, [])]]
+SendInput [oSelf x MessageArrow oNet] = [[\n{'sender':self, 'port':'~{x}', 'net':'~{oNet}'},]]
+SendOutput [oChild x MessageArrow oNet] = [[\n{'sender':'~{oChild}, 'port':'~{x}', 'net':'~{oNet}'},]]
+MessageArrow [c] = [[]]
 
-ReceiveInput [oChild oExplicitInput] = [[~{oChild}~{oExplicitInput}]]
-ReceiveOutput [oSelf oExplicitOutput] = [[~{oSelf}~{oExplicitOutput}]]
+ReceiveInput [oChild oExplicitInput] = [[{'receiver':~{oChild}, 'port':'~{oExplicitInput}'}]]
+ReceiveOutput [oSelf oExplicitOutput] = [[{'receiver':self, 'port':'~{oExplicitOutput}'}]]
 
 
 `;
@@ -518,6 +522,7 @@ ReceiveOutput [oSelf oExplicitOutput] = [[~{oSelf}~{oExplicitOutput}]]
   }
 
   var transpileSuccess;
+  var errorMessages = '';
   
   function transpile () {
       transpileSuccess = true;
@@ -536,20 +541,20 @@ ReceiveOutput [oSelf oExplicitOutput] = [[~{oSelf}~{oExplicitOutput}]]
           //     }
           // }
       } else {
-          document.getElementById('output').innerHTML = step;
+          document.getElementById('output').innerHTML = errorMessages;
       }
   }
 
   // support routines
   function PYNAME (s) {
       return s
-	  .replace (/ /g,'_')
-	  .replace (/\./g, 'DO')
-	  .replace (/\//g, 'SL')
-	  .replace (/-/g, 'DA')
+          .replace (/ /g,'_')
+          .replace (/\./g, 'DO')
+          .replace (/\//g, 'SL')
+          .replace (/-/g, 'DA')
   }
 
-  var handlercode = '';
+  let handlercode = '';
   function handlerappend (s) {
       handlercode += s;
       return '';
@@ -560,13 +565,13 @@ ReceiveOutput [oSelf oExplicitOutput] = [[~{oSelf}~{oExplicitOutput}]]
   }
   
   function dumpContainerHandler (componentName) {
-      var s = `n(.def handler (self, message):(.
+      let s = `\n(.def handler (self, message):(.
         super ().handler (message)
         if (`;
-      var inputs = fetchInputs (componentName);
-      var selectors = '';
+      let inputs = fetchInputs (componentName);
+      let selectors = '';
       inputs.forEach (i => {
-	  selectors += `message.port == '${i}' ||`;
+          selectors += `message.port == '${i}' ||`;
       });
       s += selectors + ' True';
       s += `):(.
@@ -578,50 +583,50 @@ ReceiveOutput [oSelf oExplicitOutput] = [[~{oSelf}~{oExplicitOutput}]]
       return s;
   }
 
-  var indentation = [];
+  let indentation = [];
   // we emit code using bracketed notation (. and .) which is compatible
   // lisp pretty-printing, which allows easier debugging of the transpiled code
   // then, for Python, we convert the bracketing into indentation...
   function indent1 (s) {
-      var opens = (s.match (/\(\./g) || []).length;
-      var closes = (s.match (/\.\)/g) || []).length;
-      var r0 = s.trim ();
-      var r1 = r0.replace (/\(\./g, '');
-      var r2 = r1.replace (/\.\)/g, '');
-      var spaces = indentation.join ('');
-      var r  = spaces + r2.replace (/\n/g, spaces);
-      var diff = opens - closes;
+      let opens = (s.match (/\(\./g) || []).length;
+      let closes = (s.match (/\.\)/g) || []).length;
+      let r0 = s.trim ();
+      let r1 = r0.replace (/\(\./g, '');
+      let r2 = r1.replace (/\.\)/g, '');
+      let spaces = indentation.join ('');
+      let r  = spaces + r2.replace (/\n/g, spaces);
+      let diff = opens - closes;
       if (diff > 0) {
-	  while (diff > 0) {
-	      indentation.push ('  ');
-	      diff -=1;
-	  }
+          while (diff > 0) {
+              indentation.push ('  ');
+              diff -=1;
+          }
       } else {
-	  while (diff < 0) {
-	      indentation.pop ();
-	      diff += 1;
-	  }
+          while (diff < 0) {
+              indentation.pop ();
+              diff += 1;
+          }
       }
       return r;
   }
 
   function indenter (str) {
-      var result = '';
+      let result = '';
       str.split ('\n').forEach (line => {
-	  var s = indent1 (line);
-	  result += '\n' + s;
+          let s = indent1 (line);
+          result += '\n' + s;
       });
       return result;
   }
 
-  var componentNameStack = [];
-  var componentTable = {};
-  function newComponentSignature (name) {
-      var existing = componentTable [name];
+  let componentNameStack = [];
+  let componentTable = {};
+  function newComponent (name) {
+      let existing = componentTable [name];
       if (existing) {
-	  transpilerError (`component ${name} already exists`);
+          transpilerError (`component ${name} already exists`);
       } else {
-	  componentTable [name] = {'inputs': [], 'outputs': []};
+          componentTable [name] = {'inputs': [], 'outputs': [], 'children': []};
       }
       return '';
   }
@@ -631,29 +636,47 @@ ReceiveOutput [oSelf oExplicitOutput] = [[~{oSelf}~{oExplicitOutput}]]
       return '';
   }
   function popComponentName () {
-      var name = componentNameStack.pop ();
-      console.log (componentTable [name]);
+      componentNameStack.pop ();
       return '';
   }
 
   function currentComponent () {
-      var name = componentNameStack.pop ();
+      let name = componentNameStack.pop ();
       componentNameStack.push (name);
       return componentTable [name];
+  }
+  function currentComponentName () {
+      let name = componentNameStack.pop ();
+      componentNameStack.push (name);
+      return name;
   }
   
   function memoInput (name) {
       currentComponent ().inputs.push (name);
+      return '';
   }
   function memoOutput (name) {
       currentComponent ().outputs.push (name);
+      return '';
+  }
+  function memoChild (name) {
+      currentComponent ().children.push (name);
+      return '';
   }
 
   function fetchInputs (componentName) {
       try {
-	  return componentTable [componentName].inputs;
+          return componentTable [componentName].inputs;
       } catch (err) {
-	  transpilerError (`component ${componentName} has no signature`);
+          transpilerError (`component ${componentName} has no signature`);
+      }
+  }
+  
+  function fetchChildren () {
+      try {
+          return currentComponent ().children;
+      } catch (err) {
+          transpilerError (`component ${currentComponentName ()} has no signature`);
       }
   }
   
