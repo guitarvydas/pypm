@@ -1,0 +1,21 @@
+leaf {
+  Main = Component
+  Component = Signature LeafImplementation?
+  Signature = "signature" componentName "{" Inputs Outputs "}"
+  LeafImplementation = "implementation" ComponentName "leaf" "{" LeafImplementationDetail+ "}"
+
+
+InputPortName =
+  | $ExplicitInput
+  | $ImplicitInput
+OutputPortName = 
+  | $ExplicitOutput
+  | $ImplicitOutput
+
+tokens:
+☼ExplicitInput
+☼ImplicitInput
+☼ExplicitOutput
+☼ImplicitOutput
+}
+

@@ -1,0 +1,13 @@
+signature ž❲Omit Comments❳ {
+  inputs {➢❲text❳}
+  outputs {◦❲text❳}
+}
+
+implementation ž❲Omit Comments❳ leaf {
+  :namedcodeblock ❲c1❳ 
+⟪
+result = re.sub (r'\#.*\n', '\n', message.data)
+self.send (self, 'text', result, message)
+⟫
+  :on ➢❲text❳ ❲c1❳
+}

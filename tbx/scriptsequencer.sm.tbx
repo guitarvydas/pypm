@@ -1,55 +1,66 @@
-machine {
- start «idle»
-
- state «idle» {
-   on «start» {
-     callproc ča
-   }
- }
-
- state «step 1» {
-   on «done₁» {
-     callproc čb
-   }
- }
-
- state «step 2» {
-   on «done₂» {
-     callproc čc
-   }
- }
-
- state «step 3» {
-   on «done₃» {
-     callproc čd
-   }
- }
-
- state «step 4» {
-   on «done₄» {
-     callproc če
-   }
- }
-
-
-proc ča {
-  ⟪send (self, '«step₁»', True, message)⟫
-  ⟪send (self, '«notify₁»', True, message)⟫
+signature ≈❲Copy Script❳ {
+  inputs {➢❲start❳ ➢❲done₁❳ ➢❲done₂❳ ➢❲done₃❳ ➢❲done₄❳}
+  outputs {
+    ◦❲step₁❳ ◦❲notify₁❳
+    ◦❲step₂❳ ◦❲notify₂❳
+    ◦❲step₃❳ ◦❲notify₃❳
+    ◦❲step₄❳ ◦❲notify₄❳
+    ◦❲done❳
+  }
 }
-proc čb {
-  ⟪send (self, '«step₂»', True, message)⟫
-  ⟪send (self, '«notify₂»', True, message)⟫
+
+implementation ≈❲Copy Script❳ machine {
+ start ą❲idle❳
+
+ state ą❲idle❳ {
+   on ➢❲start❳ {
+     callproc č❲a❳
+   }
+ }
+
+ state ą❲step 1❳ {
+   on ➢❲done₁❳ {
+     callproc č❲b❳
+   }
+ }
+
+ state ą❲step 2❳ {
+   on ➢❲done₂❳ {
+     callproc č❲c❳
+   }
+ }
+
+ state ą❲step 3❳ {
+   on ➢❲done₃❳ {
+     callproc č❲d❳
+   }
+ }
+
+ state ą❲step 4❳ {
+   on ➢❲done₄❳ {
+     callproc č❲e❳
+   }
+ }
+
+
+proc č❲a❳ {
+  ⟪send (self, 'step₁', True, message)⟫
+  ⟪send (self, 'notify₁', True, message)⟫
 }
-proc čc {
-  ⟪send (self, '«step₃»', True, message)⟫
-  ⟪send (self, '«notify₃»', True, message)⟫
+proc č❲b❳ {
+  ⟪send (self, 'step₂', True, message)⟫
+  ⟪send (self, 'notify₂', True, message)⟫
 }
-proc čd {
-  ⟪send (self, '«step₄»', True, message)⟫
-  ⟪send (self, '«notify₄»', True, message)⟫
+proc č❲c❳ {
+  ⟪send (self, 'step₃', True, message)⟫
+  ⟪send (self, 'notify₃', True, message)⟫
 }
-proc če {
-  ⟪send (self, '«done»', True, message)⟫
+proc č❲d❳ {
+  ⟪send (self, 'step₄', True, message)⟫
+  ⟪send (self, 'notify₄', True, message)⟫
+}
+proc č❲e❳ {
+  ⟪send (self, 'done', True, message)⟫
 }
 
 

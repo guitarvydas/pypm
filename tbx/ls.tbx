@@ -1,0 +1,24 @@
+signature ≈❲ls❳ {
+  inputs {➢❲directory❳ ➢❲iterate❳}
+  outputs {◦❲filename❳}
+}
+
+implementation ≈❲ls❳ leaf {
+  on ➢❲directory❳ {callproc č❲a❳}
+  on ➢❲iterate❳ {callproc č❲b❳}
+}
+
+proc č❲a❳ {
+  ⟪self.dirname = message.data⟫
+}
+proc č❲b❳ {
+  ⟪
+files = os.listdir (self.dirname)
+for fname in files:
+    name = self.dirname + '/' + fname
+    if (os.path.isfile (name)):
+        self.send (self, 'filename', name, message)
+    else:
+        pass
+  ⟫
+}

@@ -1,0 +1,78 @@
+signature ž❲copy script❳ {
+  inputs {➢❲start❳}
+  outputs {}
+}
+
+signature ž❲ls❳ {
+  inputs {➢❲iterate❳ ➢❲directory❳}
+  outputs {◦❲filename❳}
+}
+
+signature ž❲prefix filename❳ {
+  inputs {➢❲prefix❳ ➢❲filename❳}
+  outputs {◦❲new filename❳}
+}
+
+signature ž❲overwrite file❳ {
+  inputs {➢❲original filename❳ ➢❲overwrite filename❳}
+  outputs {}
+}
+
+signature ž❲fixup references to PNG files❳ {
+  inputs {➢❲filename❳ ➢❲new filename❳}
+  outputs {◦❲newfile❳}
+}
+
+signature ž❲script sequence❳ {
+  inputs {➢❲done step 1❳ ➢❲done step 2❳ ➢❲done step 3❳ ➢❲done step 4❳ 
+  outputs {
+    ◦❲step 1❳ ◦❲step 1 notify❳
+    ◦❲step 2❳ ◦❲step 2 notify❳
+    ◦❲step 3❳ ◦❲step 3 notify❳
+    ◦❲step 4❳ ◦❲step 4 notify❳
+}
+
+
+signature ž❲Generate Links File Sequencer❳ {
+  inputs {➢❲[filename]❳ ➢❲[no more]❳}
+  outputs {◦❲output filename❳ ◦❲clear❳ ◦❲input filename❳ ◦❲done❳}
+}
+signature ž❲Lines To Text❳ {
+  inputs {➢❲[text]❳}
+  outputs {◦❲text❳}
+}
+signature ž❲File Writer❳ {
+  inputs {➢❲[filename]❳ ➢❲[clear]❳ ➢❲[append]❳}
+  outputs {}
+}
+
+signature ž❲Link Collection❳ {
+  inputs {➢❲req next❳ ➢❲[append list]❳}
+  outputs {◦❲link❳ ◦❲no more❳}
+}
+signature ž❲Loop❳ {
+  inputs {➢❲any❳}
+  outputs {◦❲trigger❳}
+}
+signature ž❲Link To Filename❳ {
+  inputs {➢į❲base directory❳ ➢į❲suffix❳ ➢❲link❳}
+  outputs {◦❲filename❳ ◦❲error❳}
+}
+
+
+signature ž❲Text File Reader❳ {
+  inputs {➢❲filename❳}
+  outputs {◦❲text❳}
+}
+signature ž❲Omit Comments❳ {
+  inputs {➢❲text❳}
+  outputs {◦❲text❳}
+}
+signature ž❲Omit Code Quotes❳ {
+  inputs {➢❲text❳}
+  outputs {◦❲[text]❳}
+}
+signature ž❲Link Scraper❳ {
+  inputs {➢❲[text]❳}
+  outputs {◦❲[links]❳}
+}

@@ -1,0 +1,40 @@
+signature :proto ❲copy script❳ {
+  inputs {:iport❲start❳}
+  outputs {}
+}
+
+signature :proto ❲ls❳ {
+  inputs {:iport❲iterate❳ :iport❲directory❳}
+  outputs {:oport❲filename❳}
+}
+
+signature :proto ❲prefix filename❳ {
+  inputs {:iport❲prefix❳ :iport❲filename❳}
+  outputs {:oport❲new filename❳}
+}
+
+signature :proto ❲overwrite file❳ {
+  inputs {:iport❲original filename❳ :iport❲overwrite filename❳}
+  outputs {}
+}
+
+signature :proto ❲fixup references to PNG files❳ {
+  inputs {:iport❲filename❳ :iport❲new filename❳}
+  outputs {:oport❲newfile❳}
+}
+
+signature :proto ❲script sequence❳ {
+  inputs {:iport❲done step 1❳ :iport❲done step 2❳ :iport❲done step 3❳ :iport❲done step 4❳ 
+  outputs {
+    :oport❲step 1❳ :oport❲step 1 notify❳
+    :oport❲step 2❳ :oport❲step 2 notify❳
+    :oport❲step 3❳ :oport❲step 3 notify❳
+    :oport❲step 4❳ :oport❲step 4 notify❳
+}
+
+signature :proto ❲Generate Links File❳ {
+  inputs {:iport❲❳ :iport❲❳ :iport❲❳ :iport❲❳ :iport❲❳ }
+  outputs {:oport❲done❳}
+}
+
+

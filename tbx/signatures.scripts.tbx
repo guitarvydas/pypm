@@ -1,0 +1,5 @@
+signature :proto ❲Generate Links File❳ {
+  inputs {:iport❲❳ :iport❲❳ :iport❲❳ :iport❲❳ :iport❲❳ }
+  outputs {:oport❲done❳}
+}
+

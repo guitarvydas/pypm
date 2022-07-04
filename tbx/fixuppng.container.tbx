@@ -1,14 +1,14 @@
-container signature {
+signature :proto❲Fixup PNG Wrapper❳ {
   inputs {:iport❲start❳ :iport❲png destination directory❳ :iport❲notify❳ :iport❲png fixed prefix❳}
   outputs {:oport❲done❳}
 }
 
-container implementation :kind❲Fixup PNG Wrapper❳ {
+implementation :proto❲Fixup PNG Wrapper❳ container {
   child❲Fixup PNG Wrapper❳/ren {
-    :child❲ls❳ :kind❲ls❳
-    :child❲prefixFilename❳ :kind❲prefix filename❳
-    :child❲fixupPNG❳ :kind❲fixup references to PNG files❳
-    :child❲overwrite❳ :kind❲overwrite file❳
+    :child❲ls❳ :proto❲ls❳
+    :child❲prefixFilename❳ :proto❲prefix filename❳
+    :child❲fixupPNG❳ :proto❲fixup references to PNG files❳
+    :child❲overwrite❳ :proto❲overwrite file❳
   }
   connections {
     { :self :iport❲start❳ ⤇ { {:child❲ls❳ :iport❲iterate❳} }}
@@ -30,30 +30,10 @@ container implementation :kind❲Fixup PNG Wrapper❳ {
 
 
 
-leaf signature ❲ls❳ {
-  inputs {:iport❲iterate❳ :iport❲directory❳}
-  outputs {:oport❲filename❳}
-}
-
-leaf signature ❲prefix filename❳ {
-  inputs {:iport❲prefix❳ :iport❲filename❳}
-  outputs {:oport❲new filename❳}
-}
-
-leaf signature ❲overwrite file❳ {
-  inputs {:iport❲original filename❳ :iport❲overwrite filename❳}
-  outputs {}
-}
-
-leaf signature ❲fixup references to PNG files❳ {
-  inputs {:iport❲filename❳ :iport❲new filename❳}
-  outputs {:oport❲newfile❳}
-}
 
 
 
-
-leaf implementation ❲ls❳ {
+implementation :proto❲ls❳ leaf {
   :codeblock ❲c1❳ ⟪self.dirname - message.data⟫
   :codeblock ❲c2❳ ⟪
 files = os.listdir (self.dirname)
@@ -64,32 +44,32 @@ for fname in files:
     else:
         pass
 ⟫
-  :on :iport❲iterate❳ ❲c1❳
-  :on :iport❲directory❳ ❲c2❳ 
+  on :iport❲iterate❳ ❲c1❳
+  on :iport❲directory❳ ❲c2❳ 
 }
 
-leaf implementation ❲prefix filename❳ {
-  :namedcode ❲c1❳ ⟪self.filename = message.data⟫
-  :namedcode ❲c2❳ ⟪self.send (self, 'new filename', self.filename + message.data, message)⟫
-  :on :iport❲prefix❳ ❲c2❳
-  :on :iport❲filename❳ ❲c1❳
+implementation :proto❲prefix filename❳ leaf {
+  :namedsync ❲c1❳ ⟪self.filename = message.data⟫
+  :namedsync ❲c2❳ ⟪self.send (self, 'new filename', self.filename + message.data, message)⟫
+  on :iport❲prefix❳ ❲c2❳
+  on :iport❲filename❳ ❲c1❳
 }
 
-leaf implementation ❲overwrite file❳ {
-  :namedcode ❲c1❳ ⟪self.original = message.data⟫
-  :namedcode ❲c2❳ ⟪shutil.copy (message.data, self.original)⟫
-  :on :iport❲original filename❳ ❲c1❳
-  :on :iport❲overwrite filename❳ ❲c2❳
+implementation :proto❲overwrite file❳ leaf {
+  :namedsync ❲c1❳ ⟪self.original = message.data⟫
+  :namedsync ❲c2❳ ⟪shutil.copy (message.data, self.original)⟫
+  on :iport❲original filename❳ ❲c1❳
+  on :iport❲overwrite filename❳ ❲c2❳
 }
 
-leaf implementation ❲fixup references to PNG files❳ {
-  :namedcode ❲c1❳ ⟪self.filename = message.data⟫
-  :namedcode ❲c2❳ 
+implementation :proto❲fixup references to PNG files❳ leaf {
+  :namedsync ❲c1❳ ⟪self.filename = message.data⟫
+  :namedsync ❲c2❳ 
 ⟪
 result = self.fixup(self.filename)
 send (self, 'new file', result, message)
 ⟫
-  :namedcode ❲c3❳ 
+  :namedsync ❲c3❳ 
 ⟪
 def fixup (filename):
     f = open (filename, 'r')
@@ -103,7 +83,7 @@ def dosub (match):
     sub = f'![resources/{sub2}]'
     return sub
 ⟫
-  :on :iport❲filename❳ ❲c1❳
-  :on :iport❲new filename❳ ❲c2❳
+  on :iport❲filename❳ ❲c1❳
+  on :iport❲new filename❳ ❲c2❳
 }
 

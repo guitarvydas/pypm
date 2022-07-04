@@ -1,0 +1,131 @@
+Operand {
+topLevel = any
+
+oExplicitInput = "➢" name
+oImplicitInput = "➢" implicitIndicator name
+
+oExplicitOutput = "◦" name
+oImplicitOutput = "◦" implicitIndicator name
+
+implicitIndicator = "y"
+
+
+oFunction = "ė" name
+oProcedure = "č" name
+oChild = "ž" name
+oPrototype = "≈" name
+oSelf = "š"
+oString = "įs" name
+oNumber = "įn" name
+oNet = "ū" name
+oState = "ą" name
+
+
+oVerbatim = "⟪" verbatimBody "⟫"
+verbatimBody =
+  | "⟪" verbatimBody "⟫" -- rec
+  | ~"⟪" ~"⟫" any        -- bottom
+oVerbatimFunction = "⟪" verbatimFunctionBody "⟫?"
+verbatimFunctionBody =
+  | "⟪" (verbatimBody | verbatimFunctionBody) "⟫?" -- rec
+  | ~"⟪" ~"⟫" any                                  -- bottom
+
+oStringLiteral = 
+  | dq notDQ* dq
+  | sq notSQ* sq
+oNumberLiteral =
+  | digit+      -- decimal
+  | "0x" hexDigit+     -- hex
+  | "0b" binaryDigit+  -- binary
+
+binaryDigit = "0" .. "1"
+
+
+name = "❲" nameChar+ "❳"
+nameChar =
+  | ~"❲" ~"❳" any
+
+dq = "\""
+sq = "'"
+notDQ = escapedChar | (~dq any)
+notSQ = escapedChar | (~sq any)
+escapedChar = backslash any
+backslash = "\\"
+}
+
+Signature <: Operand {
+Signature = 
+  "signature" oPrototype "{" 
+    "inputs" "{" oExplicitInput* "}" "}"
+    "outputs" "{" oExplicitOutput* "}" "}"
+  "}"
+}
+
+Routine <: Signature {
+Proc = "proc" oProcedure StatementBlock
+StatementBlock = "{" Statement+ "}"
+Statement =
+  | oVerbatim -- verbatim
+  | "callproc" oProcedure -- callproc
+Func = "func" oFunction "{" Expression+ "}"
+Expression =
+  | oVerbatimFunction -- verbatim
+  | "callfunc" oFunction -- callfunc
+  | oString -- stringliteral
+  | oNumber -- numberliteral
+}
+
+
+
+
+
+Component <: Routine {
+topLevel := applySyntactic<TopLevel>
+TopLevel = (Signature | MachineDeclaration | ContainerDeclaration | LeafDeclaration)*
+
+MachineDeclaration = "implementation" oPrototype "machine" "{" MachineInnards "}"
+MachineInnards = StartState State+ Proc*
+StartState = "start" oState
+State = "state" oState "{" StateInnard+ "}"
+StateInnard =
+  | Entry
+  | Exit
+  | Transition
+Entry = "enter" StatementBlock
+Exit = "enter" StatementBlock
+Transition = Handler
+
+LeafDeclaration = "implementation" oPrototype "leaf" "{" Handler+ "}"
+Handler = "on" oExplicitInput StatementBlock
+
+ContainerDeclaration = "implementation" oPrototype "container" "{" Constants Initially Children Nets Senders Receivers "}"
+Constants = "constants" ConstantInitializer*
+ConstantInitializer =
+  | oString oStringLiteral -- string
+  | oNumber oNumberLiteral -- number
+Initially = "initially" SendConstant*
+Children = "children" ChildDeclaration*
+Nets = "nets" oNet*
+Senders = "senders" Sender*
+Receivers = "receivers" ReceiverList*
+
+ChildDeclaration = oChild oPrototype
+
+Sender =
+  | SendInput
+  | SendOutput
+ReceiverList = oNet MessageArrow "{" Receiver+ "}"
+Receiver =
+  | ReceiveInput
+  | ReceiveOutput
+
+SendConstant = oSelf (oString | oNumber) MessageArrow oNet
+SendInput = oSelf oExplicitInput MessageArrow oNet
+SendOutput = oChild oExplicitOutput MessageArrow oNet
+MessageArrow = "⇨"
+
+ReceiveInput = oChild oExplicitInput
+ReceiveOutput = oSelf oExplicitOutput
+}
+
+
