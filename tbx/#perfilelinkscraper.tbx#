@@ -1,0 +1,47 @@
+signature ≈❲per file link scraper❳ {
+  inputs {➢❲filename❳}
+  outputs {◦❲[links]❳}
+}
+signature ≈❲Text File Reader❳ {
+  inputs {➢❲filename❳}
+  outputs {◦❲text❳}
+}
+signature ≈❲Omit Comments❳ {
+  inputs {➢❲text❳}
+  outputs {◦❲text❳}
+}
+signature ≈❲Omit Code Quotes❳ {
+  inputs {➢❲text❳}
+  outputs {◦❲[text]❳}
+}
+signature ≈❲Link Scraper❳ {
+  inputs {➢❲[text]❳}
+  outputs {◦❲[links]❳}
+}
+
+implementation ≈❲Text File Reader❳ leaf {
+  on ➢❲❳ {callproc č❲a❳}
+
+  proc č❲a❳ {
+    ⟪self.dirname = message.data⟫
+  }
+}
+implementation ≈❲Omit Code Quotes❳ leaf {
+  on ➢❲❳ {callproc č❲a❳}
+
+  proc č❲a❳ {
+    ⟪self.dirname = message.data⟫
+  }
+}
+implementation ≈❲Link Scraper❳ leaf {
+  on ➢❲❳ {callproc č❲a❳}
+
+  proc č❲a❳ {
+⟪
+result = []
+for line in message.data:
+    result += re.findall ('(\[\[[^\]]+\]\])',line)
+self.send (self, '[links]', result, message)
+⟫
+  }
+}

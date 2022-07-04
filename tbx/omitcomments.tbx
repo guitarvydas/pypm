@@ -1,13 +1,15 @@
-signature ž❲Omit Comments❳ {
+signature ≈❲Omit Comments❳ {
   inputs {➢❲text❳}
   outputs {◦❲text❳}
 }
 
-implementation ž❲Omit Comments❳ leaf {
-  :namedcodeblock ❲c1❳ 
+implementation ≈❲Omit Comments❳ leaf {
+  on ➢❲text❳ {callproc č❲a❳}
+
+  proc č❲a❳ {
 ⟪
 result = re.sub (r'\#.*\n', '\n', message.data)
 self.send (self, 'text', result, message)
 ⟫
-  :on ➢❲text❳ ❲c1❳
+  }
 }
