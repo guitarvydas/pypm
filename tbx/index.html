@@ -201,11 +201,9 @@ signature ≈❲Omit Comments❳ {
 implementation ≈❲Omit Comments❳ leaf {
   on ➢❲text❳ {callproc č❲a❳}
 
-  proc č❲a❳ {
-⟪
-result = re.sub (r'\#.*\n', '\n', message.data)
-self.send (self, 'text', result, message)
-⟫
+proc č❲a❳ {
+⟪result = re.sub (r'\#.*\n', '\n', message.data)
+self.send (self, 'text', result, message)⟫
   }
 }
 </textarea>
@@ -422,8 +420,8 @@ Proc [kproc oProcedure StatementBlock] =
 [[\n~{hdr}~{StatementBlock}.)]]
 
 StatementBlock [lb @Statement rb] = [[~{Statement}]]
-Statement_verbatim [x] = [[~{x}]]
-Statement_callproc [k x] = [[self.~{x} ()]]
+Statement_verbatim [x] = [[\n~{x}]]
+Statement_callproc [k x] = [[\nself.~{x} ()]]
 
 Func [kfunc oFunction lb @Expression rb] = [[~{kfunc}~{oFunction}~{lb}~{Expression}~{rb}]]
 Expression_verbatim [x] = [[~{x}]]
@@ -457,7 +455,7 @@ LeafDeclaration [kimplementation oPrototype kleaf lb @Handler @Proc rb] =
 .)]]
 
 Handler [kon oExplicitInput StatementBlock] = [[
-~{handlerappend ("\nelif (message.port == '" + oExplicitInput + "'):(.\n" + _StatementBlock._glue ()) + "\n.)"}]]
+~{handlerappend ("\nelif (message.port == '" + oExplicitInput + "'):(." + _StatementBlock._glue ()) + "\n.)"}]]
 
 ContainerDeclaration [kimplementation oPrototype kcontainer lb Constants Initially Children Nets Senders Receivers rb] =
   [[~{kimplementation}~{oPrototype}~{kcontainer}~{lb}~{Constants}~{Initially}~{Children}~{Nets}~{Senders}~{Receivers}~{rb}]]

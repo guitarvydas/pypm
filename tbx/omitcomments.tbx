@@ -6,10 +6,8 @@ signature ≈❲Omit Comments❳ {
 implementation ≈❲Omit Comments❳ leaf {
   on ➢❲text❳ {callproc č❲a❳}
 
-  proc č❲a❳ {
-⟪
+  proc č❲a❳ {⟪
 result = re.sub (r'\#.*\n', '\n', message.data)
-self.send (self, 'text', result, message)
-⟫
+self.send (self, 'text', result, message)⟫
   }
 }
