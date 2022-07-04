@@ -110,107 +110,107 @@ textarea {
 <!-- } -->
 <!-- </textarea> -->
 
-<!-- <p>source:</p> -->
-<!-- <textarea id="src" rows="7" cols="90" placeholder="src" style="background-color:oldlace;"> -->
-<!-- signature ≈❲Copy Script❳ { -->
-<!--   inputs {➢❲start❳} -->
-<!--   outputs {} -->
-<!-- } -->
-
-<!-- implementation ≈❲Copy Script❳ container { -->
-<!--   constants { -->
-<!--     įs❲out.test.md❳ 'out.test.md' -->
-<!--     įs❲test.md❳ 'test.md' -->
-<!--     įs❲/Users/tarvydas/Dropbox/ps❳ '/Users/tarvydas/Dropbox/ps' -->
-<!--     įs❲.md❳ '.md' -->
-<!--     įs❲manuscript❳ 'manuscript' -->
-<!--     įs❲manuscript/resources❳ 'manuscript/resources' -->
-<!--     įs❲pngfixed-❳ 'pngfixed-' -->
-<!--     įs❲mdfixed-❳ 'mdfixed-' -->
-<!--   } -->
-  
-<!--   initially { -->
-<!--     š įs❲out.test.md❳                ⇨ ū❲n1❳   -->
-<!--     š įs❲test.md❳                    ⇨ ū❲n2❳   -->
-<!--     š įs❲/Users/tarvydas/Dropbox/ps❳ ⇨ ū❲n3❳   -->
-<!--     š įs❲.md❳                        ⇨ ū❲n4❳   -->
-<!--     š įs❲manuscript❳                 ⇨ ū❲n5❳   -->
-<!--     š įs❲manuscript/resources❳       ⇨ ū❲n6❳ -->
-<!--     š įs❲pngfixed-❳                  ⇨ ū❲n19❳   -->
-<!--     š įs❲mdfixed-❳                   ⇨ ū❲n20❳ -->
-<!--   } -->
-
-<!--   children { -->
-<!--     ž❲Script Sequencer❳ ≈❲Script Sequencer❳ -->
-<!--     ž❲Generate Links File❳ ≈❲Generate Links File❳ -->
-<!--     ž❲CopierWrapper❳ ≈❲Copier Wrapper❳  -->
-<!--     ž❲Fixup PNG Wrapper❳ ≈❲Fixup PNG Wrapper❳ -->
-<!--     ž❲Fixup MD Wrapper❳ ≈❲Fixup MD Wrapper❳ -->
-<!--   } -->
-  
-<!--   nets { -->
-<!--     ū❲n1❳ ū❲n2❳ ū❲n3❳ ū❲n4❳ ū❲n5❳ ū❲n6❳ ū❲n7❳ ū❲n8❳ ū❲n9❳ ū❲n10❳ -->
-<!--     ū❲n11❳ ū❲n12❳ ū❲n13❳ ū❲n14❳ ū❲n15❳ ū❲n16❳ ū❲n17❳ ū❲n18❳ -->
-<!--     ū❲n19❳ ū❲n20❳ -->
-<!--     ū❲n21❳ -->
-<!--   } -->
-  
-<!--   senders { -->
-<!--     š ➢❲start❳                           ⇨ ū❲n21❳ -->
-
-<!--     ž❲Script Sequencer❳ ◦❲step 1❳        ⇨ ū❲n7❳   -->
-<!--     ž❲Script Sequencer❳ ◦❲step 1 notify❳ ⇨ ū❲n8❳   -->
-
-<!--     ž❲Script Sequencer❳ ◦❲step 2❳        ⇨ ū❲n10❳   -->
-<!--     ž❲Script Sequencer❳ ◦❲step 2 notify❳ ⇨ ū❲n11❳   -->
-
-<!--     ž❲Script Sequencer❳ ◦❲step 3❳        ⇨ ū❲n13❳   -->
-<!--     ž❲Script Sequencer❳ ◦❲step 3 notify❳ ⇨ ū❲n14❳   -->
-
-<!--     ž❲Script Sequencer❳ ◦❲step 4❳        ⇨ ū❲n16❳   -->
-<!--     ž❲Script Sequencer❳ ◦❲step 4 notify❳ ⇨ ū❲n17❳   -->
-<!--   } -->
-  
-<!--   receivers { -->
-<!--     ū❲n1❳  ⇨ {ž❲Copier Wrapper❳ ➢❲filename❳} -->
-<!--     ū❲n2❳  ⇨ {ž❲Generate Links File❳ ➢❲filename❳} -->
-<!--     ū❲n3❳  ⇨ {ž❲Generate Links File❳ ➢❲base directory❳} -->
-<!--     ū❲n4❳  ⇨ {ž❲Generate Links File❳ ➢❲suffix❳} -->
-<!--     ū❲n5❳  ⇨ {ž❲Copier Wrapper❳ ➢❲md destination directory❳ -->
-<!--                ž❲Fixup MD Wrapper❳ ➢❲md destination directory❳} -->
-<!--     ū❲n6❳  ⇨ {ž❲Copier Wrapper❳ ➢❲png destination directory❳ -->
-<!--                ž❲Fixup PNG Wrapper❳ ➢❲png destination directory❳} -->
-<!--     ū❲n9❳  ⇨ {ž❲Script Sequencer❳ ➢❲done step 1❳} -->
-<!--     ū❲n12❳ ⇨ {ž❲Script Sequencer❳ ➢❲done step 2❳} -->
-<!--     ū❲n15❳ ⇨ {ž❲Script Sequencer❳ ➢❲done step 3❳} -->
-<!--     ū❲n18❳ ⇨ {ž❲Script Sequencer❳ ➢❲done step 4❳} -->
-<!--     ū❲n19❳ ⇨ {ž❲Fixup PNG Wrapper❳ ➢❲png fixed prefix❳} -->
-<!--     ū❲n20❳ ⇨ {ž❲Fixup MD Wrapper❳ ➢❲md fixed prefix❳} -->
-<!--   } -->
-  
-<!-- } -->
-<!-- </textarea> -->
-
 <p>source:</p>
 <textarea id="src" rows="7" cols="90" placeholder="src" style="background-color:oldlace;">
-signature ≈❲Omit Comments❳ {
-  inputs {➢❲text❳}
-  outputs {◦❲text❳}
+signature ≈❲Copy Script❳ {
+  inputs {➢❲start❳}
+  outputs {}
 }
 
-implementation ≈❲Omit Comments❳ leaf {
-  on ➢❲text❳ {callproc č❲a❳}
-
-proc č❲a❳ {
-⟪result = re.sub (r'\#.*\n', '\n', message.data)
-self.send (self, 'text', result, message)⟫
+implementation ≈❲Copy Script❳ container {
+  constants {
+    įs❲out.test.md❳ 'out.test.md'
+    įs❲test.md❳ 'test.md'
+    įs❲/Users/tarvydas/Dropbox/ps❳ '/Users/tarvydas/Dropbox/ps'
+    įs❲.md❳ '.md'
+    įs❲manuscript❳ 'manuscript'
+    įs❲manuscript/resources❳ 'manuscript/resources'
+    įs❲pngfixed-❳ 'pngfixed-'
+    įs❲mdfixed-❳ 'mdfixed-'
   }
+  
+  initially {
+    š įs❲out.test.md❳                ⇨ ū❲n1❳
+    š įs❲test.md❳                    ⇨ ū❲n2❳
+    š įs❲/Users/tarvydas/Dropbox/ps❳ ⇨ ū❲n3❳
+    š įs❲.md❳                        ⇨ ū❲n4❳
+    š įs❲manuscript❳                 ⇨ ū❲n5❳
+    š įs❲manuscript/resources❳       ⇨ ū❲n6❳
+    š įs❲pngfixed-❳                  ⇨ ū❲n19❳
+    š įs❲mdfixed-❳                   ⇨ ū❲n20❳
+  }
+
+  children {
+    ž❲Script Sequencer❳ ≈❲Script Sequencer❳
+    ž❲Generate Links File❳ ≈❲Generate Links File❳
+    ž❲CopierWrapper❳ ≈❲Copier Wrapper❳
+    ž❲Fixup PNG Wrapper❳ ≈❲Fixup PNG Wrapper❳
+    ž❲Fixup MD Wrapper❳ ≈❲Fixup MD Wrapper❳
+  }
+  
+  nets {
+    ū❲n1❳ ū❲n2❳ ū❲n3❳ ū❲n4❳ ū❲n5❳ ū❲n6❳ ū❲n7❳ ū❲n8❳ ū❲n9❳ ū❲n10❳
+    ū❲n11❳ ū❲n12❳ ū❲n13❳ ū❲n14❳ ū❲n15❳ ū❲n16❳ ū❲n17❳ ū❲n18❳
+    ū❲n19❳ ū❲n20❳
+    ū❲n21❳
+  }
+  
+  senders {
+    š ➢❲start❳                           ⇨ ū❲n21❳
+
+    ž❲Script Sequencer❳ ◦❲step 1❳        ⇨ ū❲n7❳
+    ž❲Script Sequencer❳ ◦❲step 1 notify❳ ⇨ ū❲n8❳
+
+    ž❲Script Sequencer❳ ◦❲step 2❳        ⇨ ū❲n10❳
+    ž❲Script Sequencer❳ ◦❲step 2 notify❳ ⇨ ū❲n11❳
+
+    ž❲Script Sequencer❳ ◦❲step 3❳        ⇨ ū❲n13❳
+    ž❲Script Sequencer❳ ◦❲step 3 notify❳ ⇨ ū❲n14❳
+
+    ž❲Script Sequencer❳ ◦❲step 4❳        ⇨ ū❲n16❳
+    ž❲Script Sequencer❳ ◦❲step 4 notify❳ ⇨ ū❲n17❳
+  }
+  
+  receivers {
+    ū❲n1❳  ⇨ {ž❲Copier Wrapper❳ ➢❲filename❳}
+    ū❲n2❳  ⇨ {ž❲Generate Links File❳ ➢❲filename❳}
+    ū❲n3❳  ⇨ {ž❲Generate Links File❳ ➢❲base directory❳}
+    ū❲n4❳  ⇨ {ž❲Generate Links File❳ ➢❲suffix❳}
+    ū❲n5❳  ⇨ {ž❲Copier Wrapper❳ ➢❲md destination directory❳
+               ž❲Fixup MD Wrapper❳ ➢❲md destination directory❳}
+    ū❲n6❳  ⇨ {ž❲Copier Wrapper❳ ➢❲png destination directory❳
+               ž❲Fixup PNG Wrapper❳ ➢❲png destination directory❳}
+    ū❲n9❳  ⇨ {ž❲Script Sequencer❳ ➢❲done step 1❳}
+    ū❲n12❳ ⇨ {ž❲Script Sequencer❳ ➢❲done step 2❳}
+    ū❲n15❳ ⇨ {ž❲Script Sequencer❳ ➢❲done step 3❳}
+    ū❲n18❳ ⇨ {ž❲Script Sequencer❳ ➢❲done step 4❳}
+    ū❲n19❳ ⇨ {ž❲Fixup PNG Wrapper❳ ➢❲png fixed prefix❳}
+    ū❲n20❳ ⇨ {ž❲Fixup MD Wrapper❳ ➢❲md fixed prefix❳}
+  }
+  
 }
 </textarea>
 
+<!-- <p>source:</p> -->
+<!-- <textarea id="src" rows="7" cols="90" placeholder="src" style="background-color:oldlace;"> -->
+<!-- signature ≈❲Omit Comments❳ { -->
+<!--   inputs {➢❲text❳} -->
+<!--   outputs {◦❲text❳} -->
+<!-- } -->
+
+<!-- implementation ≈❲Omit Comments❳ leaf { -->
+<!--   on ➢❲text❳ {callproc č❲a❳} -->
+
+<!-- proc č❲a❳ { -->
+<!-- ⟪result = re.sub (r'\#.*\n', '\n', message.data) -->
+<!-- self.send (self, 'text', result, message)⟫ -->
+<!--   } -->
+<!-- } -->
+<!-- </textarea> -->
+
 
 <p>output:</p>
-<textarea id="output" rows="15" cols="60" placeholder="transpiled"  readonly style="background-color:whitesmoke;">
+<textarea id="output" rows="15" cols="70" placeholder="transpiled"  readonly style="background-color:whitesmoke;">
 </textarea>
 <!-- <textarea id="temp" rows="15" cols="50" placeholder="transpiled"  readonly style="background-color:whitesmoke;"> -->
 <!-- </textarea> -->
@@ -292,9 +292,11 @@ backslash = "\\"
 Signature <: Operand {
 Signature = 
   "signature" oPrototype "{" 
-    "inputs" "{" oExplicitInput* "}"
-    "outputs" "{" oExplicitOutput* "}"
+    "inputs" "{" SignatureInput* "}"
+    "outputs" "{" SignatureOutput* "}"
   "}"
+SignatureInput = oExplicitInput
+SignatureOutput = oExplicitOutput
 }
 
 Routine <: Signature {
@@ -412,8 +414,16 @@ notSQ [x] = [[~{x}]]
 escapedChar [kbackslash any] = [[~{backslash}~{any}]]
 backslash [c] = [[~{c}]]
 
-Signature [ksignature oPrototype klb kinputs klb2 @oExplicitInput krb2 koutputs klb3 @oExplicitOutput krb3 krb] = [[]]
+Signature [ksignature oPrototype klb kinputs klb2 @oExplicitInput krb2 koutputs klb3 @oExplicitOutput krb3 krb] = 
+{{ 
+   var name = _oPrototype._glue (); 
+   newComponentSignature (name);
+   pushComponentName (name);
+}}
+[[~{popComponentName ()}]]
 
+SignatureInput [name] = [[~{memoInput (name)}]]
+SignatureOutput [name] = [[~{memoOutput (name)}]]
 
 Proc [kproc oProcedure StatementBlock] = 
 {{ let hdr = '(.def ' + _oProcedure._glue () + ' ():'; }}
@@ -458,10 +468,13 @@ Handler [kon oExplicitInput StatementBlock] = [[
 ~{handlerappend ("\nelif (message.port == '" + oExplicitInput + "'):(." + _StatementBlock._glue ()) + "\n.)"}]]
 
 ContainerDeclaration [kimplementation oPrototype kcontainer lb Constants Initially Children Nets Senders Receivers rb] =
-  [[~{kimplementation}~{oPrototype}~{kcontainer}~{lb}~{Constants}~{Initially}~{Children}~{Nets}~{Senders}~{Receivers}~{rb}]]
-Constants [kconstants lb @ConstantInitializer rb] = [[~{kconstants}~{lb}~{ConstantInitializer}~{rb}]]
-ConstantInitializer_string [name lit] = [[~{name}~{lit}]]
-ConstantInitializer_number [name lit] = [[~{name}~{lit}]]
+[[(.class ~{oPrototype} (Container):
+(.def __init__ (self, parent, name):
+(.super().__init__ (parent, name).).)~{lb}~{Constants}~{Initially}~{Children}~{Nets}~{Senders}~{Receivers}~{rb}~{dumpContainerHandler (oPrototype)}
+.)]]
+Constants [kconstants lb @ConstantInitializer rb] = [[~{ConstantInitializer}]]
+ConstantInitializer_string [name lit] = [[\n~{name} = ~{lit}]]
+ConstantInitializer_number [name lit] = [[\n~{name} = ~{lit}]]
 
 Initially [kinitially lb @SendConstant rb] = [[~{kinitially}~{lb}~{SendConstant}~{rb}]]
 Children [k lb @decl rb] = [[~{k}~{lb}~{decl}~{rb}]]
@@ -504,10 +517,14 @@ ReceiveOutput [oSelf oExplicitOutput] = [[~{oSelf}~{oExplicitOutput}]]
       }
   }
 
+  var transpileSuccess;
+  
   function transpile () {
+      transpileSuccess = true;
       let src = document.getElementById('src').value;
       let [success, step] = transpile1 (src, grammar, fmt, "component identity step");
-      if (success) {
+      transpileSuccess &&= success;
+      if (transpileSuccess) {
           // // skip step2, the step2 identity transpiler was used for development of step3
           // let [success3, step3] = transpile1 (step1, nl2jsgrammar, nl2jsfmt, "transpilation step");
           // if (success3) {
@@ -525,35 +542,12 @@ ReceiveOutput [oSelf oExplicitOutput] = [[~{oSelf}~{oExplicitOutput}]]
 
   // support routines
   function PYNAME (s) {
-      return s.replace (/ /g,'_');
+      return s
+	  .replace (/ /g,'_')
+	  .replace (/\./g, 'DO')
+	  .replace (/\//g, 'SL')
+	  .replace (/-/g, 'DA')
   }
-  // var indentstack = ['']
-  // function IN () {
-  //     var previousindent = indentstack.pop ();
-  //     indentstack.push (previousindent);
-  //     var newindent = '  ' + previousindent;
-  //     indentstack.push (newindent);
-  //     return '';
-  // }
-  // function OUT () {
-  //     indentstack.pop ();
-  //     return '';
-  // }
-  // function SP () {
-  //     let indent = indentstack.pop ();
-  //     indentstack.push (indent);
-  //     return '\n' + indent;
-  // }
-  // function SPmore () {
-  //     let indent = indentstack.pop ();
-  //     indentstack.push (indent);
-  //     return '\n' + indent + indent;
-  // }
-  // function PY (s) {
-  //     let indent = indentstack.pop ();
-  //     indentstack.push (indent);
-  //     return s.replace (/\n/g, '\n' + indent);
-  // }
 
   var handlercode = '';
   function handlerappend (s) {
@@ -565,7 +559,29 @@ ReceiveOutput [oSelf oExplicitOutput] = [[~{oSelf}~{oExplicitOutput}]]
       return "\n(.def handler (self, message):\nif (False):(.\npass.)" + handlercode + ".)";
   }
   
+  function dumpContainerHandler (componentName) {
+      var s = `n(.def handler (self, message):(.
+        super ().handler (message)
+        if (`;
+      var inputs = fetchInputs (componentName);
+      var selectors = '';
+      inputs.forEach (i => {
+	  selectors += `message.port == '${i}' ||`;
+      });
+      s += selectors + ' True';
+      s += `):(.
+            self.delegateMessage (message)
+            self.route ()
+            self.runToCompletion ().)
+        else:(.
+            raise Exception (f'Unrecognized Port for pm {message.port}').).)`;
+      return s;
+  }
+
   var indentation = [];
+  // we emit code using bracketed notation (. and .) which is compatible
+  // lisp pretty-printing, which allows easier debugging of the transpiled code
+  // then, for Python, we convert the bracketing into indentation...
   function indent1 (s) {
       var opens = (s.match (/\(\./g) || []).length;
       var closes = (s.match (/\.\)/g) || []).length;
@@ -598,8 +614,53 @@ ReceiveOutput [oSelf oExplicitOutput] = [[~{oSelf}~{oExplicitOutput}]]
       return result;
   }
 
+  var componentNameStack = [];
+  var componentTable = {};
+  function newComponentSignature (name) {
+      var existing = componentTable [name];
+      if (existing) {
+	  transpilerError (`component ${name} already exists`);
+      } else {
+	  componentTable [name] = {'inputs': [], 'outputs': []};
+      }
+      return '';
+  }
 
+  function pushComponentName (name) {
+      componentNameStack.push (name);
+      return '';
+  }
+  function popComponentName () {
+      var name = componentNameStack.pop ();
+      console.log (componentTable [name]);
+      return '';
+  }
 
+  function currentComponent () {
+      var name = componentNameStack.pop ();
+      componentNameStack.push (name);
+      return componentTable [name];
+  }
+  
+  function memoInput (name) {
+      currentComponent ().inputs.push (name);
+  }
+  function memoOutput (name) {
+      currentComponent ().outputs.push (name);
+  }
+
+  function fetchInputs (componentName) {
+      try {
+	  return componentTable [componentName].inputs;
+      } catch (err) {
+	  transpilerError (`component ${componentName} has no signature`);
+      }
+  }
+  
+  function transpilerError (message) {
+      errorMessages += '\n' + message;
+      transpileSuccess = false;
+  }
   
   </script>
 </body>
