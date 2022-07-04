@@ -64,7 +64,7 @@ implementation ≈❲Copy Script❳ container {
     ū❲n4❳  ⇨ {ž❲Generate Links File❳ ➢❲suffix❳}
     ū❲n5❳  ⇨ {ž❲Copier Wrapper❳ ➢❲md destination directory❳
                ž❲Fixup MD Wrapper❳ ➢❲md destination directory❳}
-    ū❲n6❳  ⇨ {ž❲Copier Wrapper❳ ➢❲png destination directory❳}
+    ū❲n6❳  ⇨ {ž❲Copier Wrapper❳ ➢❲png destination directory❳
                ž❲Fixup PNG Wrapper❳ ➢❲png destination directory❳}
     ū❲n9❳  ⇨ {ž❲Script Sequencer❳ ➢❲done step 1❳}
     ū❲n12❳ ⇨ {ž❲Script Sequencer❳ ➢❲done step 2❳}
