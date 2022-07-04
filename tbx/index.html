@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+textarea {
+}
+</style>
+</head>
+<body>
+
+<h1>Transpiler</h1>
+
+<p>source snippet:</p>
+<textarea id="src" rows="7" cols="90" placeholder="src" style="background-color:oldlace;">
+signature ≈❲ls❳ {
+  inputs {➢❲directory❳ ➢❲iterate❳}
+  outputs {◦❲filename❳}
+}
+
+implementation ≈❲ls❳ leaf {
+  on ➢❲directory❳ {callproc č❲a❳}
+  on ➢❲iterate❳ {callproc č❲b❳}
+
+proc č❲a❳ {
+  ⟪self.dirname = message.data⟫
+}
+proc č❲b❳ {
+  ⟪
+files = os.listdir (self.dirname)
+for fname in files:
+    name = self.dirname + '/' + fname
+    if (os.path.isfile (name)):
+        self.send (self, 'filename', name, message)
+    else:
+        pass
+  ⟫
+}
+
+}
+</textarea>
+
+
+<p>output:</p>
+<textarea id="output" rows="15" cols="90" placeholder="transpiled"  readonly style="background-color:whitesmoke;">
+</textarea>
+<br>
+<br>
+<p id="status" > READY </p>
+<br>
+<button onclick="transpile ()">Test</button>
+<!-- Ohm-JS -->
+<script src="https://unpkg.com/ohm-js@16/dist/ohm.min.js"></script>
+
+
+<!-- Macro preprocessor -->
+<script src="../../nl/mac.js"></script>
+
+
+<script>
+  function fixup (s) {
+      return s
+          .replace (/~{/g, '${');
+  }
+
+  const grammar = String.raw`
+Operand {
+topLevel = any
+
+oExplicitInput = "➢" name
+oImplicitInput = "➢" implicitIndicator name
+
+oExplicitOutput = "◦" name
+oImplicitOutput = "◦" implicitIndicator name
+
+implicitIndicator = "y"
+
+
+oFunction = "ė" name
+oProcedure = "č" name
+oChild = "ž" name
+oPrototype = "≈" name
+oSelf = "š"
+oString = "įs" name
+oNumber = "įn" name
+oNet = "ū" name
+oState = "ą" name
+
+
+oVerbatim = "⟪" verbatimBody* "⟫"
+verbatimBody =
+  | "⟪" verbatimBody "⟫" -- rec
+  | ~"⟪" ~"⟫" any        -- bottom
+oVerbatimFunction = "⟪" verbatimFunctionBody* "⟫?"
+verbatimFunctionBody =
+  | "⟪" (verbatimBody | verbatimFunctionBody) "⟫?" -- rec
+  | ~"⟪" ~"⟫" any                                  -- bottom
+
+oStringLiteral = 
+  | dq notDQ* dq
+  | sq notSQ* sq
+oNumberLiteral =
+  | digit+      -- decimal
+  | "0x" hexDigit+     -- hex
+  | "0b" binaryDigit+  -- binary
+
+binaryDigit = "0" .. "1"
+
+
+name = "❲" nameChar+ "❳"
+nameChar =
+  | ~"❲" ~"❳" any
+
+dq = "\""
+sq = "'"
+notDQ = escapedChar | (~dq any)
+notSQ = escapedChar | (~sq any)
+escapedChar = backslash any
+backslash = "\\"
+}
+
+Signature <: Operand {
+Signature = 
+  "signature" oPrototype "{" 
+    "inputs" "{" oExplicitInput* "}"
+    "outputs" "{" oExplicitOutput* "}"
+  "}"
+}
+
+Routine <: Signature {
+Proc = "proc" oProcedure StatementBlock
+StatementBlock = "{" Statement+ "}"
+Statement =
+  | oVerbatim -- verbatim
+  | "callproc" oProcedure -- callproc
+Func = "func" oFunction "{" Expression+ "}"
+Expression =
+  | oVerbatimFunction -- verbatim
+  | "callfunc" oFunction -- callfunc
+  | oString -- stringliteral
+  | oNumber -- numberliteral
+}
+
+
+
+
+
+Component <: Routine {
+topLevel := applySyntactic<TopLevel>
+TopLevel = (Signature | MachineDeclaration | ContainerDeclaration | LeafDeclaration)*
+
+MachineDeclaration = "implementation" oPrototype "machine" "{" MachineInnards "}"
+MachineInnards = StartState State+ Proc*
+StartState = "start" oState
+State = "state" oState "{" StateInnard+ "}"
+StateInnard =
+  | Entry
+  | Exit
+  | Transition
+Entry = "enter" StatementBlock
+Exit = "exit" StatementBlock
+Transition = Handler
+
+LeafDeclaration = "implementation" oPrototype "leaf" "{" Handler+ Proc* "}"
+Handler = "on" oExplicitInput StatementBlock
+
+ContainerDeclaration = "implementation" oPrototype "container" "{" Constants Initially Children Nets Senders Receivers "}"
+Constants = "constants" "{" ConstantInitializer* "}"
+ConstantInitializer =
+  | oString oStringLiteral -- string
+  | oNumber oNumberLiteral -- number
+Initially = "initially" "{" SendConstant* "}"
+Children = "children" "{" ChildDeclaration* "}"
+Nets = "nets" "{" oNet* "}"
+Senders = "senders" "{" Sender* "}"
+Receivers = "receivers" "{" ReceiverList* "}"
+
+ChildDeclaration = oChild oPrototype
+
+Sender =
+  | SendInput
+  | SendOutput
+ReceiverList = oNet MessageArrow "{" Receiver+ "}"
+Receiver =
+  | ReceiveInput
+  | ReceiveOutput
+
+SendConstant = oSelf (oString | oNumber) MessageArrow oNet
+SendInput = oSelf oExplicitInput MessageArrow oNet
+SendOutput = oChild oExplicitOutput MessageArrow oNet
+MessageArrow = "⇨"
+
+ReceiveInput = oChild oExplicitInput
+ReceiveOutput = oSelf oExplicitOutput
+}
+`;
+
+  const fmt = String.raw`
+oExplicitInput [k name] = [[~{k}~{name}]]
+oImplicitInput [k i name] = [[~{k}~{i}~{name}]]
+
+oExplicitOutput [k name] = [[~{k}~{name}]]
+oImplicitOutput [k i name] = [[~{k}~{i}~{name}]]
+
+implicitIndicator [c] = [[~{c}]]
+
+
+oFunction [k name] = [[~{k}~{name}]]
+oProcedure [k name] = [[~{k}~{name}]]
+oChild [k name] = [[~{k}~{name}]]
+oPrototype [k name] = [[~{k}~{name}]]
+oSelf [k] = [[~{k}]]
+oString [k name] = [[~{k}~{name}]]
+oNumber [k name] = [[~{k}~{name}]]
+oNet [k name] = [[~{k}~{name}]]
+oState [k name] = [[~{k}~{name}]]
+
+
+oVerbatim [lb @body rb] = [[~{lb}~{body}~{rb}]]
+verbatimBody_rec [ lb verbatimBody rb] = [[~{lb}~{verbatimBody}~{rb}]]
+verbatimBody_bottom [c] = [[~{c}]]
+
+oVerbatimFunction [lb @body rb] = [[~{lb}~{body}~{rb}]]
+verbatimFunctionBody_rec [ lb verbatimBody rb] = [[~{lb}~{verbatimBody}~{rb}]]
+verbatimFunctionBody_bottom [c] = [[~{c}]]
+
+oStringLiteral [lq @cs rq] = [[~{lq}~{cs}~{rq}]]
+
+oNumberLiteral_decimal [@ds] = [[~{ds}]]
+oNumberLiteral_hex [k @ds] = [[~{k}~{ds}]]
+oNumberLiteral_binary [k @ds] = [[~{k}~{ds}]]
+
+binaryDigit [c] = [[~{c}]]
+
+name [lb @cs rb] = [[~{lb}~{cs}~{rb}]]
+nameChar [c] = [[~{c}]]
+
+dq [c] = [[~{c}]]
+sq [c] = [[~{c}]]
+notDQ [x] = [[~{x}]]
+notSQ [x] = [[~{x}]]
+escapedChar [kbackslash any] = [[~{backslash}~{any}]]
+backslash [c] = [[~{c}]]
+
+Signature [ksignature oPrototype klb kinputs klb2 @oExplicitInput krb2 koutputs klb3 @oExplicitOutput krb3 krb] =
+  [[~{ksignature}~{oPrototype}~{klb}~{kinputs}~{klb2}~{oExplicitInput}~{krb2}~{koutputs}~{klb3}~{oExplicitOutput}~{krb3}~{krb}]]
+
+
+Proc [kproc oProcedure StatementBlock] = [[~{kproc}~{oProcedure}~{StatementBlock}]]
+
+StatementBlock [lb @Statement rb] = [[~{lb}~{Statement}~{rb}]]
+Statement_verbatim [x] = [[~{x}]]
+Statement_callproc [k x] = [[~{k}~{x}]]
+
+Func [kfunc oFunction lb @Expression rb] = [[~{kfunc}~{oFunction}~{lb}~{Expression}~{rb}]]
+Expression_verbatim [x] = [[~{x}]]
+Expression_callfunc [k x] = [[~{k}~{x}]]
+Expression_stringliteral [x] = [[~{x}]]
+Expression_numberliteral [x] = [[~{x}]]
+
+
+
+
+
+
+topLevel [x] = [[~{x}]]
+TopLevel [@x] = [[~{x}]]
+
+MachineDeclaration [kimplementation oPrototype kmachine lb MachineInnards rb] =
+  [[~{kimplementation}~{oPrototype}~{kmachine}~{lb}~{MachineInnards}~{rb}]]
+MachineInnards [StartState @State @Proc] = [[~{StartState}~{State}~{Proc}]]
+StartState [kstart oState] = [[~{kstart}~{oState}]]
+State [kstate oState lb @StateInnard rb] = [[~{kstate}~{oState}~{lb}~{StateInnard}~{rb}]]
+StateInnard [x] = [[~{x}]]
+
+Entry [kenter StatementBlock] = [[~{kenter}~{StatementBlock}]]
+Exit [kexit StatementBlock] = [[~{kexit}~{StatementBlock}]]
+Transition [Handler] = [[~{Handler}]]
+
+LeafDeclaration [kimplementation oPrototype kleaf lb @Handler @Proc rb] = [[~{kimplementation}~{oPrototype}~{kleaf}~{lb}~{Handler}~{Proc}~{rb}]]
+Handler [kon oExplicitInput StatementBlock] = [[~{kon}~{oExplicitInput}~{StatementBlock}]]
+
+ContainerDeclaration [kimplementation oPrototype kcontainer lb Constants Initially Children Nets Senders Receivers rb] =
+  [[~{kimplmentation}~{oPrototype}~{kcontainer}~{lb}~{Constants}~{Initially}~{Children}~{Nets}~{Senders}~{Receivers}~{rb}]]
+Constants [kconstants lb @ConstantInitializer rb] = [[~{kconstants}~{lb}~{ConstantInitializer}~{rb}]]
+ConstantInitializer_string [name lit] = [[~{name}~{lit}]]
+ConstantInitializer_number [name lit] = [[~{name}~{lit}]]
+
+Initially [kinitially lb @SendConstant rb] = [[~{kinitially}~{lb}~{SendConstant}~{rb}]]
+Children [k lb @decl rb] = [[~{k}~{lb}~{decl}~{rb}]]
+Nets [k lb @decl rb] = [[~{k}~{lb}~{decl}~{rb}]]
+Senders [k lb @decl rb] = [[~{k}~{lb}~{decl}~{rb}]]
+Receivers [k lb @decl rb] = [[~{k}~{lb}~{decl}~{rb}]]
+
+ChildDeclaration [oChild oPrototype] = [[~{oChild}~{oPrototype}]]
+
+Sender [s] = [[~{s}]]
+
+ReceiverList [oNet MessageArrow lb @Receiver rb] = [[~{oNet}~{MessageArrow}~{lb}~{Receiver}~{rb}]]
+Receiver [r] = [[~{r}]]
+
+SendConstant [oSelf x MessageArrow oNet] = [[~{oSelf}~{x}~{MessageArrow}~{oNet}]]
+SendInput [oSelf x MessageArrow oNet] = [[~{oSelf}~{x}~{MessageArrow}~{oNet}]]
+SendOutput [oSelf x MessageArrow oNet] = [[~{oSelf}~{x}~{MessageArrow}~{oNet}]]
+MessageArrow [c] = [[~{c}]]
+
+ReceiveInput [oChild oExplicitInput] = [[~{oChild}~{oExplicitInput}]]
+ReceiveOutput [oSelf oExplicitOutput] = [[~{oSelf}~{oExplicitOutput}]]
+
+
+`;
+
+  function transpile1 (src, grammar, fmt, message) {
+      var success = false;
+      var transpiled = '';
+      var jssemantics = '';
+      try {
+          [success, transpiled, jssemantics] = expand1 (src, grammar, fmt, fixup, 'Component');
+      } catch (err) {
+          success = false;
+      }
+      if (success) {
+          return [true, transpiled];
+      } else {
+          document.getElementById('status').innerHTML = "FAILED " + message + "<br>" + Date ();
+          return [false, transpiled];
+      }
+  }
+
+  function transpile () {
+      let src = document.getElementById('src').value;
+      let [success, step] = transpile1 (src, grammar, fmt, "component identity step");
+      if (success) {
+          // // skip step2, the step2 identity transpiler was used for development of step3
+          // let [success3, step3] = transpile1 (step1, nl2jsgrammar, nl2jsfmt, "transpilation step");
+          // if (success3) {
+          //     let [success4, step4] = transpile1 (step3, peepholegrammar, peepholefmt, "peephole step");
+          //     if (success4) {
+                  document.getElementById('status').innerHTML = "OK " + Date ();
+                  document.getElementById('output').innerHTML = step;
+          //     }
+          // }
+      } else {
+          document.getElementById('output').innerHTML = step;
+      }
+  }
+  </script>
+</body>
+</html>
+
+

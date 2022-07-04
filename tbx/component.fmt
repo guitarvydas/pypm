@@ -81,7 +81,6 @@ Transition [Handler] = [[~{Handler}]]
 
 LeafDeclaration [kimplementation oPrototype kleaf lb @Handler @Proc rb] = [[~{kimplementation}~{oPrototype}~{kleaf}~{lb}~{Handler}~{Proc}~{rb}]]
 Handler [kon oExplicitInput StatementBlock] = [[~{kon}~{oExplicitInput}~{StatementBlock}]]
-~{}
 
 ContainerDeclaration [kimplementation oPrototype kcontainer lb Constants Initially Children Nets Senders Receivers rb] =
   [[~{kimplmentation}~{oPrototype}~{kcontainer}~{lb}~{Constants}~{Initially}~{Children}~{Nets}~{Senders}~{Receivers}~{rb}]]
