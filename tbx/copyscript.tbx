@@ -42,7 +42,7 @@ implementation ≈❲Copy Script❳ container {
   }
   
   senders {
-    š ➢❲start❳ ⤇ ū❲n21❳
+    š ➢❲start❳                           ⇨ ū❲n21❳
 
     ž❲Script Sequencer❳ ◦❲step 1❳        ⇨ ū❲n7❳  
     ž❲Script Sequencer❳ ◦❲step 1 notify❳ ⇨ ū❲n8❳  

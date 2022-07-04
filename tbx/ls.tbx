@@ -6,7 +6,6 @@ signature ≈❲ls❳ {
 implementation ≈❲ls❳ leaf {
   on ➢❲directory❳ {callproc č❲a❳}
   on ➢❲iterate❳ {callproc č❲b❳}
-}
 
 proc č❲a❳ {
   ⟪self.dirname = message.data⟫
@@ -21,4 +20,6 @@ for fname in files:
     else:
         pass
   ⟫
+}
+
 }

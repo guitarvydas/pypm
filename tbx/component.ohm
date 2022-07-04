@@ -21,11 +21,11 @@ oNet = "ū" name
 oState = "ą" name
 
 
-oVerbatim = "⟪" verbatimBody "⟫"
+oVerbatim = "⟪" verbatimBody* "⟫"
 verbatimBody =
   | "⟪" verbatimBody "⟫" -- rec
   | ~"⟪" ~"⟫" any        -- bottom
-oVerbatimFunction = "⟪" verbatimFunctionBody "⟫?"
+oVerbatimFunction = "⟪" verbatimFunctionBody* "⟫?"
 verbatimFunctionBody =
   | "⟪" (verbatimBody | verbatimFunctionBody) "⟫?" -- rec
   | ~"⟪" ~"⟫" any                                  -- bottom
@@ -56,8 +56,8 @@ backslash = "\\"
 Signature <: Operand {
 Signature = 
   "signature" oPrototype "{" 
-    "inputs" "{" oExplicitInput* "}" "}"
-    "outputs" "{" oExplicitOutput* "}" "}"
+    "inputs" "{" oExplicitInput* "}"
+    "outputs" "{" oExplicitOutput* "}"
   "}"
 }
 
@@ -95,19 +95,19 @@ Entry = "enter" StatementBlock
 Exit = "enter" StatementBlock
 Transition = Handler
 
-LeafDeclaration = "implementation" oPrototype "leaf" "{" Handler+ "}"
+LeafDeclaration = "implementation" oPrototype "leaf" "{" Handler+ Proc* "}"
 Handler = "on" oExplicitInput StatementBlock
 
 ContainerDeclaration = "implementation" oPrototype "container" "{" Constants Initially Children Nets Senders Receivers "}"
-Constants = "constants" ConstantInitializer*
+Constants = "constants" "{" ConstantInitializer* "}"
 ConstantInitializer =
   | oString oStringLiteral -- string
   | oNumber oNumberLiteral -- number
-Initially = "initially" SendConstant*
-Children = "children" ChildDeclaration*
-Nets = "nets" oNet*
-Senders = "senders" Sender*
-Receivers = "receivers" ReceiverList*
+Initially = "initially" "{" SendConstant* "}"
+Children = "children" "{" ChildDeclaration* "}"
+Nets = "nets" "{" oNet* "}"
+Senders = "senders" "{" Sender* "}"
+Receivers = "receivers" "{" ReceiverList* "}"
 
 ChildDeclaration = oChild oPrototype
 
