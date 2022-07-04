@@ -402,7 +402,7 @@ oNumberLiteral_binary [k @ds] = [[~{k}~{ds}]]
 
 binaryDigit [c] = [[~{c}]]
 
-name [lb @cs rb] = [[~{PYNAME(cs)}]]
+name [lb @cs rb] = [[~{NAME(cs)}]]
 nameChar [c] = [[~{c}]]
 
 dq [c] = [[~{c}]]
@@ -416,12 +416,12 @@ Signature [ksignature oPrototype klb kinputs klb2 @oExplicitInput krb2 koutputs 
 
 
 Proc [kproc oProcedure StatementBlock] = 
-{{ let hdr = 'def ' + _oProcedure._glue () + ' ():'; }}
-[[\n~{hdr}~{PY (StatementBlock)}]]
+{{ let hdr = '\n(define (' + _oProcedure._glue () + ')'; }}
+[[~{hdr}~{StatementBlock})]]
 
 StatementBlock [lb @Statement rb] = [[~{Statement}]]
 Statement_verbatim [x] = [[~{x}]]
-Statement_callproc [k x] = [[~{SP ()}self.~{x} ()]]
+Statement_callproc [k x] = [[self.~{x} ()]]
 
 Func [kfunc oFunction lb @Expression rb] = [[~{kfunc}~{oFunction}~{lb}~{Expression}~{rb}]]
 Expression_verbatim [x] = [[~{x}]]
@@ -449,11 +449,10 @@ Exit [kexit StatementBlock] = [[~{kexit}~{StatementBlock}]]
 Transition [Handler] = [[~{Handler}]]
 
 LeafDeclaration [kimplementation oPrototype kleaf lb @Handler @Proc rb] = 
-{{ IN (); }}
-[[class ~{oPrototype} (Leaf):~{SP ()}def __init__ (self, parent, name):~{SPmore ()}super().__init__ (parent, name)~{PY (Proc)}~{SP ()}~{dumphandlers ()}~{OUT ()}]]
+[[class ~{oPrototype} (Leaf):def __init__ (self, parent, name):super().__init__ (parent, name)~{Proc}~{dumphandlers ()}]]
 
 Handler [kon oExplicitInput StatementBlock] = [[
-~{handlerappend ("elif (message.port == '" + oExplicitInput + "'):" + _StatementBlock._glue ())}]]
+~{handlerappend ('((eq (port message) "' + oExplicitInput + '")' + _StatementBlock._glue ())}]]
 
 ContainerDeclaration [kimplementation oPrototype kcontainer lb Constants Initially Children Nets Senders Receivers rb] =
   [[~{kimplementation}~{oPrototype}~{kcontainer}~{lb}~{Constants}~{Initially}~{Children}~{Nets}~{Senders}~{Receivers}~{rb}]]
@@ -521,36 +520,36 @@ ReceiveOutput [oSelf oExplicitOutput] = [[~{oSelf}~{oExplicitOutput}]]
   }
 
   // support routines
-  function PYNAME (s) {
-      return s.replace (/ /g,'');
+  function NAME (s) {
+      return s.replace (/ /g,'_');
   }
-  var indentstack = ['']
-  function IN () {
-      var previousindent = indentstack.pop ();
-      indentstack.push (previousindent);
-      var newindent = '  ' + previousindent;
-      indentstack.push (newindent);
-      return '';
-  }
-  function OUT () {
-      indentstack.pop ();
-      return '';
-  }
-  function SP () {
-      let indent = indentstack.pop ();
-      indentstack.push (indent);
-      return '\n' + indent;
-  }
-  function SPmore () {
-      let indent = indentstack.pop ();
-      indentstack.push (indent);
-      return '\n' + indent + indent;
-  }
-  function PY (s) {
-      let indent = indentstack.pop ();
-      indentstack.push (indent);
-      return s.replace (/\n/g, '\n' + indent);
-  }
+  // var indentstack = ['']
+  // function IN () {
+  //     var previousindent = indentstack.pop ();
+  //     indentstack.push (previousindent);
+  //     var newindent = '  ' + previousindent;
+  //     indentstack.push (newindent);
+  //     return '';
+  // }
+  // function OUT () {
+  //     indentstack.pop ();
+  //     return '';
+  // }
+  // function SP () {
+  //     let indent = indentstack.pop ();
+  //     indentstack.push (indent);
+  //     return '\n' + indent;
+  // }
+  // function SPmore () {
+  //     let indent = indentstack.pop ();
+  //     indentstack.push (indent);
+  //     return '\n' + indent + indent;
+  // }
+  // function PY (s) {
+  //     let indent = indentstack.pop ();
+  //     indentstack.push (indent);
+  //     return s.replace (/\n/g, '\n' + indent);
+  // }
 
   var handlercode = '';
   function handlerappend (s) {
@@ -559,7 +558,7 @@ ReceiveOutput [oSelf oExplicitOutput] = [[~{oSelf}~{oExplicitOutput}]]
   }
 
   function dumphandlers () {
-      return SP () + "\ndef handler (self, message):\nif (False):\n" + handlercode;
+      return "\n(define (handler self message)\n(cond\n" + handlercode + '\n)';
   }
   
   </script>
