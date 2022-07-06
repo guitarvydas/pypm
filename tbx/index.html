@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html>
 <head>
 <style>
@@ -39,76 +39,127 @@ textarea {
 <!-- } -->
 <!-- </textarea> -->
 
+
+
+<!-- <p>source:</p> -->
+<!-- <textarea id="src" rows="7" cols="90" placeholder="src" style="background-color:oldlace;"> -->
+<!-- signature ≈❲script sequencer❳ { -->
+<!--   inputs {➢❲start❳ ➢❲done₁❳ ➢❲done₂❳ ➢❲done₃❳ ➢❲done₄❳} -->
+<!--   outputs { -->
+<!--     ◦❲step₁❳ ◦❲notify₁❳ -->
+<!--     ◦❲step₂❳ ◦❲notify₂❳ -->
+<!--     ◦❲step₃❳ ◦❲notify₃❳ -->
+<!--     ◦❲step₄❳ ◦❲notify₄❳ -->
+<!--     ◦❲done❳ -->
+<!--   } -->
+<!-- } -->
+
+<!-- implementation ≈❲script sequencer❳ machine { -->
+<!--  start ą❲idle❳ -->
+
+
+
+<!-- proc č❲a❳ { -->
+<!--   ⟪send (self, 'step₁', True, message)⟫ -->
+<!--   ⟪send (self, 'notify₁', True, message)⟫ -->
+<!-- } -->
+<!-- proc č❲b❳ { -->
+<!--   ⟪send (self, 'step₂', True, message)⟫ -->
+<!--   ⟪send (self, 'notify₂', True, message)⟫ -->
+<!-- } -->
+<!-- proc č❲c❳ { -->
+<!--   ⟪send (self, 'step₃', True, message)⟫ -->
+<!--   ⟪send (self, 'notify₃', True, message)⟫ -->
+<!-- } -->
+<!-- proc č❲d❳ { -->
+<!--   ⟪send (self, 'step₄', True, message)⟫ -->
+<!--   ⟪send (self, 'notify₄', True, message)⟫ -->
+<!-- } -->
+<!-- proc č❲e❳ { -->
+<!--   ⟪send (self, 'done', True, message)⟫ -->
+<!-- } -->
+<!-- proc č❲f❳ { -->
+<!--   ⟪tracein ('step 4')⟫ -->
+<!-- } -->
+<!-- proc č❲g❳ { -->
+<!--   ⟪traceout ('step 4')⟫ -->
+<!-- } -->
+
+<!-- state ą❲idle❳ { -->
+<!--    on ➢❲start❳ { -->
+<!--      callproc č❲a❳ -->
+<!--      leave ą❲idle❳ -->
+<!--      begin ą❲step 1❳ -->
+<!--      next ą❲step 1❳ -->
+<!--    } -->
+<!--  } -->
+
+<!--  state ą❲step 1❳ { -->
+<!--    on ➢❲done₁❳ { -->
+<!--      callproc č❲b❳ -->
+<!--      leave ą❲step 1❳ -->
+<!--      begin ą❲step 2❳ -->
+<!--      next ą❲step 2❳ -->
+<!--    } -->
+<!--  } -->
+
+<!--  state ą❲step 2❳ { -->
+<!--    on ➢❲done₂❳ { -->
+<!--      callproc č❲c❳ -->
+<!--      leave ą❲step 2❳ -->
+<!--      begin ą❲step 3❳ -->
+<!--      next ą❲step 3❳ -->
+<!--    } -->
+<!--  } -->
+
+<!--  state ą❲step 3❳ { -->
+<!--    on ➢❲done₃❳ { -->
+<!--      callproc č❲d❳ -->
+<!--      leave ą❲step 3❳ -->
+<!--      begin ą❲step 4❳ -->
+<!--      next ą❲step 4❳ -->
+<!--    } -->
+<!--  } -->
+
+<!--  state ą❲step 4❳ { -->
+<!--    enter { callproc č❲f❳ } -->
+<!--    exit { callproc č❲g❳ } -->
+<!--    on ➢❲done₄❳ { -->
+<!--      callproc č❲e❳ -->
+<!--      leave ą❲step 4❳ -->
+<!--      begin ą❲idle❳ -->
+<!--      next ą❲idle❳ -->
+<!--    } -->
+<!--  } -->
+
+<!-- } -->
+<!-- </textarea> -->
+
 <p>source:</p>
 <textarea id="src" rows="7" cols="90" placeholder="src" style="background-color:oldlace;">
-signature ≈❲Copy Script❳ {
+signature ≈❲test script sequencer❳ {
   inputs {➢❲start❳ ➢❲done₁❳ ➢❲done₂❳ ➢❲done₃❳ ➢❲done₄❳}
   outputs {
-    ◦❲step₁❳ ◦❲notify₁❳
-    ◦❲step₂❳ ◦❲notify₂❳
-    ◦❲step₃❳ ◦❲notify₃❳
-    ◦❲step₄❳ ◦❲notify₄❳
     ◦❲done❳
   }
 }
 
-implementation ≈❲Copy Script❳ machine {
- start ą❲idle❳
-
- state ą❲idle❳ {
-   on ➢❲start❳ {
-     callproc č❲a❳
-   }
- }
-
- state ą❲step 1❳ {
-   on ➢❲done₁❳ {
-     callproc č❲b❳
-   }
- }
-
- state ą❲step 2❳ {
-   on ➢❲done₂❳ {
-     callproc č❲c❳
-   }
- }
-
- state ą❲step 3❳ {
-   on ➢❲done₃❳ {
-     callproc č❲d❳
-   }
- }
+implementation ≈❲test script sequencer❳ machine {
+ start ą❲step 4❳
 
  state ą❲step 4❳ {
+   enter { callproc č❲f❳ }
+   exit { callproc č❲g❳ }
    on ➢❲done₄❳ {
      callproc č❲e❳
    }
  }
 
-
-proc č❲a❳ {
-  ⟪send (self, 'step₁', True, message)⟫
-  ⟪send (self, 'notify₁', True, message)⟫
-}
-proc č❲b❳ {
-  ⟪send (self, 'step₂', True, message)⟫
-  ⟪send (self, 'notify₂', True, message)⟫
-}
-proc č❲c❳ {
-  ⟪send (self, 'step₃', True, message)⟫
-  ⟪send (self, 'notify₃', True, message)⟫
-}
-proc č❲d❳ {
-  ⟪send (self, 'step₄', True, message)⟫
-  ⟪send (self, 'notify₄', True, message)⟫
-}
-proc č❲e❳ {
-  ⟪send (self, 'done', True, message)⟫
-}
-
-
 }
 </textarea>
+
+
+
 
 <!-- <p>source:</p> -->
 <!-- <textarea id="src" rows="7" cols="90" placeholder="src" style="background-color:oldlace;"> -->
@@ -212,8 +263,8 @@ proc č❲e❳ {
 <p>output:</p>
 <textarea id="output" rows="15" cols="150" placeholder="transpiled"  readonly style="background-color:whitesmoke;">
 </textarea>
-<!-- <textarea id="temp" rows="15" cols="50" placeholder="transpiled"  readonly style="background-color:whitesmoke;"> -->
-<!-- </textarea> -->
+<textarea id="temp" rows="15" cols="50" placeholder="transpiled"  readonly style="background-color:whitesmoke;">
+</textarea>
 <br>
 <br>
 <p id="status" > READY </p>
@@ -305,6 +356,9 @@ StatementBlock = "{" Statement+ "}"
 Statement =
   | oVerbatim -- verbatim
   | "callproc" oProcedure -- callproc
+  | "leave" oState -- leave
+  | "begin" oState -- begin
+  | "next" oState -- next
 Func = "func" oFunction "{" Expression+ "}"
 Expression =
   | oVerbatimFunction -- verbatim
@@ -321,8 +375,7 @@ Component <: Routine {
 topLevel := applySyntactic<TopLevel>
 TopLevel = (Signature | MachineDeclaration | ContainerDeclaration | LeafDeclaration)*
 
-MachineDeclaration = "implementation" oPrototype "machine" "{" MachineInnards "}"
-MachineInnards = StartState State+ Proc*
+MachineDeclaration = "implementation" oPrototype "machine" "{" StartState Proc* State+ "}"
 StartState = "start" oState
 State = "state" oState "{" StateInnard+ "}"
 StateInnard =
@@ -331,7 +384,7 @@ StateInnard =
   | Transition
 Entry = "enter" StatementBlock
 Exit = "exit" StatementBlock
-Transition = Handler
+Transition = "on" oExplicitInput StatementBlock
 
 LeafDeclaration = "implementation" oPrototype "leaf" "{" Handler+ Proc* "}"
 Handler = "on" oExplicitInput StatementBlock
@@ -432,6 +485,9 @@ Proc [kproc oProcedure StatementBlock] =
 StatementBlock [lb @Statement rb] = [[~{Statement}]]
 Statement_verbatim [x] = [[\n~{x}]]
 Statement_callproc [k x] = [[\nself.~{x} ()]]
+Statement_leave [k statename] = [[\nself.exit ('~{statename}')]]
+Statement_begin [k statename] = [[\nself.enter ('~{statename}')]]
+Statement_next [k statename] = [[\nself.state = '~{statename}']]
 
 Func [kfunc oFunction lb @Expression rb] = [[~{kfunc}~{oFunction}~{lb}~{Expression}~{rb}]]
 Expression_verbatim [x] = [[~{x}]]
@@ -447,16 +503,30 @@ Expression_numberliteral [x] = [[~{x}]]
 topLevel [x] = [[~{x}]]
 TopLevel [@x] = [[~{x}]]
 
-MachineDeclaration [kimplementation oPrototype kmachine lb MachineInnards rb] =
-  [[~{kimplementation}~{oPrototype}~{kmachine}~{lb}~{MachineInnards}~{rb}]]
-MachineInnards [StartState @State @Proc] = [[~{StartState}~{State}~{Proc}]]
-StartState [kstart oState] = [[~{kstart}~{oState}]]
-State [kstate oState lb @StateInnard rb] = [[~{kstate}~{oState}~{lb}~{StateInnard}~{rb}]]
-StateInnard [x] = [[~{x}]]
 
-Entry [kenter StatementBlock] = [[~{kenter}~{StatementBlock}]]
-Exit [kexit StatementBlock] = [[~{kexit}~{StatementBlock}]]
-Transition [Handler] = [[~{Handler}]]
+
+MachineDeclaration [kimplementation oPrototype kmachine lb StartState @Proc @State rb] =
+{{
+   var name = _oPrototype._glue (); 
+   pushComponentName (name);
+   newMachine (name);
+}}
+[[(.class ~{oPrototype} (Machine):
+(.def __init__ (self, parent, name):
+super().__init__ (parent, name)~{StartState}.)~{Proc}~{State}
+~{machineStateHandler ()}~{popMachine ()}.)]]
+
+StartState [kstart oState] = [[\nself.state = '~{oState}']]
+State [kstate oState lb @StateInnard rb] = {{ statePushNew (); }} [[~{appendStateToMachine ()}~{statePop ()}]]
+StateInnard [x] = [[]]
+
+Entry [kenter StatementBlock] = [[~{appendEntry (StatementBlock)}]]
+Exit [kexit StatementBlock] = [[~{appendExit (StatementBlock)}]]
+Transition [kon oExplicitInput StatementBlock] = [[~{appendStateHandler (oExplicitInput, StatementBlock)}]]
+
+
+
+
 
 LeafDeclaration [kimplementation oPrototype kleaf lb @Handler @Proc rb] = 
 [[(.class ~{oPrototype} (Leaf):
@@ -536,7 +606,7 @@ ReceiveOutput [oSelf oExplicitOutput] = [[{'receiver':self, 'port':'~{oExplicitO
           //     let [success4, step4] = transpile1 (step3, peepholegrammar, peepholefmt, "peephole step");
           //     if (success4) {
           document.getElementById('status').innerHTML = "OK " + Date ();
-          //document.getElementById('temp').innerHTML = step;
+          document.getElementById('temp').innerHTML = step;
           document.getElementById('output').innerHTML = indenter (step);
           //     }
           // }
@@ -679,6 +749,74 @@ ReceiveOutput [oSelf oExplicitOutput] = [[{'receiver':self, 'port':'~{oExplicitO
           transpilerError (`component ${currentComponentName ()} has no signature`);
       }
   }
+
+  // state stack mechanisms
+  var stateStack = [];
+  function statePushNew (name) {
+      var obj = { 'name': name, 'entry':[], 'exit':[], 'stateHandler':[] };
+      stateStack.push (obj);
+      return '';
+  }
+  function statePop () {
+      stateStack.pop ();
+      return '';
+  }
+  function fetchTopState () {
+      var top = stateStack.pop ();
+      stateStack.push (top);
+      return top;
+  }
+  function appendEntry (s) {
+      var st = fetchTopState ();
+      st.entry.push (s);
+  }
+  function appendExit (s) {
+      var st = fetchTopState ();
+      st.exit.push (s);
+  }
+  function appendStateHandler (s) {
+      var st = fetchTopState ();
+      st.stateHandler.push (s);
+  }
+
+  // machine mechanisms
+  var machineStack = [];
+  var machineTable = {};
+  function newMachine (name) {
+      machineTable [name] = {'name':name, 'states':[]};
+      machineStack.push (name);
+      return '';
+  }
+  function popMachine () {
+      machineStack.pop ();
+      return '';
+  }
+  function fetchTopMachineName () {
+      var topname = machineStack.pop ();
+      machineStack.push (topname);
+      return topname;
+  }
+  function fetchTopMachine () {
+      var topname = fetchTopMachineName ();
+      var topmachine = machineTable [topname];
+      return topmachine;
+  }
+  function appendStateToMachine () {
+      var s = fetchTopState ();
+      var m = fetchTopMachine ();
+      m.states.push (s);
+      return '';
+  }
+  function machineStateHandler () {
+      var m = fetchTopMachine ();
+      var s = 'if (False):(.\npass.)';
+      m.states.forEach (st => {
+	  s += `\nelif (self.state == '${st.name}'):(.\nin_${st.name} (self, message).)`;
+      });
+      s += '\nelse:(.\npass.)';
+      return s;
+  }
+      
   
   function transpilerError (message) {
       errorMessages += '\n' + message;

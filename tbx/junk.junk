@@ -1,0 +1,27 @@
+
+ state ą❲step 1❳ {
+   on ➢❲done₁❳ {
+     callproc č❲b❳
+     leave ą❲step 1❳
+     begin ą❲step 2❳
+     next ą❲step 2❳
+   }
+ }
+
+ state ą❲step 2❳ {
+   on ➢❲done₂❳ {
+     callproc č❲c❳
+     leave ą❲step 2❳
+     begin ą❲step 3❳
+     next ą❲step 3❳
+   }
+ }
+
+ state ą❲step 3❳ {
+   on ➢❲done₃❳ {
+     callproc č❲d❳
+     leave ą❲step 3❳
+     begin ą❲step 4❳
+     next ą❲step 4❳
+   }
+ }
