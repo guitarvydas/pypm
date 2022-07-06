@@ -1,0 +1,25 @@
+
+<p>source:</p>
+<textarea id="src" rows="7" cols="90" placeholder="src" style="background-color:oldlace;">
+signature ≈❲test script sequencer❳ {
+  inputs {➢❲start❳ ➢❲done₁❳ ➢❲done₂❳ ➢❲done₃❳ ➢❲done₄❳}
+  outputs {
+    ◦❲done❳
+  }
+}
+
+implementation ≈❲test script sequencer❳ machine {
+ start ą❲step 4❳
+
+ state ą❲step 4❳ {
+   enter { callproc č❲f❳ }
+   exit { callproc č❲g❳ }
+   on ➢❲done₄❳ {
+     callproc č❲e❳
+   }
+ }
+
+}
+</textarea>
+
+

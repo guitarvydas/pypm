@@ -41,124 +41,99 @@ textarea {
 
 
 
-<!-- <p>source:</p> -->
-<!-- <textarea id="src" rows="7" cols="90" placeholder="src" style="background-color:oldlace;"> -->
-<!-- signature ≈❲script sequencer❳ { -->
-<!--   inputs {➢❲start❳ ➢❲done₁❳ ➢❲done₂❳ ➢❲done₃❳ ➢❲done₄❳} -->
-<!--   outputs { -->
-<!--     ◦❲step₁❳ ◦❲notify₁❳ -->
-<!--     ◦❲step₂❳ ◦❲notify₂❳ -->
-<!--     ◦❲step₃❳ ◦❲notify₃❳ -->
-<!--     ◦❲step₄❳ ◦❲notify₄❳ -->
-<!--     ◦❲done❳ -->
-<!--   } -->
-<!-- } -->
-
-<!-- implementation ≈❲script sequencer❳ machine { -->
-<!--  start ą❲idle❳ -->
-
-
-
-<!-- proc č❲a❳ { -->
-<!--   ⟪send (self, 'step₁', True, message)⟫ -->
-<!--   ⟪send (self, 'notify₁', True, message)⟫ -->
-<!-- } -->
-<!-- proc č❲b❳ { -->
-<!--   ⟪send (self, 'step₂', True, message)⟫ -->
-<!--   ⟪send (self, 'notify₂', True, message)⟫ -->
-<!-- } -->
-<!-- proc č❲c❳ { -->
-<!--   ⟪send (self, 'step₃', True, message)⟫ -->
-<!--   ⟪send (self, 'notify₃', True, message)⟫ -->
-<!-- } -->
-<!-- proc č❲d❳ { -->
-<!--   ⟪send (self, 'step₄', True, message)⟫ -->
-<!--   ⟪send (self, 'notify₄', True, message)⟫ -->
-<!-- } -->
-<!-- proc č❲e❳ { -->
-<!--   ⟪send (self, 'done', True, message)⟫ -->
-<!-- } -->
-<!-- proc č❲f❳ { -->
-<!--   ⟪tracein ('step 4')⟫ -->
-<!-- } -->
-<!-- proc č❲g❳ { -->
-<!--   ⟪traceout ('step 4')⟫ -->
-<!-- } -->
-
-<!-- state ą❲idle❳ { -->
-<!--    on ➢❲start❳ { -->
-<!--      callproc č❲a❳ -->
-<!--      leave ą❲idle❳ -->
-<!--      begin ą❲step 1❳ -->
-<!--      next ą❲step 1❳ -->
-<!--    } -->
-<!--  } -->
-
-<!--  state ą❲step 1❳ { -->
-<!--    on ➢❲done₁❳ { -->
-<!--      callproc č❲b❳ -->
-<!--      leave ą❲step 1❳ -->
-<!--      begin ą❲step 2❳ -->
-<!--      next ą❲step 2❳ -->
-<!--    } -->
-<!--  } -->
-
-<!--  state ą❲step 2❳ { -->
-<!--    on ➢❲done₂❳ { -->
-<!--      callproc č❲c❳ -->
-<!--      leave ą❲step 2❳ -->
-<!--      begin ą❲step 3❳ -->
-<!--      next ą❲step 3❳ -->
-<!--    } -->
-<!--  } -->
-
-<!--  state ą❲step 3❳ { -->
-<!--    on ➢❲done₃❳ { -->
-<!--      callproc č❲d❳ -->
-<!--      leave ą❲step 3❳ -->
-<!--      begin ą❲step 4❳ -->
-<!--      next ą❲step 4❳ -->
-<!--    } -->
-<!--  } -->
-
-<!--  state ą❲step 4❳ { -->
-<!--    enter { callproc č❲f❳ } -->
-<!--    exit { callproc č❲g❳ } -->
-<!--    on ➢❲done₄❳ { -->
-<!--      callproc č❲e❳ -->
-<!--      leave ą❲step 4❳ -->
-<!--      begin ą❲idle❳ -->
-<!--      next ą❲idle❳ -->
-<!--    } -->
-<!--  } -->
-
-<!-- } -->
-<!-- </textarea> -->
-
 <p>source:</p>
 <textarea id="src" rows="7" cols="90" placeholder="src" style="background-color:oldlace;">
-signature ≈❲test script sequencer❳ {
+signature ≈❲script sequencer❳ {
   inputs {➢❲start❳ ➢❲done₁❳ ➢❲done₂❳ ➢❲done₃❳ ➢❲done₄❳}
   outputs {
+    ◦❲step₁❳ ◦❲notify₁❳
+    ◦❲step₂❳ ◦❲notify₂❳
+    ◦❲step₃❳ ◦❲notify₃❳
+    ◦❲step₄❳ ◦❲notify₄❳
     ◦❲done❳
   }
 }
 
-implementation ≈❲test script sequencer❳ machine {
- start ą❲step 4❳
+implementation ≈❲script sequencer❳ machine {
+ start ą❲idle❳
+
+
+
+proc č❲a❳ {
+  ⟪send (self, 'step₁', True, message)⟫
+  ⟪send (self, 'notify₁', True, message)⟫
+}
+proc č❲b❳ {
+  ⟪send (self, 'step₂', True, message)⟫
+  ⟪send (self, 'notify₂', True, message)⟫
+}
+proc č❲c❳ {
+  ⟪send (self, 'step₃', True, message)⟫
+  ⟪send (self, 'notify₃', True, message)⟫
+}
+proc č❲d❳ {
+  ⟪send (self, 'step₄', True, message)⟫
+  ⟪send (self, 'notify₄', True, message)⟫
+}
+proc č❲e❳ {
+  ⟪send (self, 'done', True, message)⟫
+}
+proc č❲f❳ {
+  ⟪tracein ('step 4')⟫
+}
+proc č❲g❳ {
+  ⟪traceout ('step 4')⟫
+}
+
+state ą❲idle❳ {
+   on ➢❲start❳ {
+     callproc č❲a❳
+     leave ą❲idle❳
+     begin ą❲step 1❳
+     next ą❲step 1❳
+   }
+ }
+
+ state ą❲step 1❳ {
+   on ➢❲done₁❳ {
+     callproc č❲b❳
+     leave ą❲step 1❳
+     begin ą❲step 2❳
+     next ą❲step 2❳
+   }
+ }
+
+ state ą❲step 2❳ {
+   on ➢❲done₂❳ {
+     callproc č❲c❳
+     leave ą❲step 2❳
+     begin ą❲step 3❳
+     next ą❲step 3❳
+   }
+ }
+
+ state ą❲step 3❳ {
+   on ➢❲done₃❳ {
+     callproc č❲d❳
+     leave ą❲step 3❳
+     begin ą❲step 4❳
+     next ą❲step 4❳
+   }
+ }
 
  state ą❲step 4❳ {
    enter { callproc č❲f❳ }
    exit { callproc č❲g❳ }
    on ➢❲done₄❳ {
      callproc č❲e❳
+     leave ą❲step 4❳
+     begin ą❲idle❳
+     next ą❲idle❳
    }
  }
 
 }
 </textarea>
-
-
 
 
 <!-- <p>source:</p> -->
@@ -261,15 +236,14 @@ implementation ≈❲test script sequencer❳ machine {
 
 
 <p>output:</p>
-<textarea id="output" rows="15" cols="150" placeholder="transpiled"  readonly style="background-color:whitesmoke;">
+<textarea id="output" rows="20" cols="150" placeholder="transpiled"  readonly style="background-color:whitesmoke;">
 </textarea>
+<p id="status" > READY </p>
+<button onclick="transpile ()">Test</button>
+<br>
+<br>
 <textarea id="temp" rows="15" cols="50" placeholder="transpiled"  readonly style="background-color:whitesmoke;">
 </textarea>
-<br>
-<br>
-<p id="status" > READY </p>
-<br>
-<button onclick="transpile ()">Test</button>
 <!-- Ohm-JS -->
 <script src="https://unpkg.com/ohm-js@16/dist/ohm.min.js"></script>
 
@@ -518,9 +492,9 @@ super().__init__ (parent, name)~{StartState}.)~{Proc}~{State}
 
 StartState [kstart oState] = [[\nself.state = '~{oState}']]
 State [kstate oState lb @StateInnard rb] = {{ statePushNew (_oState._glue ()); }} [[~{appendStateToMachine ()}
-def entry_~{oState}:(.~{fetchTopEntryCode ()}.)
-def exit~{oState}:(.~{fetchTopExitCode ()}.)
-def in_~{oState}:(.~{fetchTopStateHandlerCode ()}.)
+def entry_~{oState}:(.\npass~{fetchTopEntryCode ()}.)
+def exit_~{oState}:(.\npass~{fetchTopExitCode ()}.)
+def in_~{oState}:(.\npass~{fetchTopStateHandlerCode ()}.)
 ~{statePop ()}]]
 StateInnard [x] = [[]]
 
@@ -842,11 +816,11 @@ ReceiveOutput [oSelf oExplicitOutput] = [[{'receiver':self, 'port':'~{oExplicitO
   }
   function machineStateHandler () {
       var m = fetchTopMachine ();
-      var s = 'if (False):(.\npass.)';
+      var s = 'def handler (self, message):(.\nif (False):(.\npass.)';
       m.states.forEach (st => {
 	  s += `\nelif (self.state == '${st.name}'):(.\nin_${st.name} (self, message).)`;
       });
-      s += '\nelse:(.\npass.)';
+      s += '\nelse:(.\npass.).)';
       return s;
   }
       
