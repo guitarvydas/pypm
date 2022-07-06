@@ -517,7 +517,11 @@ super().__init__ (parent, name)~{StartState}.)~{Proc}~{State}
 ~{machineStateHandler ()}~{popMachine ()}.)]]
 
 StartState [kstart oState] = [[\nself.state = '~{oState}']]
-State [kstate oState lb @StateInnard rb] = {{ statePushNew (); }} [[~{appendStateToMachine ()}~{statePop ()}]]
+State [kstate oState lb @StateInnard rb] = {{ statePushNew (_oState._glue ()); }} [[~{appendStateToMachine ()}
+def entry_~{oState}:(.~{fetchTopEntryCode ()}.)
+def exit~{oState}:(.~{fetchTopExitCode ()}.)
+def in_~{oState}:(.~{fetchTopStateHandlerCode ()}.)
+~{statePop ()}]]
 StateInnard [x] = [[]]
 
 Entry [kenter StatementBlock] = [[~{appendEntry (StatementBlock)}]]
@@ -774,10 +778,39 @@ ReceiveOutput [oSelf oExplicitOutput] = [[{'receiver':self, 'port':'~{oExplicitO
       var st = fetchTopState ();
       st.exit.push (s);
   }
-  function appendStateHandler (s) {
+  function appendStateHandler (port, s) {
       var st = fetchTopState ();
-      st.stateHandler.push (s);
+      st.stateHandler.push ({'port':port, 'line':s});
   }
+  function fetchTopEntryCode () {
+      var st = fetchTopState ();
+      var lines = st.entry;
+      var s = '';
+      lines.forEach (line => {
+	  s += line;
+      });
+      return s;
+  }
+  function fetchTopExitCode () {
+      var st = fetchTopState ();
+      var lines = st.exit;
+      var s = '';
+      lines.forEach (line => {
+	  s += line;
+      });
+      return s;
+  }
+  function fetchTopStateHandlerCode () {
+      var st = fetchTopState ();
+      var hobjs = st.stateHandler;
+      var s = '\nif (False):(.\npass.)';
+      hobjs.forEach (hobj => {
+	  s += `\nelif (message ['port'] == '${hobj.port}')(.:${hobj.line}.)`;
+      });
+      s += '\nelse:(.\npass.).)'
+      return s;
+  }
+  
 
   // machine mechanisms
   var machineStack = [];
