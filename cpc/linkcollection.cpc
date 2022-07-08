@@ -1,0 +1,47 @@
+import re
+import os
+
+signature ≈❲link collection❳ {
+  inputs {➢❲req next❳ ➢❲[append list]❳}
+  outputs {◦❲link❳ ◦❲no more❳}
+  }
+}
+
+implementation ≈❲generate file links sequencer❳ machine {
+  start ą❲idle❳
+
+  proc č❲a❳ {
+    ⟪self.links = self.links + message.data⟫
+  }
+
+  proc č❲b❳ {
+⟪
+if (0 >= len (self.links)):
+    self.send (self, 'no more', True, message)
+    self.nextState ('idle', 'appending')
+else:
+    link = self.links.pop (0)
+    self.send (self, 'link', link, message)
+⟫
+  }
+
+  proc č❲c❳ {
+    ⟪self.links = self.links + message.data⟫
+  }
+
+  state ą❲idle❳ {
+   on ➢❲[append list]❳ {
+     callproc č❲a❳
+     changeState ą❲idle❳ ą❲appending❳
+   }
+  }
+
+  state  ą❲appending❳ {
+   on ➢❲req next❳ {
+     callproc  č❲b❳
+   }
+   on ➢❲[append list]❳ {
+     callproc  č❲c❳
+   }
+  }
+ }

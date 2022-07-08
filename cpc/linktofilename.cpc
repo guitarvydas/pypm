@@ -1,0 +1,42 @@
+signature ≈❲loop❳ {
+  inputs {➢❲base directory❳ ➢❲suffix❳ ➢❲link❳}
+  outputs {◦❲filename❳ ◦❲error❳}
+  }
+}
+
+implementation ≈❲loop❳ leaf {
+
+        self.basedirectory = ''
+        self.suffix = ''
+
+  proc č❲a❳ {
+    ⟪ self.basedirectory = message.data + "/"⟫
+  }
+
+  proc č❲b❳ {
+    ⟪self.suffix = message.data⟫
+  }
+
+  proc č❲c❳ {
+      ⟪
+      name1 = re.sub (r'\[\[', '', message.data)
+      name2 = re.sub (r'\]\]', '', name1)
+      if (None != re.search (r'\.png$', name2)):
+	  name3 = self.basedirectory + '**/' + name2 # leave .png filenames alone, don't add suffix
+      else:
+	  name3 = self.basedirectory + '**/' + name2 + self.suffix
+      fnames = glob.glob (name3, recursive=True)
+      if (0 >= len (fnames)):
+	  errormessage = f'file not found /{name3}/'
+	  self.send (self, 'error', errormessage, message)
+	  # this is incomplete, need a StateChart to enclose all peer operations, that errors-out in this case
+	  raise Exception (f"LinkToFilename internal error '{errormessage}'")
+      else:
+	  self.send (self, 'filename', fnames [0], message)
+      ⟫
+  }
+
+  on ➢❲base directory❳ {callproc č❲a❳}
+  on ➢❲suffix❳ {callproc č❲b❳}
+  on ➢❲link❳ {callproc č❲c❳}
+}

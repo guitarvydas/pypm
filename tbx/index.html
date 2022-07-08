@@ -1,4 +1,4 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
 <style>
@@ -10,48 +10,121 @@ textarea {
 
 <h1>Component Transpiler to Python</h1>
 
-<!-- <p>source snippet:</p> -->
-<!-- <textarea id="src" rows="7" cols="90" placeholder="src" style="background-color:oldlace;"> -->
-<!-- signature ≈❲ls❳ { -->
-<!--   inputs {➢❲directory❳ ➢❲iterate❳} -->
-<!--   outputs {◦❲filename❳} -->
-<!-- } -->
 
-<!-- implementation ≈❲ls❳ leaf { -->
-<!--   on ➢❲directory❳ {callproc č❲a❳} -->
-<!--   on ➢❲iterate❳ {callproc č❲b❳} -->
+<p>source code : Leaf, Container, State Machine</p>
+<textarea id="leafsrc" rows="7" cols="50" placeholder="src" style="background-color:oldlace;">
+signature ≈❲ls❳ {
+  inputs {➢❲directory❳ ➢❲iterate❳}
+  outputs {◦❲filename❳}
+}
 
-<!-- proc č❲a❳ { -->
-<!--   ⟪self.dirname = message.data⟫ -->
-<!-- } -->
-<!-- proc č❲b❳ { -->
-<!--   ⟪ -->
-<!-- files = os.listdir (self.dirname) -->
-<!-- for fname in files: -->
-<!--     name = self.dirname + '/' + fname -->
-<!--     if (os.path.isfile (name)): -->
-<!--         self.send (self, 'filename', name, message) -->
-<!--     else: -->
-<!--         pass -->
-<!--   ⟫ -->
-<!-- } -->
+implementation ≈❲ls❳ leaf {
+  on ➢❲directory❳ {callproc č❲a❳}
+  on ➢❲iterate❳ {callproc č❲b❳}
 
-<!-- } -->
-<!-- </textarea> -->
+proc č❲a❳ {
+  ⟪self.dirname = message.data⟫
+}
+proc č❲b❳ {
+  ⟪
+files = os.listdir (self.dirname)
+for fname in files:
+    name = self.dirname + '/' + fname
+    if (os.path.isfile (name)):
+        self.send (self, 'filename', name, message)
+    else:
+        pass
+  ⟫
+}
 
+}
+</textarea>
 
+<textarea id="containersrc" rows="7" cols="50" placeholder="src" style="background-color:oldlace;">
+signature ≈❲Copy Script❳ {
+  inputs {➢❲start❳}
+  outputs {}
+}
 
-<p>source:</p>
-<textarea id="src" rows="7" cols="90" placeholder="src" style="background-color:oldlace;">
-signature ≈❲script sequencer❳ {
-  inputs {➢❲start❳ ➢❲done₁❳ ➢❲done₂❳ ➢❲done₃❳ ➢❲done₄❳}
-  outputs {
-    ◦❲step₁❳ ◦❲notify₁❳
-    ◦❲step₂❳ ◦❲notify₂❳
-    ◦❲step₃❳ ◦❲notify₃❳
-    ◦❲step₄❳ ◦❲notify₄❳
-    ◦❲done❳
+implementation ≈❲Copy Script❳ container {
+  constants {
+    įs❲out.test.md❳ 'out.test.md'
+    įs❲test.md❳ 'test.md'
+    įs❲/Users/tarvydas/Dropbox/ps❳ '/Users/tarvydas/Dropbox/ps'
+    įs❲.md❳ '.md'
+    įs❲manuscript❳ 'manuscript'
+    įs❲manuscript/resources❳ 'manuscript/resources'
+    įs❲pngfixed-❳ 'pngfixed-'
+    įs❲mdfixed-❳ 'mdfixed-'
   }
+  
+  initially {
+    š įs❲out.test.md❳                ⇨ ū❲n1❳
+    š įs❲test.md❳                    ⇨ ū❲n2❳
+    š įs❲/Users/tarvydas/Dropbox/ps❳ ⇨ ū❲n3❳
+    š įs❲.md❳                        ⇨ ū❲n4❳
+    š įs❲manuscript❳                 ⇨ ū❲n5❳
+    š įs❲manuscript/resources❳       ⇨ ū❲n6❳
+    š įs❲pngfixed-❳                  ⇨ ū❲n19❳
+    š įs❲mdfixed-❳                   ⇨ ū❲n20❳
+  }
+
+  children {
+    ž❲Script Sequencer❳ ≈❲Script Sequencer❳
+    ž❲Generate Links File❳ ≈❲Generate Links File❳
+    ž❲CopierWrapper❳ ≈❲Copier Wrapper❳
+    ž❲Fixup PNG Wrapper❳ ≈❲Fixup PNG Wrapper❳
+    ž❲Fixup MD Wrapper❳ ≈❲Fixup MD Wrapper❳
+  }
+  
+  nets {
+    ū❲n1❳ ū❲n2❳ ū❲n3❳ ū❲n4❳ ū❲n5❳ ū❲n6❳ ū❲n7❳ ū❲n8❳ ū❲n9❳ ū❲n10❳
+    ū❲n11❳ ū❲n12❳ ū❲n13❳ ū❲n14❳ ū❲n15❳ ū❲n16❳ ū❲n17❳ ū❲n18❳
+    ū❲n19❳ ū❲n20❳
+    ū❲n21❳
+  }
+  
+  senders {
+    š ➢❲start❳                           ⇨ ū❲n21❳
+
+    ž❲Script Sequencer❳ ◦❲step 1❳        ⇨ ū❲n7❳
+    ž❲Script Sequencer❳ ◦❲step 1 notify❳ ⇨ ū❲n8❳
+
+    ž❲Script Sequencer❳ ◦❲step 2❳        ⇨ ū❲n10❳
+    ž❲Script Sequencer❳ ◦❲step 2 notify❳ ⇨ ū❲n11❳
+
+    ž❲Script Sequencer❳ ◦❲step 3❳        ⇨ ū❲n13❳
+    ž❲Script Sequencer❳ ◦❲step 3 notify❳ ⇨ ū❲n14❳
+
+    ž❲Script Sequencer❳ ◦❲step 4❳        ⇨ ū❲n16❳
+    ž❲Script Sequencer❳ ◦❲step 4 notify❳ ⇨ ū❲n17❳
+  }
+  
+  receivers {
+    ū❲n1❳  ⇨ {ž❲Copier Wrapper❳ ➢❲filename❳}
+    ū❲n2❳  ⇨ {ž❲Generate Links File❳ ➢❲filename❳}
+    ū❲n3❳  ⇨ {ž❲Generate Links File❳ ➢❲base directory❳}
+    ū❲n4❳  ⇨ {ž❲Generate Links File❳ ➢❲suffix❳}
+    ū❲n5❳  ⇨ {ž❲Copier Wrapper❳ ➢❲md destination directory❳
+               ž❲Fixup MD Wrapper❳ ➢❲md destination directory❳}
+    ū❲n6❳  ⇨ {ž❲Copier Wrapper❳ ➢❲png destination directory❳
+               ž❲Fixup PNG Wrapper❳ ➢❲png destination directory❳}
+    ū❲n9❳  ⇨ {ž❲Script Sequencer❳ ➢❲done step 1❳}
+    ū❲n12❳ ⇨ {ž❲Script Sequencer❳ ➢❲done step 2❳}
+    ū❲n15❳ ⇨ {ž❲Script Sequencer❳ ➢❲done step 3❳}
+    ū❲n18❳ ⇨ {ž❲Script Sequencer❳ ➢❲done step 4❳}
+    ū❲n19❳ ⇨ {ž❲Fixup PNG Wrapper❳ ➢❲png fixed prefix❳}
+    ū❲n20❳ ⇨ {ž❲Fixup MD Wrapper❳ ➢❲md fixed prefix❳}
+  }
+  
+}
+</textarea>
+
+<textarea id="smsrc" rows="7" cols="60" placeholder="src" style="background-color:oldlace;">
+signature ≈❲script sequencer❳ {
+  inputs {➢❲start❳ ➢❲done₁❳ ➢❲done₂❳ ➢❲done₃❳ ➢❲done₄❳ }
+  outputs {◦❲step₁❳ ◦❲notify₁❳ ◦❲step₂❳ ◦❲notify₂❳
+    ◦❲step₃❳ ◦❲notify₃❳◦❲step₄❳ ◦❲notify₄❳ ◦❲done❳ }
 }
 
 implementation ≈❲script sequencer❳ machine {
@@ -136,86 +209,6 @@ state ą❲idle❳ {
 </textarea>
 
 
-<!-- <p>source:</p> -->
-<!-- <textarea id="src" rows="7" cols="90" placeholder="src" style="background-color:oldlace;"> -->
-<!-- signature ≈❲Copy Script❳ { -->
-<!--   inputs {➢❲start❳} -->
-<!--   outputs {} -->
-<!-- } -->
-
-<!-- implementation ≈❲Copy Script❳ container { -->
-<!--   constants { -->
-<!--     įs❲out.test.md❳ 'out.test.md' -->
-<!--     įs❲test.md❳ 'test.md' -->
-<!--     įs❲/Users/tarvydas/Dropbox/ps❳ '/Users/tarvydas/Dropbox/ps' -->
-<!--     įs❲.md❳ '.md' -->
-<!--     įs❲manuscript❳ 'manuscript' -->
-<!--     įs❲manuscript/resources❳ 'manuscript/resources' -->
-<!--     įs❲pngfixed-❳ 'pngfixed-' -->
-<!--     įs❲mdfixed-❳ 'mdfixed-' -->
-<!--   } -->
-  
-<!--   initially { -->
-<!--     š įs❲out.test.md❳                ⇨ ū❲n1❳ -->
-<!--     š įs❲test.md❳                    ⇨ ū❲n2❳ -->
-<!--     š įs❲/Users/tarvydas/Dropbox/ps❳ ⇨ ū❲n3❳ -->
-<!--     š įs❲.md❳                        ⇨ ū❲n4❳ -->
-<!--     š įs❲manuscript❳                 ⇨ ū❲n5❳ -->
-<!--     š įs❲manuscript/resources❳       ⇨ ū❲n6❳ -->
-<!--     š įs❲pngfixed-❳                  ⇨ ū❲n19❳ -->
-<!--     š įs❲mdfixed-❳                   ⇨ ū❲n20❳ -->
-<!--   } -->
-
-<!--   children { -->
-<!--     ž❲Script Sequencer❳ ≈❲Script Sequencer❳ -->
-<!--     ž❲Generate Links File❳ ≈❲Generate Links File❳ -->
-<!--     ž❲CopierWrapper❳ ≈❲Copier Wrapper❳ -->
-<!--     ž❲Fixup PNG Wrapper❳ ≈❲Fixup PNG Wrapper❳ -->
-<!--     ž❲Fixup MD Wrapper❳ ≈❲Fixup MD Wrapper❳ -->
-<!--   } -->
-  
-<!--   nets { -->
-<!--     ū❲n1❳ ū❲n2❳ ū❲n3❳ ū❲n4❳ ū❲n5❳ ū❲n6❳ ū❲n7❳ ū❲n8❳ ū❲n9❳ ū❲n10❳ -->
-<!--     ū❲n11❳ ū❲n12❳ ū❲n13❳ ū❲n14❳ ū❲n15❳ ū❲n16❳ ū❲n17❳ ū❲n18❳ -->
-<!--     ū❲n19❳ ū❲n20❳ -->
-<!--     ū❲n21❳ -->
-<!--   } -->
-  
-<!--   senders { -->
-<!--     š ➢❲start❳                           ⇨ ū❲n21❳ -->
-
-<!--     ž❲Script Sequencer❳ ◦❲step 1❳        ⇨ ū❲n7❳ -->
-<!--     ž❲Script Sequencer❳ ◦❲step 1 notify❳ ⇨ ū❲n8❳ -->
-
-<!--     ž❲Script Sequencer❳ ◦❲step 2❳        ⇨ ū❲n10❳ -->
-<!--     ž❲Script Sequencer❳ ◦❲step 2 notify❳ ⇨ ū❲n11❳ -->
-
-<!--     ž❲Script Sequencer❳ ◦❲step 3❳        ⇨ ū❲n13❳ -->
-<!--     ž❲Script Sequencer❳ ◦❲step 3 notify❳ ⇨ ū❲n14❳ -->
-
-<!--     ž❲Script Sequencer❳ ◦❲step 4❳        ⇨ ū❲n16❳ -->
-<!--     ž❲Script Sequencer❳ ◦❲step 4 notify❳ ⇨ ū❲n17❳ -->
-<!--   } -->
-  
-<!--   receivers { -->
-<!--     ū❲n1❳  ⇨ {ž❲Copier Wrapper❳ ➢❲filename❳} -->
-<!--     ū❲n2❳  ⇨ {ž❲Generate Links File❳ ➢❲filename❳} -->
-<!--     ū❲n3❳  ⇨ {ž❲Generate Links File❳ ➢❲base directory❳} -->
-<!--     ū❲n4❳  ⇨ {ž❲Generate Links File❳ ➢❲suffix❳} -->
-<!--     ū❲n5❳  ⇨ {ž❲Copier Wrapper❳ ➢❲md destination directory❳ -->
-<!--                ž❲Fixup MD Wrapper❳ ➢❲md destination directory❳} -->
-<!--     ū❲n6❳  ⇨ {ž❲Copier Wrapper❳ ➢❲png destination directory❳ -->
-<!--                ž❲Fixup PNG Wrapper❳ ➢❲png destination directory❳} -->
-<!--     ū❲n9❳  ⇨ {ž❲Script Sequencer❳ ➢❲done step 1❳} -->
-<!--     ū❲n12❳ ⇨ {ž❲Script Sequencer❳ ➢❲done step 2❳} -->
-<!--     ū❲n15❳ ⇨ {ž❲Script Sequencer❳ ➢❲done step 3❳} -->
-<!--     ū❲n18❳ ⇨ {ž❲Script Sequencer❳ ➢❲done step 4❳} -->
-<!--     ū❲n19❳ ⇨ {ž❲Fixup PNG Wrapper❳ ➢❲png fixed prefix❳} -->
-<!--     ū❲n20❳ ⇨ {ž❲Fixup MD Wrapper❳ ➢❲md fixed prefix❳} -->
-<!--   } -->
-  
-<!-- } -->
-<!-- </textarea> -->
 
 <!-- <p>source:</p> -->
 <!-- <textarea id="src" rows="7" cols="90" placeholder="src" style="background-color:oldlace;"> -->
@@ -235,15 +228,24 @@ state ą❲idle❳ {
 <!-- </textarea> -->
 
 
-<p>output:</p>
-<textarea id="output" rows="20" cols="150" placeholder="transpiled"  readonly style="background-color:whitesmoke;">
+<p>Python output for: Leaf, Container, State Machine</p>
+<textarea id="leafoutput" rows="20" cols="55" placeholder="transpiled"  readonly style="background-color:whitesmoke;">
 </textarea>
+
+<textarea id="containeroutput" rows="20" cols="55" placeholder="transpiled"  readonly style="background-color:whitesmoke;">
+</textarea>
+
+<textarea id="smoutput" rows="20" cols="55" placeholder="transpiled"  readonly style="background-color:whitesmoke;">
+</textarea>
+
+
 <p id="status" > READY </p>
 <button onclick="transpile ()">Test</button>
 <br>
 <br>
-<textarea id="temp" rows="15" cols="50" placeholder="transpiled"  readonly style="background-color:whitesmoke;">
-</textarea>
+<!-- <textarea id="temp" rows="15" cols="50" placeholder="transpiled"  readonly style="background-color:whitesmoke;"> -->
+<!-- </textarea> -->
+
 <!-- Ohm-JS -->
 <script src="https://unpkg.com/ohm-js@16/dist/ohm.min.js"></script>
 
@@ -492,8 +494,13 @@ super().__init__ (parent, name)~{StartState}.)~{Proc}~{State}
 
 StartState [kstart oState] = [[\nself.state = '~{oState}']]
 State [kstate oState lb @StateInnard rb] = {{ statePushNew (_oState._glue ()); }} [[~{appendStateToMachine ()}
-def entry_~{oState}:(.\npass~{fetchTopEntryCode ()}.)
-def exit_~{oState}:(.\npass~{fetchTopExitCode ()}.)
+???? def entry_~{oState}:(.\npass~{fetchTopEntryCode ()}.)
+
+???? need recursive exit
+???? change state <from> <to>
+
+???? def exit_~{oState}:(.\npass~{fetchTopExitCode ()}.)
+
 def in_~{oState}:(.\npass~{fetchTopStateHandlerCode ()}.)
 ~{statePop ()}]]
 StateInnard [x] = [[]]
@@ -572,28 +579,55 @@ ReceiveOutput [oSelf oExplicitOutput] = [[{'receiver':self, 'port':'~{oExplicitO
   var transpileSuccess;
   var errorMessages = '';
   
-  function transpile () {
+  function transpileLeaf () {
       transpileSuccess = true;
-      let src = document.getElementById('src').value;
-      let [success, step] = transpile1 (src, grammar, fmt, "component identity step");
+      let leafsrc = document.getElementById('leafsrc').value;
+      let [success, step] = transpile1 (leafsrc, grammar, fmt, "transpile Leaf");
       transpileSuccess &&= success;
       if (transpileSuccess) {
-          // // skip step2, the step2 identity transpiler was used for development of step3
-          // let [success3, step3] = transpile1 (step1, nl2jsgrammar, nl2jsfmt, "transpilation step");
-          // if (success3) {
-          //     let [success4, step4] = transpile1 (step3, peepholegrammar, peepholefmt, "peephole step");
-          //     if (success4) {
           document.getElementById('status').innerHTML = "OK " + Date ();
-          document.getElementById('temp').innerHTML = step;
-          document.getElementById('output').innerHTML = indenter (step);
-          //     }
-          // }
+          document.getElementById('leafoutput').innerHTML = indenter (step);
       } else {
-          document.getElementById('output').innerHTML = errorMessages;
+          document.getElementById('leafoutput').innerHTML = errorMessages;
       }
   }
 
-  // support routines
+  function transpileContainer () {
+      transpileSuccess = true;
+      let containersrc = document.getElementById('containersrc').value;
+      let [success, step] = transpile1 (containersrc, grammar, fmt, "transpile Container");
+      transpileSuccess &&= success;
+      if (transpileSuccess) {
+          document.getElementById('status').innerHTML = "OK " + Date ();
+          document.getElementById('containeroutput').innerHTML = indenter (step);
+      } else {
+          document.getElementById('containeroutput').innerHTML = errorMessages;
+      }
+  }
+
+  function transpileStateMachine () {
+      transpileSuccess = true;
+      let smsrc = document.getElementById('smsrc').value;
+      let [success, step] = transpile1 (smsrc, grammar, fmt, "transpile State Machine");
+      transpileSuccess &&= success;
+      if (transpileSuccess) {
+          document.getElementById('status').innerHTML = "OK " + Date ();
+          document.getElementById('smoutput').innerHTML = indenter (step);
+      } else {
+          document.getElementById('smoutput').innerHTML = errorMessages;
+      }
+  }
+  
+  function transpile () {
+      transpileLeaf ();
+      transpileContainer ();
+      transpileStateMachine ();
+  }
+
+
+  
+
+  // Support routines and Mechanisms
   function PYNAME (s) {
       return s
           .replace (/ /g,'_')
@@ -602,6 +636,46 @@ ReceiveOutput [oSelf oExplicitOutput] = [[{'receiver':self, 'port':'~{oExplicitO
           .replace (/-/g, 'DA')
   }
 
+  // pseudo Python to Python re-formatter
+  function indenter (str) {
+      let result = '';
+      str.split ('\n').forEach (line => {
+          let s = indent1 (line);
+          result += '\n' + s;
+      });
+      return result;
+  }
+  let indentation = [];
+  // we emit code using bracketed notation (. and .) which is compatible
+  // lisp pretty-printing, which allows easier debugging of the transpiled code
+  // then, for Python, we convert the bracketing into indentation...
+  function indent1 (s) {
+      let opens = (s.match (/\(\./g) || []).length;
+      let closes = (s.match (/\.\)/g) || []).length;
+      let r0 = s.trim ();
+      let r1 = r0.replace (/\(\./g, '');
+      let r2 = r1.replace (/\.\)/g, '');
+      let spaces = indentation.join ('');
+      let r  = spaces + r2.replace (/\n/g, spaces);
+      let diff = opens - closes;
+      if (diff > 0) {
+          while (diff > 0) {
+              indentation.push ('  ');
+              diff -=1;
+          }
+      } else {
+          while (diff < 0) {
+              indentation.pop ();
+              diff += 1;
+          }
+      }
+      return r;
+  }
+
+
+  // Mechanisms
+
+  // Handler mechanism
   let handlercode = '';
   function handlerappend (s) {
       handlercode += s;
@@ -631,42 +705,8 @@ ReceiveOutput [oSelf oExplicitOutput] = [[{'receiver':self, 'port':'~{oExplicitO
       return s;
   }
 
-  let indentation = [];
-  // we emit code using bracketed notation (. and .) which is compatible
-  // lisp pretty-printing, which allows easier debugging of the transpiled code
-  // then, for Python, we convert the bracketing into indentation...
-  function indent1 (s) {
-      let opens = (s.match (/\(\./g) || []).length;
-      let closes = (s.match (/\.\)/g) || []).length;
-      let r0 = s.trim ();
-      let r1 = r0.replace (/\(\./g, '');
-      let r2 = r1.replace (/\.\)/g, '');
-      let spaces = indentation.join ('');
-      let r  = spaces + r2.replace (/\n/g, spaces);
-      let diff = opens - closes;
-      if (diff > 0) {
-          while (diff > 0) {
-              indentation.push ('  ');
-              diff -=1;
-          }
-      } else {
-          while (diff < 0) {
-              indentation.pop ();
-              diff += 1;
-          }
-      }
-      return r;
-  }
 
-  function indenter (str) {
-      let result = '';
-      str.split ('\n').forEach (line => {
-          let s = indent1 (line);
-          result += '\n' + s;
-      });
-      return result;
-  }
-
+  // Component Stack mechanism
   let componentNameStack = [];
   let componentTable = {};
   function newComponent (name) {
@@ -728,7 +768,7 @@ ReceiveOutput [oSelf oExplicitOutput] = [[{'receiver':self, 'port':'~{oExplicitO
       }
   }
 
-  // state stack mechanisms
+  // State Stack mechanism
   var stateStack = [];
   function statePushNew (name) {
       var obj = { 'name': name, 'entry':[], 'exit':[], 'stateHandler':[] };
@@ -786,7 +826,7 @@ ReceiveOutput [oSelf oExplicitOutput] = [[{'receiver':self, 'port':'~{oExplicitO
   }
   
 
-  // machine mechanisms
+  // Machine Stack and Machine Table mechanisms
   var machineStack = [];
   var machineTable = {};
   function newMachine (name) {

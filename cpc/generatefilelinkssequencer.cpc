@@ -1,0 +1,47 @@
+signature ≈❲generate file links sequencer❳ {
+  inputs {➢❲filename❳ ➢❲no more❳}
+  outputs {◦❲output filename❳ ◦❲clear❳ ◦❲input filename❳ ◦❲done❳}
+  }
+}
+
+implementation ≈❲generate file links sequencer❳ machine {
+  start ą❲idle❳
+
+  proc č❲a❳ {
+    ⟪send (self, 'output filename', message.data, message)⟫
+    ⟪send (self, 'clear', True, message)⟫
+  }
+  proc č❲b❳ {
+    ⟪send (self, 'output filename', message.data, message)⟫
+  }
+  proc č❲c❳ {
+    ⟪send (self, 'done', True, message)⟫
+  }
+
+  state ą❲idle❳ {
+   on ➢❲start❳ {
+     callproc č❲a❳
+     leave ą❲idle❳
+     begin ą❲fetching❳
+     next ą❲fetching❳
+   }
+ }
+
+ state ą❲fetching❳ {
+   enter {
+     callproc č❲b❳
+   }
+   on ➢❲file name❳ {
+     leave ą❲fetching❳
+     begin ą❲fetching❳
+     next ą❲fetching❳
+   }
+   on ➢❲no more❳ {
+     callproc č❲c❳
+     leave ą❲fetching❳
+     begin ą❲idle❳
+     next ą❲idle❳
+   }
+ }
+
+}

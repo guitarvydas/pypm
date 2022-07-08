@@ -1,0 +1,14 @@
+signature ≈❲loop❳ {
+  inputs {➢❲any❳}
+  outputs {◦❲trigger❳}
+  }
+}
+
+implementation ≈❲loop❳ leaf {
+  proc č❲a❳ {
+    ⟪self.send (self, 'trigger', True, message)⟫
+  }
+
+  on ➢❲any❳ {callproc č❲a❳}
+
+}

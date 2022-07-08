@@ -1,0 +1,15 @@
+signature ≈❲Omit Code Quotes❳ {
+  inputs {➢❲text❳}
+  outputs {◦❲text❳}
+  }
+}
+
+implementation ≈❲Omit Code Quotes❳ leaf {
+  proc č❲a❳ {
+    ⟪result = re.sub (r'\#.*\n', '\n', message.data)⟫
+    ⟪self.send (self, 'text', result, message)⟫
+  }
+
+  on ➢❲text❳ {callproc č❲a❳}
+
+}

@@ -1,0 +1,90 @@
+signature ≈❲script sequencer❳ {
+  inputs {➢❲start❳ ➢❲done₁❳ ➢❲done₂❳ ➢❲done₃❳ ➢❲done₄❳}
+  outputs {
+    ◦❲step₁❳ ◦❲notify₁❳
+    ◦❲step₂❳ ◦❲notify₂❳
+    ◦❲step₃❳ ◦❲notify₃❳
+    ◦❲step₄❳ ◦❲notify₄❳
+    ◦❲done❳
+  }
+}
+
+implementation ≈❲script sequencer❳ machine {
+ start ą❲idle❳
+
+
+
+proc č❲a❳ {
+  ⟪send (self, 'step₁', True, message)⟫
+  ⟪send (self, 'notify₁', True, message)⟫
+}
+proc č❲b❳ {
+  ⟪send (self, 'step₂', True, message)⟫
+  ⟪send (self, 'notify₂', True, message)⟫
+}
+proc č❲c❳ {
+  ⟪send (self, 'step₃', True, message)⟫
+  ⟪send (self, 'notify₃', True, message)⟫
+}
+proc č❲d❳ {
+  ⟪send (self, 'step₄', True, message)⟫
+  ⟪send (self, 'notify₄', True, message)⟫
+}
+proc č❲e❳ {
+  ⟪send (self, 'done', True, message)⟫
+}
+proc č❲f❳ {
+  ⟪tracein ('step 4')⟫
+}
+proc č❲g❳ {
+  ⟪traceout ('step 4')⟫
+}
+
+state ą❲idle❳ {
+   on ➢❲start❳ {
+     callproc č❲a❳
+     leave ą❲idle❳
+     begin ą❲step 1❳
+     next ą❲step 1❳
+   }
+ }
+
+ state ą❲step 1❳ {
+   on ➢❲done₁❳ {
+     callproc č❲b❳
+     leave ą❲step 1❳
+     begin ą❲step 2❳
+     next ą❲step 2❳
+   }
+ }
+
+ state ą❲step 2❳ {
+   on ➢❲done₂❳ {
+     callproc č❲c❳
+     leave ą❲step 2❳
+     begin ą❲step 3❳
+     next ą❲step 3❳
+   }
+ }
+
+ state ą❲step 3❳ {
+   on ➢❲done₃❳ {
+     callproc č❲d❳
+     leave ą❲step 3❳
+     begin ą❲step 4❳
+     next ą❲step 4❳
+   }
+ }
+
+ state ą❲step 4❳ {
+   enter { callproc č❲f❳ }
+   exit { callproc č❲g❳ }
+   on ➢❲done₄❳ {
+     callproc č❲e❳
+     leave ą❲step 4❳
+     begin ą❲idle❳
+     next ą❲idle❳
+   }
+ }
+
+}
