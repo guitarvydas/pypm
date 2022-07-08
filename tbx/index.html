@@ -210,39 +210,37 @@ state ą❲idle❳ {
 
 
 
-<!-- <p>source:</p> -->
-<!-- <textarea id="src" rows="7" cols="90" placeholder="src" style="background-color:oldlace;"> -->
-<!-- signature ≈❲Omit Comments❳ { -->
-<!--   inputs {➢❲text❳} -->
-<!--   outputs {◦❲text❳} -->
-<!-- } -->
-
-<!-- implementation ≈❲Omit Comments❳ leaf { -->
-<!--   on ➢❲text❳ {callproc č❲a❳} -->
-
-<!-- proc č❲a❳ { -->
-<!-- ⟪result = re.sub (r'\#.*\n', '\n', message.data) -->
-<!-- self.send (self, 'text', result, message)⟫ -->
-<!--   } -->
-<!-- } -->
-<!-- </textarea> -->
-
-
-<p>Python output for: Leaf, Container, State Machine</p>
-<textarea id="leafoutput" rows="20" cols="55" placeholder="transpiled"  readonly style="background-color:whitesmoke;">
-</textarea>
-
-<textarea id="containeroutput" rows="20" cols="55" placeholder="transpiled"  readonly style="background-color:whitesmoke;">
-</textarea>
-
-<textarea id="smoutput" rows="20" cols="55" placeholder="transpiled"  readonly style="background-color:whitesmoke;">
-</textarea>
-
 
 <p id="status" > READY </p>
 <button onclick="transpile ()">Test</button>
 <br>
 <br>
+
+<p>Python output for: Leaf, State Machine, Container</p>
+<textarea id="leafoutput" rows="20" cols="55" placeholder="transpiled"  readonly style="background-color:whitesmoke;">
+</textarea>
+
+<textarea id="smoutput" rows="20" cols="55" placeholder="transpiled"  readonly style="background-color:whitesmoke;">
+</textarea>
+
+<textarea id="containeroutput" rows="20" cols="150" placeholder="transpiled"  readonly style="background-color:whitesmoke;">
+</textarea>
+
+<br>
+<br>
+<br>
+<hr>
+
+<p>debug output for: Leaf, State Machine, Container</p>
+<textarea id="dbleafoutput" rows="20" cols="55" placeholder="transpiled"  readonly style="background-color:whitesmoke;">
+</textarea>
+
+<textarea id="dbsmoutput" rows="20" cols="55" placeholder="transpiled"  readonly style="background-color:whitesmoke;">
+</textarea>
+
+<textarea id="dbcontaineroutput" rows="20" cols="150" placeholder="transpiled"  readonly style="background-color:whitesmoke;">
+</textarea>
+
 <!-- <textarea id="temp" rows="15" cols="50" placeholder="transpiled"  readonly style="background-color:whitesmoke;"> -->
 <!-- </textarea> -->
 
@@ -490,17 +488,13 @@ MachineDeclaration [kimplementation oPrototype kmachine lb StartState @Proc @Sta
 [[(.class ~{oPrototype} (Machine):
 (.def __init__ (self, parent, name):
 super().__init__ (parent, name)~{StartState}.)~{Proc}~{State}
-~{machineStateHandler ()}~{popMachine ()}.)]]
+~{machineStateHandler ()}~{popMachine ()}
+.)]]
 
 StartState [kstart oState] = [[\nself.state = '~{oState}']]
 State [kstate oState lb @StateInnard rb] = {{ statePushNew (_oState._glue ()); }} [[~{appendStateToMachine ()}
-???? def entry_~{oState}:(.\npass~{fetchTopEntryCode ()}.)
-
-???? need recursive exit
-???? change state <from> <to>
-
-???? def exit_~{oState}:(.\npass~{fetchTopExitCode ()}.)
-
+def entry_~{oState}:(.\npass~{fetchTopEntryCode ()}.)
+def exit_~{oState}:(.\npass~{fetchTopExitCode ()}.)
 def in_~{oState}:(.\npass~{fetchTopStateHandlerCode ()}.)
 ~{statePop ()}]]
 StateInnard [x] = [[]]
@@ -587,6 +581,7 @@ ReceiveOutput [oSelf oExplicitOutput] = [[{'receiver':self, 'port':'~{oExplicitO
       if (transpileSuccess) {
           document.getElementById('status').innerHTML = "OK " + Date ();
           document.getElementById('leafoutput').innerHTML = indenter (step);
+          document.getElementById('dbleafoutput').innerHTML = step;
       } else {
           document.getElementById('leafoutput').innerHTML = errorMessages;
       }
@@ -600,6 +595,7 @@ ReceiveOutput [oSelf oExplicitOutput] = [[{'receiver':self, 'port':'~{oExplicitO
       if (transpileSuccess) {
           document.getElementById('status').innerHTML = "OK " + Date ();
           document.getElementById('containeroutput').innerHTML = indenter (step);
+          document.getElementById('dbcontaineroutput').innerHTML = step;
       } else {
           document.getElementById('containeroutput').innerHTML = errorMessages;
       }
@@ -613,12 +609,14 @@ ReceiveOutput [oSelf oExplicitOutput] = [[{'receiver':self, 'port':'~{oExplicitO
       if (transpileSuccess) {
           document.getElementById('status').innerHTML = "OK " + Date ();
           document.getElementById('smoutput').innerHTML = indenter (step);
+          document.getElementById('dbsmoutput').innerHTML = step;
       } else {
           document.getElementById('smoutput').innerHTML = errorMessages;
       }
   }
   
   function transpile () {
+      reset ();
       transpileLeaf ();
       transpileContainer ();
       transpileStateMachine ();
@@ -638,6 +636,7 @@ ReceiveOutput [oSelf oExplicitOutput] = [[{'receiver':self, 'port':'~{oExplicitO
 
   // pseudo Python to Python re-formatter
   function indenter (str) {
+      indentation = [];
       let result = '';
       str.split ('\n').forEach (line => {
           let s = indent1 (line);
@@ -645,6 +644,7 @@ ReceiveOutput [oSelf oExplicitOutput] = [[{'receiver':self, 'port':'~{oExplicitO
       });
       return result;
   }
+
   let indentation = [];
   // we emit code using bracketed notation (. and .) which is compatible
   // lisp pretty-printing, which allows easier debugging of the transpiled code
@@ -677,6 +677,9 @@ ReceiveOutput [oSelf oExplicitOutput] = [[{'receiver':self, 'port':'~{oExplicitO
 
   // Handler mechanism
   let handlercode = '';
+  function resetHandlerMechanism () {
+      handlercode = '';
+  }
   function handlerappend (s) {
       handlercode += s;
       return '';
@@ -709,6 +712,11 @@ ReceiveOutput [oSelf oExplicitOutput] = [[{'receiver':self, 'port':'~{oExplicitO
   // Component Stack mechanism
   let componentNameStack = [];
   let componentTable = {};
+  function resetComponentMechanism () {
+      componentNameStack = [];
+      componentTable = {};
+  }
+  
   function newComponent (name) {
       let existing = componentTable [name];
       if (existing) {
@@ -770,6 +778,10 @@ ReceiveOutput [oSelf oExplicitOutput] = [[{'receiver':self, 'port':'~{oExplicitO
 
   // State Stack mechanism
   var stateStack = [];
+  function resetStateMechanism () {
+      stateStack = [];
+  }
+
   function statePushNew (name) {
       var obj = { 'name': name, 'entry':[], 'exit':[], 'stateHandler':[] };
       stateStack.push (obj);
@@ -829,6 +841,11 @@ ReceiveOutput [oSelf oExplicitOutput] = [[{'receiver':self, 'port':'~{oExplicitO
   // Machine Stack and Machine Table mechanisms
   var machineStack = [];
   var machineTable = {};
+  function resetMachineMechanism () {
+      machineStack = [];
+      machineTable = {};
+  }
+
   function newMachine (name) {
       machineTable [name] = {'name':name, 'states':[]};
       machineStack.push (name);
@@ -863,7 +880,14 @@ ReceiveOutput [oSelf oExplicitOutput] = [[{'receiver':self, 'port':'~{oExplicitO
       s += '\nelse:(.\npass.).)';
       return s;
   }
-      
+
+
+  function reset () {
+      resetHandlerMechanism ();
+      resetComponentMechanism ();
+      resetStateMechanism ();
+      resetMachineMechanism ();
+  }
   
   function transpilerError (message) {
       errorMessages += '\n' + message;
