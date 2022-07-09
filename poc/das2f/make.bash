@@ -30,7 +30,7 @@ echo '-- layer5_query.bash generated --' 1>&2
 # $sqd $root $here/setquerydisplay preprocessed_direct_contains  --prefix="$here/" >layer6_query.bash
 # chmod a+x layer6_query.bash
 # echo '-- layer6_query.bash generated --' 1>&2
-echo '-- layer6_query.bash used as is --' 1>&2
+echo '-- layer6_query.bash as is --' 1>&2
 
 
 $prep '#+ query ' '#+ ' implicitforall.ohm implicitforall.glue  --support=$here/implicitforall.support.js <contains_edge1.md >preprocessed_contains_edge1.md

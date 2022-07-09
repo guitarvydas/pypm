@@ -12,9 +12,9 @@ class _build (mpos.Leaf):
         self.outputs=['quit']
     def react (self, inputMessage):
         import subprocess
-        r = subprocess.run (["make", "helloworld.json"])
+        r = subprocess.run (["make", "helloworld.py"])
         if (r.returncode != 0):
-            self.send ("quit", f"error {r} in make helloworld.json")
+            self.send ("quit", f"error {r} in make helloworld.py")
         
         
         return super ().react (inputMessage)

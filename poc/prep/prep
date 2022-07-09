@@ -11,12 +11,10 @@ var stop;
 
 
 var viewGeneratedCode = false;
-var tracing = false;
 var traceDepth;
 
 var ohm = require ('ohm-js');
 var support;
-var fmt;
 
 const glueGrammar =
       String.raw`
@@ -165,14 +163,8 @@ return _result;
 };
 
 
-function ohm_parse (maybeMultipleGrammars, grammar, text, errorMessage) {
-    var parser;
-    if (maybeMultipleGrammars && argv.grammarname) {
-	var grammars = ohm.grammars (grammar);
-	parser = grammars [argv.grammarname];
-    } else {
-	parser = ohm.grammar (grammar);
-    }
+function ohm_parse (grammar, text, errorMessage) {
+    var parser = ohm.grammar (grammar);
     var cst = parser.match (text);
     if (cst.succeeded ()) {
 	return { parser: parser, cst: cst };
@@ -180,17 +172,15 @@ function ohm_parse (maybeMultipleGrammars, grammar, text, errorMessage) {
 	// console.error (parser.trace (text).toString ());
 	// console.error (text.length);
 	// console.error ("/" + text + "/");
-	// or ... 
-	if (argv.errorview) {
-	    console.error (text);
-	}
+	// or ... console.error (text);
 	var pos = cst._rightmostFailurePosition;
+	console.error ("FAIL: at position " + pos.toString () + " " + errorMessage);
 	throw ("FAIL: at position " + pos.toString () + " " + errorMessage);
     }
 }
 
-function transpiler (maybeMultipleGrammars, scnText, grammar, semOperation, semanticsObject, errorMessage) {
-    var { parser, cst } = ohm_parse (maybeMultipleGrammars, grammar, scnText, errorMessage);
+function transpiler (scnText, grammar, semOperation, semanticsObject, errorMessage) {
+    var { parser, cst } = ohm_parse (grammar, scnText, errorMessage);
     var sem = {};
     try {
 	if (cst.succeeded ()) {
@@ -199,18 +189,12 @@ function transpiler (maybeMultipleGrammars, scnText, grammar, semOperation, sema
 	    let result = sem (cst)[semOperation]();
 	    return result;
 	} else {
+	    console.error ("fail: " + " " + errorMessage);
 	    throw ("fail: " + " " + errorMessage);
 	}
     } catch (err) {
 	throw err;
     }
-}
-function gluetranspiler (scnText, grammar, semOperation, semanticsObject, errorMessage) {
-    return transpiler(false, scnText, grammar, semOperation, semanticsObject, errorMessage);
-}
-
-function inputtranspiler (scnText, grammar, semOperation, semanticsObject, errorMessage) {
-    return transpiler(true, scnText, grammar, semOperation, semanticsObject, errorMessage);
 }
 
 
@@ -229,7 +213,7 @@ function traceSpaces () {
 }
 
 function _ruleEnter (ruleName) {
-    if (tracing) {
+    if (argv.trace) {
 	traceDepth += 1;
 	traceSpaces ();
 	process.stderr.write("enter: ");
@@ -239,7 +223,7 @@ function _ruleEnter (ruleName) {
 }
 
 function _ruleExit (ruleName) {
-    if (tracing) {
+    if (argv.trace) {
 	traceSpaces ();
 	traceDepth -= 1;
 	process.stderr.write("exit: "); 
@@ -249,10 +233,10 @@ function _ruleExit (ruleName) {
 }
 
 
-function execTranspiler (source, grammar, semantics, errorMessage, srcFilename, glueFilename) {
+function execTranspiler (source, grammar, semantics, errorMessage) {
     // first pass - transpile glue code to javascript
     try {
-	let generatedSCNSemantics = gluetranspiler (semantics, glueGrammar, "_glue", glueSemantics, "in FORMAT specification: " + glueFilename);
+	let generatedSCNSemantics = transpiler (semantics, glueGrammar, "_glue", glueSemantics, "in glue specification " + errorMessage);
     _ruleInit();
 	try {
 	    if (viewGeneratedCode) {
@@ -262,7 +246,7 @@ function execTranspiler (source, grammar, semantics, errorMessage, srcFilename, 
 	    }
             let semObject = eval('(' + generatedSCNSemantics + ')');
 	    try {
-		let tr = inputtranspiler(source, grammar, "_glue", semObject, srcFilename);
+		let tr = transpiler(source, grammar, "_glue", semObject, errorMessage);
 		return tr;
 	    } catch (err) {
 		throw err;
@@ -272,16 +256,28 @@ function execTranspiler (source, grammar, semantics, errorMessage, srcFilename, 
 	    throw err;
 	}
     } catch (err) {
-	// console.error ('source:');
-	// console.error (source.replace (/[\n\t ]/g,'.'));
+	//console.error ('source:');
+	//console.error (source.replace (/[\n\t ]/g,'.'));
 	throw err;
     }
 }
 
-function internal_stranspile (sourceString, grammarFileName, glueFileName, errorMessage, srcFilename) {
+function internal_stranspile (sourceString, grammarFileName, glueFileName, errorMessage) {
+    if (grammarFileName == undefined) {
+	console.error ("prep says: grammarFileName is undefined (probably something to do with argv)");
+	console.error (argv);
+	console.error ("argument error");
+	throw "argument error";
+    }
+    if (glueFileName == undefined) {
+	console.error ("prep says: glueFileName is undefined (probably something to do with argv)");
+	console.error (argv);
+	console.error ("argument error");
+	throw "argument error";
+    }
     var grammar = fs.readFileSync (grammarFileName, 'utf-8');
     var glue = fs.readFileSync (glueFileName, 'utf-8');
-    var returnString = execTranspiler (sourceString, grammar, glue, errorMessage, srcFilename, glueFileName);
+    var returnString = execTranspiler (sourceString, grammar, glue, errorMessage);
     return returnString;
 }
 
@@ -289,8 +285,9 @@ function internal_stranspile (sourceString, grammarFileName, glueFileName, error
 
 
 function dump (announce, s) {
-    if (argv.split) {
+    if (argv.show) {
 	console.error ();
+	console.error (`block length = ${s.length}`);
 	console.error (announce);
 	console.error (s);
 	console.error (announce);
@@ -298,9 +295,9 @@ function dump (announce, s) {
     }
 }
 
-function expand (s, grammarFileName, glueFileName, message, srcFilename) {
+function expand (s, grammarFileName, glueFileName, message) {
     dump ("********* block *********", s);
-    var result = internal_stranspile (s, grammarFileName, glueFileName, message, srcFilename);
+    var result = internal_stranspile (s, grammarFileName, glueFileName, message);
     dump ("********* Expanded ******", result);
     return result;
 }
@@ -326,8 +323,9 @@ function splitOnSeparators (triggerSep, endSep, s) {
 	if (endMatch) {
 	    ;
 	} else {
-	    dump ("thus far:",middleEndSepRestText);
+	    // dump ("thus far:",middleEndSepRestText);
 	    errormsg = `cannot find end separator ${endSep}`;
+	    console.error (errormsg);
 	    throw errormsg;
 	}
 
@@ -336,14 +334,14 @@ function splitOnSeparators (triggerSep, endSep, s) {
 
 	let  middleText;
 	let restText;
-	if (argv.inclusive ) {
-	    // include endSepText in block
-	    middleText = beginSepText + middleEndSepRestText.substring (0, indexEndEnd) + endSepText;
-	    restText = middleEndSepRestText.substring (indexEndEnd + endSepText.length);
-	} else {
+	if (argv.exclusive ) {
 	    // endSepText is not part of block
 	    middleText = beginSepText + middleEndSepRestText.substring (0, indexEndEnd);
 	    restText = endSepText + middleEndSepRestText.substring (indexEndEnd + endSepText.length);
+	} else {
+	    // include endSepText in block
+	    middleText = beginSepText + middleEndSepRestText.substring (0, indexEndEnd) + endSepText;
+	    restText = middleEndSepRestText.substring (indexEndEnd + endSepText.length);
 	}
 	return { front: frontText, middle: middleText, rest: restText };
     } else {
@@ -360,8 +358,8 @@ function pdebug (s) {
     }
 }
 
-function expandAll (s, triggerRE, endRE, grammarFileName, glueFileName, message, srcFilename) {
-    dump ("*** expandAll ***", s);
+function expandAll (s, triggerRE, endRE, grammarFileName, glueFileName, message) {
+    // dump ("*** before ***", s);
     if (s === undefined) {
 	return s;
     } else {
@@ -371,8 +369,8 @@ function expandAll (s, triggerRE, endRE, grammarFileName, glueFileName, message,
 	if (middle === undefined || middle === '') {
 	    return front;
 	} else {
-	    dump ("*** expansion ***", middle);
-	    var expandedText = expand (middle, grammarFileName, glueFileName, message, srcFilename);
+	    // dump ("*** expansion ***", middle);
+	    var expandedText = expand (middle, grammarFileName, glueFileName, message);
 	    cycles += 1;
 	    if (stop & (cycles >= stop)) {
 		return front + expandedText + rest;
@@ -381,9 +379,10 @@ function expandAll (s, triggerRE, endRE, grammarFileName, glueFileName, message,
 		    console.error ('expand made no changes');
 		    console.error (middle.substring (0,30));
 		    console.error (expandedText.substring (0,30));
+		    console.error( 'expand made no changes');
 		    throw 'expand made no changes';
 		}
-		return front + expandAll (expandedText + rest, triggerRE, endRE, grammarFileName, glueFileName, message, srcFilename);
+		return front + expandAll (expandedText + rest, triggerRE, endRE, grammarFileName, glueFileName, message);
 	    }
 	}
     }
@@ -395,28 +394,24 @@ function pre (allchars) {
     var grammarFileName = argv._[2];
     var glueFileName = argv._[3];
 
+    if (argv.show) {
+	console.error ('begin and end regexps');
+	console.error (reTrigger);
+	console.error (reEnd);
+    }
+
     if (argv.support) {
 	support = require (argv.support);
 	if (support.setArgv) {
 	    support.setArgv (argv);
 	}
     }
-    if (argv.fmt) {
-	fmt = require (argv.fmt);
-	if (fmt.setArgv) {
-	    fmt.setArgv (argv);
-	}
-    }
     if (argv.trace) {
-	var traceFlag = true;
-	if (traceFlag === 't') {
-	    tracing = true;
-	    traceDepth = 0;
-	}
+	traceDepth = 0;
     }
 
 
-    var expanded = expandAll (allchars, reTrigger, reEnd, grammarFileName, glueFileName, 'STDIN', 'STDIN');
+    var expanded = expandAll (allchars, reTrigger, reEnd, grammarFileName, glueFileName, 'parsing input');
     return expanded;
 }
 
@@ -439,12 +434,7 @@ function main () {
     } else {
 	viewGeneratedCode = false;
     }
-    if (argv.trace) {
-	tracing = true;
-	traceDepth = 0;
-    } else {
-	tracing = false;
-    }
+
     var allchars = fs.readFileSync (fname, 'utf-8');
     var result = pre (allchars);
     emit (result);
@@ -462,5 +452,9 @@ function getargv (s) {
     }
 }
 
-main ();
+try {
+    main ();
+} catch (err) {
+    console.error (err.message);
+}
 

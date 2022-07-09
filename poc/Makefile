@@ -1,28 +1,23 @@
 NODEMODULES=\
-	~/node_modules/ohm-js \
-	~/node_modules/yargs \
-	~/node_modules/atob \
-	~/node_modules/pako
+	node_modules/ohm-js \
+	node_modules/yargs \
+	node_modules/atob \
+	node_modules/pako
 
 # change this for your own environment
 TOOLS=.
 
-all: ls.json
+all: topls.py
 
-dev: ls.json
+full : $(NODEMODULES) tools topls.py
 
-main_all: $(NODEMODULES) tools topbuildscript.py
-	./topbuildscript.py
-
-bootstrap : $(NODEMODULES) tools bootstrap_helloworld.json topbuildscript.py
-
-~/node_modules/ohm-js:
+node_modules/ohm-js:
 	npm install ohm-js
-~/node_modules/yargs:
+node_modules/yargs:
 	npm install yargs
-~/node_modules/atob:
+node_modules/atob:
 	npm install atob
-~/node_modules/pako:
+node_modules/pako:
 	npm install pako
 
 tools:
@@ -31,36 +26,20 @@ tools:
 	(cd ./d2f ; make)
 	(cd ./das2f ; make)
 	(cd ./das2j ; make)
-
-helloworld.json : tools helloworld.drawio
-	./generate.bash $(TOOLS) helloworld.drawio
-	mv out.json helloworld.json
-
-testbench.json : tools testbench.drawio
-	./generate.bash $(TOOLS) testbench.drawio
-	mv out.json testbench.json
+	echo '* ** *' done tools
 
 ls.json : tools ls.drawio
+	echo '* * *' generate.bash
 	./generate.bash $(TOOLS) ls.drawio
+	echo '* * * ' done generate.bash
 	mv out.json ls.json
 
-testbenchdb.json : tools testbenchdb.drawio
-	./generate.bash $(TOOLS) testbenchdb.drawio
-	mv out.json testbenchdb.json
-
-
-bootstrap_helloworld.json : tools helloworld.drawio
-	./generate.bash $(TOOLS) helloworld.drawio
-	mv out.json helloworld.json
-
-buildscript.json : tools buildscript.drawio
-	./generate.bash $(TOOLS) buildscript.drawio
-	mv out.json buildscript.json
-
-topbuildscript.py : buildscript.json transpile2py.bash pyemit.py
-	./transpile2py.bash buildscript.drawio buildscript.json
-	mv top.py topbuildscript.py
-	chmod a+x topbuildscript.py
+topls.py : ls.json transpile2py.bash pyemit.py
+	echo '* * * ' transpile2py.bash
+	./transpile2py.bash ls.drawio ls.json
+	echo '* * * ' done transpile2py.bash
+	mv top.py topls.py
+	chmod a+x topls.py
 
 clean:
 	(cd ./dr ; make clean)
@@ -74,4 +53,7 @@ clean:
 	rm -f *.json
 	rm -rf _*
 	rm -f *~
+
+npmstuff: node_modules/ohm-js node_modules/yargs node_modules/yargs-parser node_modules/atob node_modules/pako
+	npm install ohm-js yargs atob pako
 

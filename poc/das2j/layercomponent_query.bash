@@ -6,9 +6,9 @@ temp=temp${RANDOM}
 cat >${temp}.pl <<'~~~'
 :- use_module(library(http/json)).
 ?- consult("fb.pl").
-?- consult("/Users/tarvydas/quicklisp/local-projects/das2json/das2j/component_helper.pl").
-?- consult("/Users/tarvydas/quicklisp/local-projects/das2json/das2j/code.pl").
-?- consult("/Users/tarvydas/quicklisp/local-projects/das2json/das2j/connection.pl").
+?- consult("/Users/tarvydas/quicklisp/local-projects/pypm/poc/das2j/component_helper.pl").
+?- consult("/Users/tarvydas/quicklisp/local-projects/pypm/poc/das2j/code.pl").
+?- consult("/Users/tarvydas/quicklisp/local-projects/pypm/poc/das2j/connection.pl").
 query_helper(Component):-
 das_fact(kind,RID,rectangle),
 das_fact(name,RID,Name),
