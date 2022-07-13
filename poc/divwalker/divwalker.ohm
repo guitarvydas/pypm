@@ -1,0 +1,8 @@
+divwalker {
+text = macro+
+macro =
+  | applySyntactic<Div> -- rec
+  | notdiv  -- bottom  
+Div = "<div>" macro* "</div>"
+notdiv = ~"<div>" ~"</div>" any
+}

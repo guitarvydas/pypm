@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+textarea {
+}
+</style>
+</head>
+<body>
+
+<h1>Dev</h1>
+<!-- Macro preprocessor -->
+<script src="../../../mac/mac.js"></script>
+
+<script>
+  const grammar = String.raw`
+divwalker {
+text = macro+
+macro =
+  | applySyntactic<DivSection>
+  | notdiv
+DivSection = "<div>" macro* "</div>"
+notdiv = ~"<div>" ~"</div>" any
+}
+`;
+
+  // early attempt at debugging
+  // identity transform output=input
+
+  const identityfmt = String.raw`
+text [@macro] = [[~{macro}]]
+macro [x] = [[~{x}]]
+DivSection [kdiv @macro kenddiv] = [[~{kdiv}~{macro}~{kenddiv}]]
+notdiv [c] = [[~{c}]]
+`;
+
+  const actualfmt = String.raw`
+text [@macro] = [[~{macro}]]
+macro [x] = [[~{x}]]
+DivSection [kdiv @macro kenddiv] = [[~{macro}\n]]
+notdiv [c] = [[~{c}]]
+`;
+
+  var pipelineSuccess;
+  var errorMessages = '';
+  
+  function transpile (fmt) {
+      pipelineSuccess = true;
+      document.getElementById('output').innerHTML = '';
+      document.getElementById('src').innerHTML = srctext;
+      let [success, transpiled, jssemantics] = transpile1 (srctext, grammar, fmt, "divwalker", "transpile1");
+      pipelineSuccess &&= success;
+      if (pipelineSuccess) {
+          document.getElementById('status').innerHTML = "OK " + Date ();
+          //document.getElementById('temp').innerHTML = step;
+          document.getElementById('output').innerHTML = transpiled;
+      } else {
+          document.getElementById('output').innerHTML = "FAILED " + errorMessages + transpiled;
+      }
+  }
+  
+  function transpileIdentity () {
+      // first step in building a fmt specification: output=input
+      tracing = true;
+      transpile (identityfmt);
+  }
+
+  function transpileActual () {
+      // first step in building a fmt specification: output=input
+      transpile (actualfmt);
+  }
+
+  function transpilerError (message) {
+      errorMessages += '\n' + message;
+      pipelineSuccess = false;
+  }
+
+  var srctext = String.raw`
+<div><div><div>initially {⟪self.dirname = ''⟫}</div><div>on ➢❲directory❳ {⟪self.dirname = message.data⟫}</div><div>on ➢❲iterate❳ {⟪</div><div>&nbsp; &nbsp; files = os.listdir (self.dirname)</div><div>&nbsp; &nbsp; for fname in files:</div><div>&nbsp; &nbsp; &nbsp; &nbsp; name = self.dirname + '/' + fname</div><div>&nbsp; &nbsp; &nbsp; &nbsp; if (os.path.isfile (name)):</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; self.send (self, 'filename', name, message)</div><div>&nbsp; &nbsp; &nbsp; &nbsp; else:</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; pass</div><div>⟫}</div><div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</div></div></div><div><br></div>
+
+`;
+  
+  var small_srctext = String.raw`
+<div>
+  <div>
+    <div>
+      x
+    </div>
+  </div>
+</div>
+a b c
+<div> d </div>
+`;
+
+  </script>
+
+<p>source:</p>
+<textarea id="src" rows="7" cols="90" placeholder="src" style="background-color:oldlace;">
+</textarea>
+
+
+<p>output:</p>
+<textarea id="output" rows="15" cols="150" placeholder="transpiled"  readonly style="background-color:whitesmoke;">
+</textarea>
+<!-- <textarea id="temp" rows="15" cols="50" placeholder="transpiled"  readonly style="background-color:whitesmoke;"> -->
+<!-- </textarea> -->
+<br>
+<br>
+<p id="status" > READY </p>
+<br>
+<button onclick="transpileActual ()">Transpile</button>
+<!-- <button onclick="transpileIdentity ()">Transpile Identity</button> -->
+<!-- Ohm-JS -->
+<script src="https://unpkg.com/ohm-js@16/dist/ohm.min.js"></script>
+
+
+</body>
+</html>
+
+

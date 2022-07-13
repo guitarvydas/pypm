@@ -1,6 +1,6 @@
 signature ≈❲Omit Code Quotes❳ {
   inputs {➢❲text❳}
-  outputs {◦❲text❳}
+  outputs {◦❲[text]❳}
   }
 }
 

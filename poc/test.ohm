@@ -1,0 +1,9 @@
+Test {
+html = element+
+element = div spaces
+div = "<div>" div "</div>"
+stuff =
+  | "<div>" div "</div>" -- rec
+  | ~divkeyword any      -- flat
+divkeyword = "<div>" | "</div>"
+}

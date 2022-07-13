@@ -26,16 +26,6 @@ implementation ≈❲Text File Reader❳ leaf {
     ⟪self.dirname = message.data⟫
   }
 }
-implementation ≈❲Omit Comments❳ leaf {
-  on ➢❲❳ {callproc č❲a❳}
-
-  proc č❲a❳ {
-⟪
-result = re.sub (r'\#.*\n', '\n', message.data)
-self.send (self, 'text', result, message)
-⟫
-  }
-}
 implementation ≈❲Omit Code Quotes❳ leaf {
   on ➢❲❳ {callproc č❲a❳}
 
