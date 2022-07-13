@@ -40,9 +40,11 @@ notdiv [c] = [[~{c}]]
       pipelineSuccess = false;
   }
 
-  var srctext = String.raw`
+  var testsrctext = String.raw`
 <div><div><div>initially {⟪self.dirname = ''⟫}</div><div>on ➢❲directory❳ {⟪self.dirname = message.data⟫}</div><div>on ➢❲iterate❳ {⟪</div><div>&nbsp; &nbsp; files = os.listdir (self.dirname)</div><div>&nbsp; &nbsp; for fname in files:</div><div>&nbsp; &nbsp; &nbsp; &nbsp; name = self.dirname + '/' + fname</div><div>&nbsp; &nbsp; &nbsp; &nbsp; if (os.path.isfile (name)):</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; self.send (self, 'filename', name, message)</div><div>&nbsp; &nbsp; &nbsp; &nbsp; else:</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; pass</div><div>⟫}</div><div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</div></div></div><div><br></div>
 
 `;
 
+var argv = require('yargs/yargs')(process.argv.slice(2)).argv;
+var srctext = require ('fs').readFileSync (argv._[0]);
 console.log (transpileActual ());
