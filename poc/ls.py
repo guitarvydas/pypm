@@ -31,4 +31,18 @@ class _ls (mpos.Leaf):
         
         
         
+        
+elif (message.port == "directory"):(.
+self.dirname=message.data.)
+elif (message.port == "iterate"):(.
+
+  files=os.listdir(self.dirname)
+  forfnameinfiles:
+    name=self.dirname+'/'+fname
+    if(os.path.isfile(name)):
+      self.send(self,'filename',name,message)
+    else:
+      pass
+.)
+
         return super ().react (inputMessage)

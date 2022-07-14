@@ -27,11 +27,9 @@ def printLines (indent, str, file=""):
 
 
 def js (commandlist, code):
-  print (f'js {commandlist}')
   fname = "/tmp/temp.txt"
   with open (fname, "w") as outf:
     outf.write (code)
-  subprocess.run (["pwd"])
   r = subprocess.run (commandlist + [fname], capture_output=True, text=True)
   result = r.stdout
   if (r.stderr):
@@ -42,7 +40,10 @@ def js (commandlist, code):
   
 def filterinitsonly (s):
   r = js (["./parseinit.bash"], s)
-  print (r)
+  return r
+
+def filteronsonly (s):
+  r = js (["./parseon.bash"], s)
   return r
 
 
@@ -120,9 +121,11 @@ def printCommonBodyHead (component, outf):
   inputs = component ["inputs"]
   outputs = component ["outputs"]
   code = unescapeCode (component["synccode"])
+  handlercode = filteronsonly (code)
 
   print (f'    def react (self, inputMessage):', file=outf)
   printLines (8, code, file=outf)
+  print ( '        ' + handlercode, file=outf)
 
 def printCommonBodyTail (component, outf):
 

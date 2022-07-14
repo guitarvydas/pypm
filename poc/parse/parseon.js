@@ -1,25 +1,43 @@
 var ohm = require ('ohm-js');
 
   const grammar = String.raw`
-inits {
+divwalker {
 text = macro+
 macro =
-  | applySyntactic<InitClause>
+  | applySyntactic<Div> -- rec
+  | notdiv  -- bottom  
+Div = "<div>" macro* "</div>"
+notdiv = ~"<div>" ~"</div>" any
+}inits {
+text = macro+
+macro =
+  | applySyntactic<OnClause>
   | other
-InitClause = "initially" "{" verbatim "}"
+OnClause = tOn portname "{" verbatim "}"
 verbatim = "⟪" notverbatim+ "⟫"
 notverbatim = ~"⟪" ~"⟫" any
-other = ~"initially" any
+other = ~tOn any
+tOn = "on" ~alnum
+portname = "➢" "❲" name "❳"
+name = nameFirst nameRest*
+nameFirst = letter
+nameRest = alnum | "_"
 }
+
 `;
 
   const actualfmt = String.raw`
 text [@macro] = [[~{macro}]]
 macro [x] = [[~{x}]]
-InitClause [kinitially lb verbatim rb] = [[~{verbatim}]]
+OnClause [kon portname lb verbatim rb] = [[\nelif (message.port == "~{portname}"):(.\n~{verbatim}.)]]
 verbatim [lb @notverbatim rb] = [[~{notverbatim}]]
 notverbatim [c] = [[~{c}]]
 other [c] = [[]]
+portname [kport lb name rb] = [[~{name}]]
+name [nameFirst @nameRest] = [[~{nameFirst}~{nameRest}]]
+nameFirst [c] = [[~{c}]]
+nameRest [c] = [[~{c}]]
+tOn [kon] = [[~{kon}]]
 `;
 
   var pipelineSuccess;
