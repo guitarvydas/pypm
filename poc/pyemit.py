@@ -125,7 +125,7 @@ def printCommonBodyHead (component, outf):
 
   print (f'    def react (self, inputMessage):(.', file=outf)
   print ('#handlers', file=outf)
-  print ('if (False):(.\npass.)', file=outf)
+  print ('if (False):(.\npass.)', end='', file=outf)
   print (handlercode, file=outf)
 
 def printCommonBodyTail (component, outf):
@@ -257,3 +257,7 @@ with open ('top.py', 'w') as top:
   print (f'top.kickstart ()', file=top)
   print (f'disp.dispatch ()', file=top)
 
+
+
+
+  
