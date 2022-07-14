@@ -291,10 +291,10 @@ other = ~"initially" any
   const actualfmt = String.raw`
 text [@macro] = [[~{macro}]]
 macro [x] = [[~{x}]]
-InitClause [kinitially lb verbatim rb] = [[~{kinitially}~{lb}~{verbatim}~{rb}]]
-verbatim [lb @notverbatim rb] = [[~{lb}~{notverbatim}~{rb}]]
+InitClause [kinitially lb verbatim rb] = [[~{verbatim}]]
+verbatim [lb @notverbatim rb] = [[~{notverbatim}]]
 notverbatim [c] = [[~{c}]]
-other [c] = [[~{c}]]
+other [c] = [[]]
 `;
 
   var pipelineSuccess;

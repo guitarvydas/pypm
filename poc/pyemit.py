@@ -25,19 +25,18 @@ def printLines (indent, str, file=""):
     printIndent (indent, file=file);
     print (line, file=file)
 
-def removeVerbatimBrackets (s):
-  return s
 
-def filterinitsonly (s):
-  return s
-
-def js (command, code):
+def js (commandlist, code):
+  fname = "temp.txt"
   with open (fname, "w") as outf:
     outf.write (code)
-  r = subprocess.run (command, capture_output=True, text=True)
+  r = subprocess.run (commandlist + [fname], capture_output=True, text=True)
   result = r.stdout
   return result
   
+def filterinitsonly (s):
+  return js (["./parse/parseinit.bash"], s);
+
 
 def unescapeCode (s):
   code = html.unescape (s)
@@ -50,13 +49,7 @@ def unescapeCode (s):
   code1a = re.sub (r'<pre([^>]*>)', '', code)
   code1 = code1a.replace ("</pre>","")
 #  code2 = re.sub (r'<div>([^<]*)</div>', r'\1\n', code1, re.MULTILINE)
-  fname = "temp.txt"
-  fname2 = "temp2.txt"
-  code2 = js (["./parsediv.bash", fname], code1)
-  # with open (fname, "w") as outf:
-  #   outf.write (code1)
-  # r = subprocess.run (["./parsediv.bash", fname], capture_output=True, text=True)
-  # code2 = r.stdout
+  code2 = js (["./parsediv.bash"], code1)
   assert (None == re.search (r'<div>', code2)), "<div> not removed (internal error)"
   code3 = re.sub (r'<p ([^>]*)>', r'', code2)
   code4 = re.sub (r'</p>', "", code3)
@@ -65,10 +58,8 @@ def unescapeCode (s):
   code7a = re.sub (r'<br/>', "\n", code6)
   code7 = re.sub (r'<br>', "\n", code7a)
 
-  codefinal0 = html.unescape (code7)
+  codefinal = html.unescape (code7)
 
-  codefinal = removeVerbatimBrackets (codefinal0)
-  
   return codefinal
     
 

@@ -10,23 +10,6 @@ class _ls (mpos.Leaf):
         super ().__init__ (dispatcher, parent, idInParent)
         self.inputs=['iterate', 'directory']
         self.outputs=['filename']
-initially{⟪self.dirname=''⟫}
-on➢❲directory❳{⟪self.dirname=message.data⟫}
-on➢❲iterate❳{⟪
-  files=os.listdir(self.dirname)
-  forfnameinfiles:
-    name=self.dirname+'/'+fname
-    if(os.path.isfile(name)):
-      self.send(self,'filename',name,message)
-    else:
-      pass
-⟫}
-     
-
-
-
-
-
 
     def react (self, inputMessage):
         initially{⟪self.dirname=''⟫}
