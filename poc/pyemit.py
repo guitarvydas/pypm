@@ -25,6 +25,20 @@ def printLines (indent, str, file=""):
     printIndent (indent, file=file);
     print (line, file=file)
 
+def removeVerbatimBrackets (s):
+  return s
+
+def filterinitsonly (s):
+  return s
+
+def js (command, code):
+  with open (fname, "w") as outf:
+    outf.write (code)
+  r = subprocess.run (command, capture_output=True, text=True)
+  result = r.stdout
+  return result
+  
+
 def unescapeCode (s):
   code = html.unescape (s)
   # note that <p .../> and <span .../> and <pre .../> are not handled by the
@@ -38,10 +52,11 @@ def unescapeCode (s):
 #  code2 = re.sub (r'<div>([^<]*)</div>', r'\1\n', code1, re.MULTILINE)
   fname = "temp.txt"
   fname2 = "temp2.txt"
-  with open (fname, "w") as outf:
-    outf.write (code1)
-  r = subprocess.run (["./parsediv.bash", fname], capture_output=True, text=True)
-  code2 = r.stdout
+  code2 = js (["./parsediv.bash", fname], code1)
+  # with open (fname, "w") as outf:
+  #   outf.write (code1)
+  # r = subprocess.run (["./parsediv.bash", fname], capture_output=True, text=True)
+  # code2 = r.stdout
   assert (None == re.search (r'<div>', code2)), "<div> not removed (internal error)"
   code3 = re.sub (r'<p ([^>]*)>', r'', code2)
   code4 = re.sub (r'</p>', "", code3)
@@ -50,7 +65,10 @@ def unescapeCode (s):
   code7a = re.sub (r'<br/>', "\n", code6)
   code7 = re.sub (r'<br>', "\n", code7a)
 
-  codefinal = html.unescape (code7)
+  codefinal0 = html.unescape (code7)
+
+  codefinal = removeVerbatimBrackets (codefinal0)
+  
   return codefinal
     
 
@@ -84,6 +102,7 @@ def printCommonInit (component, outf, cls):
   inputs = component ["inputs"]
   outputs = component ["outputs"]
   code = unescapeCode (component["synccode"])
+  initcode = filterinitsonly (code)
 
   print (file=outf)
   print (f'class _{name} (mpos.{cls}):', file=outf)
@@ -92,6 +111,7 @@ def printCommonInit (component, outf, cls):
   print (f'        super ().__init__ (dispatcher, parent, idInParent)', file=outf)
   print (f'        self.inputs={inputs}', file=outf)
   print (f'        self.outputs={outputs}', file=outf)
+  print (initcode, file=outf)
 
 def printCommonBodyHead (component, outf):
 
