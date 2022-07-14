@@ -13,25 +13,11 @@ class _ls (mpos.Leaf):
         #inits
         self.dirname=''
 
-    def react (self, inputMessage):
-        initially{⟪self.dirname=''⟫}
-        on➢❲directory❳{⟪self.dirname=message.data⟫}
-        on➢❲iterate❳{⟪
-          files=os.listdir(self.dirname)
-          forfnameinfiles:
-            name=self.dirname+'/'+fname
-            if(os.path.isfile(name)):
-              self.send(self,'filename',name,message)
-            else:
-              pass
-        ⟫}
-             
-        
-        
-        
-        
-        
-        
+    def react (self, inputMessage):(.
+#handlers
+if (False):(.
+pass.)
+
 elif (message.port == "directory"):(.
 self.dirname=message.data.)
 elif (message.port == "iterate"):(.
@@ -45,4 +31,4 @@ elif (message.port == "iterate"):(.
       pass
 .)
 
-        return super ().react (inputMessage)
+        return super ().react (inputMessage).)

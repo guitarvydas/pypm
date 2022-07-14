@@ -123,9 +123,10 @@ def printCommonBodyHead (component, outf):
   code = unescapeCode (component["synccode"])
   handlercode = filteronsonly (code)
 
-  print (f'    def react (self, inputMessage):', file=outf)
-  printLines (8, code, file=outf)
-  print ( '        ' + handlercode, file=outf)
+  print (f'    def react (self, inputMessage):(.', file=outf)
+  print ('#handlers', file=outf)
+  print ('if (False):(.\npass.)', file=outf)
+  print (handlercode, file=outf)
 
 def printCommonBodyTail (component, outf):
 
@@ -135,7 +136,7 @@ def printCommonBodyTail (component, outf):
   outputs = component ["outputs"]
   code = unescapeCode (component["synccode"])
 
-  print (f'        return super ().react (inputMessage)', file=outf)
+  print (f'        return super ().react (inputMessage).)', file=outf)
   
 
 def printLeafScript (component, outf):
