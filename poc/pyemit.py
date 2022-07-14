@@ -27,15 +27,23 @@ def printLines (indent, str, file=""):
 
 
 def js (commandlist, code):
-  fname = "temp.txt"
+  print (f'js {commandlist}')
+  fname = "/tmp/temp.txt"
   with open (fname, "w") as outf:
     outf.write (code)
+  subprocess.run (["pwd"])
   r = subprocess.run (commandlist + [fname], capture_output=True, text=True)
   result = r.stdout
-  return result
+  if (r.stderr):
+    print (r.stderr)
+    return ''
+  else:
+    return result
   
 def filterinitsonly (s):
-  return js (["./parse/parseinit.bash"], s);
+  r = js (["./parseinit.bash"], s)
+  print (r)
+  return r
 
 
 def unescapeCode (s):
@@ -102,7 +110,8 @@ def printCommonInit (component, outf, cls):
   print (f'        super ().__init__ (dispatcher, parent, idInParent)', file=outf)
   print (f'        self.inputs={inputs}', file=outf)
   print (f'        self.outputs={outputs}', file=outf)
-  print (initcode, file=outf)
+  print ( '        #inits', file=outf)
+  print ( '        ' + initcode, file=outf)
 
 def printCommonBodyHead (component, outf):
 

@@ -10,6 +10,8 @@ class _ls (mpos.Leaf):
         super ().__init__ (dispatcher, parent, idInParent)
         self.inputs=['iterate', 'directory']
         self.outputs=['filename']
+        #inits
+        self.dirname=''
 
     def react (self, inputMessage):
         initially{⟪self.dirname=''⟫}
