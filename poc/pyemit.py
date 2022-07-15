@@ -67,7 +67,8 @@ def unescapeCode (s):
   # draw.io creates paras and spans and pres in only very specific ways, if
   # we find a counter-example, it might be necessary to cut over to a
   # proper parse (e.g. using pfr and .ohm/.glue files))
-  code1a = re.sub (r'<pre([^>]*>)', '', code)
+  code0 = re.sub (r'%5C', "\\\\", code)
+  code1a = re.sub (r'<pre([^>]*>)', '', code0)
   code1 = code1a.replace ("</pre>","")
 #  code2 = re.sub (r'<div>([^<]*)</div>', r'\1\n', code1, re.MULTILINE)
   code2 = js (["./parsediv.bash"], code1)
@@ -80,9 +81,7 @@ def unescapeCode (s):
   code7b = re.sub (r'<br>', "\n", code7a)
   code7 = re.sub (r'&nbsp;', " ", code7b)
 
-  code8 = re.sub (r'%5C', "\\\\", code7)
-  
-  codefinal = html.unescape (code8)
+  codefinal = html.unescape (code7)
 
   return codefinal
     

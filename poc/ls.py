@@ -18,8 +18,6 @@ class _ls (mpos.Leaf):
       self.dirname = message.data
     elif (message.port == "iterate"):
       
-      
-      
       files = os.listdir (self.dirname)
       for fname in files:
           name = self.dirname + '/' + fname

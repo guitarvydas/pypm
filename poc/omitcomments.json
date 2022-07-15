@@ -7,7 +7,7 @@
       "inputs": ["text" ],
       "name":"Omit Comments",
       "outputs": ["text" ],
-      "synccode":"-"
+      "synccode":"&lt;div&gt;&lt;div&gt;on ➢❲text❳ {⟪&lt;/div&gt;&lt;div&gt;&amp;nbsp; result = re.sub (r'%5C#.*%5Cn', '%5Cn', message.data)&lt;/div&gt;&lt;div&gt;&amp;nbsp; self.send (self, 'text', result, message)&lt;/div&gt;&lt;div&gt;⟫}&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;"
     }
   ]
 ]
