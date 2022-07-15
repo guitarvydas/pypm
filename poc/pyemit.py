@@ -48,8 +48,7 @@ def filterinitsonly (s):
   return r
 
 def filteronsonly (s):
-  r0 = js (["./parseon.bash"], s)
-  r = indenter (r0)
+  r = js (["./parseon.bash"], s)
   return r
 
 
@@ -129,10 +128,15 @@ def printCommonBodyHead (component, outf):
   code = unescapeCode (component["synccode"])
   handlercode = filteronsonly (code)
 
-  print (f'    def react (self, inputMessage):(.', file=outf)
-  print ('#handlers', file=outf)
-  print ('if (False):(.\npass.)', end='', file=outf)
-  print (handlercode, file=outf)
+  # print (f'    def react (self, inputMessage):(.', file=outf)
+  # print ('#handlers', file=outf)
+  # print ('if (False):(.\npass.)', end='', file=outf)
+  s = f'def react (self, inputMessage):(.'
+  s += '\n#handlers'
+  s += '\nif (False):(.\npass.)'
+  s += handlercode
+  s = indenter (s)
+  print (s, file=outf, end='')
 
 def printCommonBodyTail (component, outf):
 
