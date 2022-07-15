@@ -1,19 +1,11 @@
-#!/usr/bin/env python3
-# ls.py
-# cell_6
-import mpos
-import dispatcher
 
-class _ls (mpos.Leaf):
+#!/usr/bin/env python3# ls.py# cell_6import mposimport dispatcherclass _ls (mpos.Leaf):
   def __init__ (self, dispatcher, parent, idInParent):
     super ().__init__ (dispatcher, parent, idInParent)
     self.inputs=['iterate', 'directory']
     self.outputs=['filename']
     self.dirname=''
-    
-
-
-def react (self, inputMessage):
+    def react (self, inputMessage):
   if (False):
     pass
   elif (message.port == "directory"):
@@ -29,7 +21,5 @@ def react (self, inputMessage):
           pass
     
   
+  return super ().react (inputMessage)
 
-return super ().react (inputMessage).)
-
-return super ().react (inputMessage).)

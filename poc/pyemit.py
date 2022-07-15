@@ -15,16 +15,19 @@ def isContainer (component):
   else:
       return False
        
-def printIndent (n, file=""):
+def mkindent (n, file=""):
+  s = ''
   while n > 0:
-    print (" ", end="", file=file)
+    s += ' '
     n -= 1
-    
-def printLines (indent, str, file=""):
-  for line in str.splitlines ():
-    printIndent (indent, file=file);
-    print (line, file=file)
+  return (s)
 
+def mkLines (indent, str, file=""):
+  s = ''
+  for line in str.splitlines ():
+    s += mkindent (indent)
+    s += line
+  return (s)
 
 def js (commandlist, code):
   fname = "/tmp/temp.txt"
@@ -76,7 +79,7 @@ def unescapeCode (s):
   return codefinal
     
 
-def printCommonHeader (component, outf):
+def mkCommonHeader (component):
 
   name = component["name"]
   idkey = component ["id"]
@@ -84,11 +87,12 @@ def printCommonHeader (component, outf):
   outputs = component ["outputs"]
   code = unescapeCode (component["synccode"])
 
-  print (f'#!/usr/bin/env python3', file=outf)
-  print (f'# {fname}', file=outf)
-  print (f'# {idkey}', file=outf)
+  s = f'#!/usr/bin/env python3'
+  s += f'# {fname}'
+  s += f'# {idkey}'
+  return (s)
 
-def printCommonImports (component, outf):
+def mkCommonImports (component):
 
   name = component["name"]
   idkey = component ["id"]
@@ -96,10 +100,11 @@ def printCommonImports (component, outf):
   outputs = component ["outputs"]
   code = unescapeCode (component["synccode"])
 
-  print ("import mpos", file=outf)
-  print ("import dispatcher", file=outf)
+  s = "import mpos"
+  s += "import dispatcher"
+  return (s)
 
-def printCommonInit (component, outf, cls):
+def mkCommonInit (component, cls):
 
   name = component["name"]
   idkey = component ["id"]
@@ -115,10 +120,9 @@ def printCommonInit (component, outf, cls):
   s += f'\nself.inputs={inputs}'
   s += f'\nself.outputs={outputs}'
   s +=  '\n' + initcode + '.).)'
-  s = indenter (s)
-  print (s, file=outf)
+  return (s)
 
-def printCommonBodyHead (component, outf):
+def mkCommonBodyHead (component):
 
   name = component["name"]
   idkey = component ["id"]
@@ -130,10 +134,9 @@ def printCommonBodyHead (component, outf):
   s = f'def react (self, inputMessage):(.'
   s += '\nif (False):(.\npass.)'
   s += handlercode
-  s = indenter (s)
-  print (s, file=outf, end='')
+  return (s)
 
-def printCommonBodyTail (component, outf):
+def mkCommonBodyTail (component):
 
   name = component["name"]
   idkey = component ["id"]
@@ -141,18 +144,19 @@ def printCommonBodyTail (component, outf):
   outputs = component ["outputs"]
   code = unescapeCode (component["synccode"])
 
-  print (f'\nreturn super ().react (inputMessage).)', file=outf)
   s = f'\nreturn super ().react (inputMessage).)'
-  print (s, file=outf)
+  return (s)
   
 
-def printLeafScript (component, outf):
+def mkLeafScript (component):
   if (component ["synccode"]):
-    printCommonHeader (component, outf)
-    printCommonImports (component, outf)
-    printCommonInit (component, outf, "Leaf")
-    printCommonBodyHead (component, outf)
-    printCommonBodyTail (component, outf)
+    s = ''
+    s += mkCommonHeader (component)
+    s += mkCommonImports (component)
+    s += mkCommonInit (component, "Leaf")
+    s += mkCommonBodyHead (component)
+    s += mkCommonBodyTail (component)
+    return (s)
   else:
     print ("", file=sys.stderr)
     print ("*** Diagram Error - leaf contains no code", file=sys.stderr)
@@ -193,9 +197,9 @@ def formatConnection (i, senderList, receiverList, selfname):
   retstr = f'conn{i} = mpos.Connector ([{sstr}], [{rstr}])'
   return retstr
 
-def printContainerScript (component, outf):
+def mkContainerScript (component):
 
-  printCommonHeader (component, outf)
+  s = mkCommonHeader (component)
 
   name = component ["name"]
   idkey = component ["id"]
@@ -206,22 +210,20 @@ def printContainerScript (component, outf):
   children = component ["children"]
   connections = component ["connections"]
 
-  printCommonImports (component, outf)
+  s += mkCommonImports (component)
   for child in component ["children"]:
-    print (f'import {child}', file=outf)
+    s += f'import {child}'
 
-  printCommonInit (component, outf, "Container")
+  s += mkCommonInit (component, "Container")
 
   # # uncomment to see json structure
   # # print (file=outf)
   # # print (f'# {component}', file=outf)
   # # print (file=outf)
   
-  print (file=outf)
-
   j = 0
   for childname in children:
-    print (f'        child{j} = {childname}._{childname} (dispatcher, self, \'{childname}\')', file=outf)
+    s += f'        child{j} = {childname}._{childname} (dispatcher, self, \'{childname}\')'
     j += 1
 
   i = 0
@@ -231,29 +233,34 @@ def printContainerScript (component, outf):
     senderList = conn ["senders"]
 
     cstr = formatConnection (i, senderList, receiverList, component["name"])
-    print (f'        {cstr}', file=outf)
+    s += f'        {cstr}'
     
     connectornames.append (f'conn{i}')
     i += 1
     
   mchildren = formatMap (children)
   
-  print (f'        self.connections = [ {", ".join (connectornames)} ]', file=outf)
-  print ('        self.children = {' + f'{", ".join(mchildren)}' + '}', file=outf)
+  s += f'        self.connections = [ {", ".join (connectornames)} ]'
+  s += '        self.children = {' + f'{", ".join(mchildren)}' + '}'
 
+  return (s)
   
 
-def printScript (component, outf):
+def mkScript (component):
+  s = ''
   if (isContainer (component)):
-    printContainerScript (component, outf)
+    s = mkContainerScript (component)
   else:
-    printLeafScript (component, outf)
-
+    s = mkLeafScript (component)
+  s = indenter (s)
+  return (s)
+  
 for componentArray in data:
   for component in componentArray:
     fname = component["name"] + ".py"
     with open (fname, "w") as script:
-      printScript (component, script)
+      s = mkScript (component)
+      print (s, file=script)
 
 with open ('top.py', 'w') as top:
   print (f'#!/usr/bin/env python3', file=top)
