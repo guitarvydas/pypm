@@ -19,7 +19,8 @@ function inline_decodeMxDiagram (encoded) {
 }
 
 exports.encodeString = function (s) {
-    return encodeURIComponent (s);
+    r = s.replace (/\\/g, '%5C');
+    return r;
 }
 
 exports.expandStyle = (s) => {

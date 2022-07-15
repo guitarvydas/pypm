@@ -7,7 +7,7 @@
       "inputs": ["iterate", "directory" ],
       "name":"dev",
       "outputs": ["filename" ],
-      "synccode":"%26lt%3Bdiv%26gt%3B%26lt%3Bdiv%26gt%3B%26lt%3Bdiv%26gt%3B%26lt%3Bdiv%26gt%3B%26lt%3Bdiv%26gt%3Binitially%20%7B%E2%9F%AAself.dirname%20%3D%20''%E2%9F%AB%7D%26lt%3B%2Fdiv%26gt%3B%26lt%3Bdiv%26gt%3Bon%20%E2%9E%A2%E2%9D%B2dev%E2%9D%B3%20%7B%E2%9F%AAresult%20%3D%20re.sub%20(r'%5C%23.*%5Cn'%2C%20'%5Cn'%2C%20message.data)%E2%9F%AB%7D%26lt%3B%2Fdiv%26gt%3B%26lt%3B%2Fdiv%26gt%3B%26lt%3B%2Fdiv%26gt%3B%26lt%3B%2Fdiv%26gt%3B%26lt%3B%2Fdiv%26gt%3B%26lt%3Bdiv%26gt%3B%26lt%3Bbr%26gt%3B%26lt%3B%2Fdiv%26gt%3B"
+      "synccode":"&lt;div&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;initially {⟪self.dirname = ''⟫}&lt;/div&gt;&lt;div&gt;on ➢❲dev❳ {⟪result = re.sub (r'%5C#.*%5Cn', '%5Cn', message.data)⟫}&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;"
     }
   ]
 ]

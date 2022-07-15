@@ -80,7 +80,9 @@ def unescapeCode (s):
   code7b = re.sub (r'<br>', "\n", code7a)
   code7 = re.sub (r'&nbsp;', " ", code7b)
 
-  codefinal = html.unescape (code7)
+  code8 = re.sub (r'%5C', "\\\\", code7)
+  
+  codefinal = html.unescape (code8)
 
   return codefinal
     
@@ -137,9 +139,14 @@ def mkCommonBodyHead (component):
   code = unescapeCode (component["synccode"])
   handlercode = filteronsonly (code)
 
-  bad = (None != re.search ('FAILED', code)) | (None != re.search ('FAILED', handlercode))
-  if (bad):
-    raise Exception ('parse failure')
+  # for debugging bootstrap version
+  badcode = (None != re.search ('FAILED', code))
+  badhandler = (None != re.search ('FAILED', handlercode))
+  if (badcode):
+    raise Exception ('parse failure on code')
+  if (badhandler):
+    print (handlercode)
+    raise Exception ('parse failure on handler')
   
   s = f'\ndef react (self, inputMessage):(.'
   s += '\nif (False):(.\npass.)'
