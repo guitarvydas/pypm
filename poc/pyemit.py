@@ -37,13 +37,19 @@ def js (commandlist, code):
     return ''
   else:
     return result
-  
+
+def indenter (s):
+  r = js (["./indenter.bash"], s)
+  return r
+
 def filterinitsonly (s):
-  r = js (["./parseinit.bash"], s)
+  r0 = js (["./parseinit.bash"], s)
+  r = indenter (r0)
   return r
 
 def filteronsonly (s):
-  r = js (["./parseon.bash"], s)
+  r0 = js (["./parseon.bash"], s)
+  r = indenter (r0)
   return r
 
 

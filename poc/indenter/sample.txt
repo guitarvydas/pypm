@@ -4,23 +4,21 @@
 import mpos
 import dispatcher
 
-class _ls (mpos.Leaf):
+class _ls (mpos.Leaf):(.
+def __init__ (self, dispatcher, parent, idInParent):
+    super ().__init__ (dispatcher, parent, idInParent)
+    self.inputs=['iterate', 'directory']
+    self.outputs=['filename']
+    #inits
+    self.dirname=''
 
-    def __init__ (self, dispatcher, parent, idInParent):
-        super ().__init__ (dispatcher, parent, idInParent)
-        self.inputs=['iterate', 'directory']
-        self.outputs=['filename']
-        #inits
-        self.dirname=''
-
-    def react (self, inputMessage):(.
+def react (self, inputMessage):(.
 #handlers
 if (False):(.
 pass.)
 elif (message.port == "directory"):(.
 self.dirname=message.data.)
 elif (message.port == "iterate"):(.
-
   files=os.listdir(self.dirname)
   forfnameinfiles:
     name=self.dirname+'/'+fname

@@ -293,7 +293,8 @@ function indenter (str) {
  function indent1 (s) {
    let opens = (s.match (/\(\./g) || []).length;
    let closes = (s.match (/\.\)/g) || []).length;
-   let r0 = s.trim ();
+     // let r0 = s.trim ();
+     let r0 = s;
    let r1 = r0.replace (/\(\./g, '');
    let r2 = r1.replace (/\.\)/g, '');
    let spaces = indentation.join ('');
@@ -313,7 +314,6 @@ function indenter (str) {
    return r;
  }
  
-console.log ('starting');
 var argv = require('yargs/yargs')(process.argv.slice(2)).argv;
 const fs = require ('fs');
 var srctext = fs.readFileSync (argv._[0]).toString ();
