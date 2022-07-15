@@ -38,10 +38,10 @@ AppAttributeelider{
   IDAttribute = "id" "=" string
   EdgeAttribute = "edge" "=" quote "1" quote
   VertexAttribute = "vertex" "=" quote "1" quote
-  GreenAttribute = "fillColor" "=" quote "#d5e8d4" quote
-  YellowAttribute = "fillColor" "=" quote "#fff2cc" quote
-  RedAttribute = "fillColor" "=" quote "#f8cecc" quote
-  PurpleAttribute = "fillColor" "=" quote "#9673A6" quote
+  GreenAttribute = "fillColor" "=" quote ("#d5e8d4" | "%23defe8d4") quote
+  YellowAttribute = "fillColor" "=" quote ("#fff2cc" | "%23fff2cc") quote
+  RedAttribute = "fillColor" "=" quote ("#f8cecc" | "%23f8cecc") quote
+  PurpleAttribute = "fillColor" "=" quote ("#9673A6" | "%239673A6") quote
   OtherCellAttribute = alnum+ "=" attributeValue
 
   GAttribute = 

@@ -7,9 +7,13 @@ NODEMODULES=\
 # change this for your own environment
 TOOLS=.
 
-all: tools ls.py omitcomments.py
+all: ls.py omitcomments.py
 
-full : $(NODEMODULES) tools topls.py
+full : $(NODEMODULES) tools all
+
+dev:
+	touch ls.drawio
+	make ls.py
 
 node_modules/ohm-js:
 	npm install ohm-js
@@ -29,15 +33,11 @@ tools:
 	echo '* ** *' done tools
 
 ls.json : ls.drawio
-	echo '* * *' generate.bash
 	./generate.bash $(TOOLS) ls.drawio
-	echo '* * * ' done generate.bash
 	mv out.json ls.json
 
 omitcomments.json : omitcomments.drawio
-	echo '* * *' generate.bash
 	./generate.bash $(TOOLS) omitcomments.drawio
-	echo '* * * ' done generate.bash
 	mv out.json omitcomments.json
 
 ls.py : ls.json

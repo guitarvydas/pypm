@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import dispatcher
-import omitcomments
+import ls
 disp = dispatcher.Dispatcher ()
-top = omitcomments._omitcomments (disp, None, '')
+top = ls._ls (disp, None, '')
 top.kickstart ()
 disp.dispatch ()

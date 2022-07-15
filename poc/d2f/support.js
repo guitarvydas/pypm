@@ -18,6 +18,10 @@ function inline_decodeMxDiagram (encoded) {
     return str;
 }
 
+exports.encodeString = function (s) {
+    return encodeURIComponent (s);
+}
+
 exports.expandStyle = (s) => {
     var sx = s
 	.replace(/"/g,'')

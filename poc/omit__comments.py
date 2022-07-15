@@ -14,20 +14,6 @@ class _omit__comments (mpos.Leaf):
   def react (self, inputMessage):
     if (False):
       pass
-    elif (message.port == "text"):
-      
-      
-      
-      
-      
-      
-        result = re.sub (r'#.*
-      ', '
-      ', message.data)
-        self.send (self, 'text', result, message)
-      
-      
-      
     
     return super ().react (inputMessage)
 
