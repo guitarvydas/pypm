@@ -50,13 +50,7 @@ def filterinitsonly (s):
   return r
 
 def filteronsonly (s):
-  print ()
-  print (s)
-  print ()
   r = js (["./parseon.bash"], s)
-  print ()
-  print (r)
-  print ()
   return r
 
 
@@ -78,7 +72,8 @@ def unescapeCode (s):
   code5 = re.sub (r'<span ([^<]*)>', "", code4)
   code6 = re.sub (r'</span>', "\n", code5)
   code7a = re.sub (r'<br/>', "\n", code6)
-  code7 = re.sub (r'<br>', "\n", code7a)
+  code7b = re.sub (r'<br>', "\n", code7a)
+  code7 = re.sub (r'&nbsp;', " ", code7b)
 
   codefinal = html.unescape (code7)
 
@@ -134,9 +129,6 @@ def mkCommonBodyHead (component):
   idkey = component ["id"]
   inputs = component ["inputs"]
   outputs = component ["outputs"]
-  print ()
-  print (component["synccode"])
-  print ()
   code = unescapeCode (component["synccode"])
   handlercode = filteronsonly (code)
 
@@ -226,9 +218,9 @@ def mkContainerScript (component):
   s += mkCommonInit (component, "Container")
 
   # # uncomment to see json structure
-  # # print (file=outf)
-  # # print (f'# {component}', file=outf)
-  # # print (file=outf)
+  # # print (file)
+  # # print (f'# {component}', file)
+  # # print (file)
   
   j = 0
   for childname in children:
