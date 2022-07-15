@@ -55,7 +55,7 @@ ${support.popContext ()}
   name [c @cs] = [[${c}${cs}]]
   firstChar [c] = [[${c}]]
   restChar [c] = [[${c}]]
-  string [q1 @cs q2] = [[${q1}${cs}${q2}]]
+  string [q1 @cs q2] = [[${q1}${support.encodeString (cs)}${q2}]]
   notDQ [c] = [[${c}]]
   attributeValue [ns] = [[${ns}]]
   number_qouted [q1 n q2] = [[${n}]]

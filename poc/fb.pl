@@ -15,12 +15,12 @@ diagram_fact(cell, cell_7, "").
 diagram_fact(cell, cell_8, "").
 diagram_fact(cell, cell_9, "").
 diagram_fact(diagram, diagram_1, "").
-diagram_fact(fillColor, cell_10, "#f8cecc").
-diagram_fact(fillColor, cell_6, "#dae8fc").
-diagram_fact(fillColor, cell_7, "#fff2cc").
-diagram_fact(fillColor, cell_8, "#d5e8d4").
-diagram_fact(fillColor, cell_9, "#d5e8d4").
-diagram_fact(gradientColor, cell_6, "#7ea6e0").
+diagram_fact(fillColor, cell_10, "%23f8cecc").
+diagram_fact(fillColor, cell_6, "%23dae8fc").
+diagram_fact(fillColor, cell_7, "%23fff2cc").
+diagram_fact(fillColor, cell_8, "%23d5e8d4").
+diagram_fact(fillColor, cell_9, "%23d5e8d4").
+diagram_fact(gradientColor, cell_6, "%237ea6e0").
 diagram_fact(height, cell_10, 160).
 diagram_fact(height, cell_6, 212.5).
 diagram_fact(height, cell_7, 40).
@@ -46,11 +46,11 @@ diagram_fact(parent, cell_9, id_1).
 diagram_fact(root, root_3, root_3).
 diagram_fact(rounded, cell_10, 0).
 diagram_fact(rounded, cell_6, 1).
-diagram_fact(strokeColor, cell_10, "#b85450").
-diagram_fact(strokeColor, cell_6, "#6c8ebf").
-diagram_fact(strokeColor, cell_7, "#d6b656").
-diagram_fact(strokeColor, cell_8, "#82b366").
-diagram_fact(strokeColor, cell_9, "#82b366").
+diagram_fact(strokeColor, cell_10, "%23b85450").
+diagram_fact(strokeColor, cell_6, "%236c8ebf").
+diagram_fact(strokeColor, cell_7, "%23d6b656").
+diagram_fact(strokeColor, cell_8, "%2382b366").
+diagram_fact(strokeColor, cell_9, "%2382b366").
 diagram_fact(synonym, cell_10, yHWN_XODvyVebYNQqBD7__8).
 diagram_fact(synonym, cell_4, id_0).
 diagram_fact(synonym, cell_5, id_1).
@@ -58,7 +58,7 @@ diagram_fact(synonym, cell_6, yHWN_XODvyVebYNQqBD7__2).
 diagram_fact(synonym, cell_7, yHWN_XODvyVebYNQqBD7__3).
 diagram_fact(synonym, cell_8, yHWN_XODvyVebYNQqBD7__4).
 diagram_fact(synonym, cell_9, yHWN_XODvyVebYNQqBD7__5).
-diagram_fact(value, cell_10, "&lt;div&gt;&lt;div&gt;initially {⟪self.dirname = ''⟫}&lt;/div&gt;&lt;div&gt;on ➢❲dev❳ {&lt;span&gt;⟪xyz&lt;/span&gt;&lt;span&gt;⟫}&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;&lt;/span&gt;&lt;br&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;").
+diagram_fact(value, cell_10, "%26lt%3Bdiv%26gt%3B%26lt%3Bdiv%26gt%3B%26lt%3Bdiv%26gt%3B%26lt%3Bdiv%26gt%3B%26lt%3Bdiv%26gt%3Binitially%20%7B%E2%9F%AAself.dirname%20%3D%20''%E2%9F%AB%7D%26lt%3B%2Fdiv%26gt%3B%26lt%3Bdiv%26gt%3Bon%20%E2%9E%A2%E2%9D%B2dev%E2%9D%B3%20%7B%E2%9F%AAresult%20%3D%20re.sub%20(r'%5C%23.*%5Cn'%2C%20'%5Cn'%2C%20message.data)%E2%9F%AB%7D%26lt%3B%2Fdiv%26gt%3B%26lt%3B%2Fdiv%26gt%3B%26lt%3B%2Fdiv%26gt%3B%26lt%3B%2Fdiv%26gt%3B%26lt%3B%2Fdiv%26gt%3B%26lt%3Bdiv%26gt%3B%26lt%3Bbr%26gt%3B%26lt%3B%2Fdiv%26gt%3B").
 diagram_fact(value, cell_6, "dev").
 diagram_fact(value, cell_7, "filename").
 diagram_fact(value, cell_8, "iterate").
@@ -97,7 +97,7 @@ das_fact(kind,cell_6,rectangle).
 das_fact(kind,cell_7,ellipse).
 das_fact(kind,cell_8,ellipse).
 das_fact(kind,cell_9,ellipse).
-das_fact(name, cell_10, "&lt;div&gt;&lt;div&gt;initially {⟪self.dirname = ''⟫}&lt;/div&gt;&lt;div&gt;on ➢❲dev❳ {&lt;span&gt;⟪xyz&lt;/span&gt;&lt;span&gt;⟫}&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;&lt;/span&gt;&lt;br&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;").
+das_fact(name, cell_10, "%26lt%3Bdiv%26gt%3B%26lt%3Bdiv%26gt%3B%26lt%3Bdiv%26gt%3B%26lt%3Bdiv%26gt%3B%26lt%3Bdiv%26gt%3Binitially%20%7B%E2%9F%AAself.dirname%20%3D%20''%E2%9F%AB%7D%26lt%3B%2Fdiv%26gt%3B%26lt%3Bdiv%26gt%3Bon%20%E2%9E%A2%E2%9D%B2dev%E2%9D%B3%20%7B%E2%9F%AAresult%20%3D%20re.sub%20(r'%5C%23.*%5Cn'%2C%20'%5Cn'%2C%20message.data)%E2%9F%AB%7D%26lt%3B%2Fdiv%26gt%3B%26lt%3B%2Fdiv%26gt%3B%26lt%3B%2Fdiv%26gt%3B%26lt%3B%2Fdiv%26gt%3B%26lt%3B%2Fdiv%26gt%3B%26lt%3Bdiv%26gt%3B%26lt%3Bbr%26gt%3B%26lt%3B%2Fdiv%26gt%3B").
 das_fact(name, cell_6, "dev").
 das_fact(name, cell_7, "filename").
 das_fact(name, cell_8, "iterate").
@@ -140,4 +140,4 @@ das_fact(direct_contains,cell_6,cell_10).
 das_fact(direct_contains,cell_6,cell_7).
 das_fact(direct_contains,cell_6,cell_8).
 das_fact(direct_contains,cell_6,cell_9).
-das_fact(codebox,cell_10,"&lt;div&gt;&lt;div&gt;initially {⟪self.dirname = ''⟫}&lt;/div&gt;&lt;div&gt;on ➢❲dev❳ {&lt;span&gt;⟪xyz&lt;/span&gt;&lt;span&gt;⟫}&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;&lt;/span&gt;&lt;br&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;").
+das_fact(codebox,cell_10,"%26lt%3Bdiv%26gt%3B%26lt%3Bdiv%26gt%3B%26lt%3Bdiv%26gt%3B%26lt%3Bdiv%26gt%3B%26lt%3Bdiv%26gt%3Binitially%20%7B%E2%9F%AAself.dirname%20%3D%20''%E2%9F%AB%7D%26lt%3B%2Fdiv%26gt%3B%26lt%3Bdiv%26gt%3Bon%20%E2%9E%A2%E2%9D%B2dev%E2%9D%B3%20%7B%E2%9F%AAresult%20%3D%20re.sub%20(r'%5C%23.*%5Cn'%2C%20'%5Cn'%2C%20message.data)%E2%9F%AB%7D%26lt%3B%2Fdiv%26gt%3B%26lt%3B%2Fdiv%26gt%3B%26lt%3B%2Fdiv%26gt%3B%26lt%3B%2Fdiv%26gt%3B%26lt%3B%2Fdiv%26gt%3B%26lt%3Bdiv%26gt%3B%26lt%3Bbr%26gt%3B%26lt%3B%2Fdiv%26gt%3B").
