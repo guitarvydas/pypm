@@ -41,6 +41,11 @@ def js (commandlist, code):
   else:
     return result
 
+def pythonifyname (s):
+  r0 = re.sub (r' ', r'__', s)
+  r = r0.lower ()
+  return r
+
 def indenter (s):
   r = js (["./indenter.bash"], s)
   return r
@@ -89,8 +94,8 @@ def mkCommonHeader (component):
   code = unescapeCode (component["synccode"])
 
   s = f'#!/usr/bin/env python3'
-  s += f'# {fname}'
-  s += f'# {idkey}'
+  s += f'\n# {fname}'
+  s += f'\n# {idkey}'
   return (s)
 
 def mkCommonImports (component):
@@ -101,8 +106,8 @@ def mkCommonImports (component):
   outputs = component ["outputs"]
   code = unescapeCode (component["synccode"])
 
-  s = "import mpos"
-  s += "import dispatcher"
+  s = "\nimport mpos"
+  s += "\nimport dispatcher"
   return (s)
 
 def mkCommonInit (component, cls):
@@ -258,6 +263,8 @@ def mkScript (component):
   
 for componentArray in data:
   for component in componentArray:
+    component['name'] = pythonifyname (component['name'])
+    print (component['name'])
     fname = component["name"] + ".py"
     with open (fname, "w") as script:
       s = mkScript (component)

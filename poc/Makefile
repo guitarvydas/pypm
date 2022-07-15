@@ -7,7 +7,7 @@ NODEMODULES=\
 # change this for your own environment
 TOOLS=.
 
-all: topls.py
+all: tools ls.py omitcomments.py
 
 full : $(NODEMODULES) tools topls.py
 
@@ -28,18 +28,30 @@ tools:
 	(cd ./das2j ; make)
 	echo '* ** *' done tools
 
-ls.json : tools ls.drawio
+ls.json : ls.drawio
 	echo '* * *' generate.bash
 	./generate.bash $(TOOLS) ls.drawio
 	echo '* * * ' done generate.bash
 	mv out.json ls.json
 
-topls.py : ls.json transpile2py.bash pyemit.py
-	echo '* * * ' transpile2py.bash
+omitcomments.json : omitcomments.drawio
+	echo '* * *' generate.bash
+	./generate.bash $(TOOLS) omitcomments.drawio
+	echo '* * * ' done generate.bash
+	mv out.json omitcomments.json
+
+ls.py : ls.json
 	./transpile2py.bash ls.drawio ls.json
-	echo '* * * ' done transpile2py.bash
-	mv top.py topls.py
-	chmod a+x topls.py
+
+omitcomments.py : omitcomments.json
+	./transpile2py.bash omitcomments.drawio omitcomments.json
+
+# topls.py : ls.json transpile2py.bash pyemit.py
+# 	echo '* * * ' transpile2py.bash
+# 	./transpile2py.bash ls.drawio ls.json
+# 	echo '* * * ' done transpile2py.bash
+# 	mv top.py topls.py
+# 	chmod a+x topls.py
 
 clean:
 	(cd ./dr ; make clean)

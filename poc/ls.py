@@ -1,5 +1,9 @@
 
-#!/usr/bin/env python3# ls.py# cell_6import mposimport dispatcher
+#!/usr/bin/env python3
+# ls.py
+# cell_6
+import mpos
+import dispatcher
 class _ls (mpos.Leaf):
   def __init__ (self, dispatcher, parent, idInParent):
     super ().__init__ (dispatcher, parent, idInParent)
