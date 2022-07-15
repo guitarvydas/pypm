@@ -11,9 +11,9 @@ notdiv = ~"<div>" ~"</div>" any
 }inits {
 text = macro+
 macro =
-  | applySyntactic<OnClause>
+  | lex_OnClause
   | other
-OnClause = tOn portname "{" verbatim "}"
+lex_OnClause = spaces tOn spaces portname spaces "{" verbatim "}"
 verbatim = "⟪" notverbatim+ "⟫"
 notverbatim = ~"⟪" ~"⟫" any
 other = ~tOn any
@@ -29,7 +29,7 @@ nameRest = alnum | "_"
   const actualfmt = String.raw`
 text [@macro] = [[~{macro}]]
 macro [x] = [[~{x}]]
-OnClause [kon portname lb verbatim rb] = [[\nelif (message.port == "~{portname}"):(.\n~{verbatim}.)]]
+lex_OnClause [ws1 kon ws2 portname ws3 lb verbatim rb] = [[\nelif (message.port == "~{portname}"):(.\n~{verbatim}.)]]
 verbatim [lb @notverbatim rb] = [[~{notverbatim}]]
 notverbatim [c] = [[~{c}]]
 other [c] = [[]]

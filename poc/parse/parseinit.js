@@ -4,9 +4,9 @@ var ohm = require ('ohm-js');
 inits {
 text = macro+
 macro =
-  | applySyntactic<InitClause>
+  | lex_InitClause
   | other
-InitClause = "initially" "{" verbatim "}"
+lex_InitClause = spaces "initially" spaces "{" verbatim "}"
 verbatim = "⟪" notverbatim+ "⟫"
 notverbatim = ~"⟪" ~"⟫" any
 other = ~"initially" any
@@ -16,7 +16,7 @@ other = ~"initially" any
   const actualfmt = String.raw`
 text [@macro] = [[~{macro}]]
 macro [x] = [[~{x}]]
-InitClause [kinitially lb verbatim rb] = [[~{verbatim}]]
+lex_InitClause [ws1 kinitially ws2 lb verbatim rb] = [[~{verbatim}]]
 verbatim [lb @notverbatim rb] = [[~{notverbatim}]]
 notverbatim [c] = [[~{c}]]
 other [c] = [[]]

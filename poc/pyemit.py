@@ -50,7 +50,13 @@ def filterinitsonly (s):
   return r
 
 def filteronsonly (s):
+  print ()
+  print (s)
+  print ()
   r = js (["./parseon.bash"], s)
+  print ()
+  print (r)
+  print ()
   return r
 
 
@@ -114,12 +120,12 @@ def mkCommonInit (component, cls):
   initcode = filterinitsonly (code)
 
   s = ''
-  s += f'class _{name} (mpos.{cls}):(.'
+  s += f'\nclass _{name} (mpos.{cls}):(.'
   s += f'\ndef __init__ (self, dispatcher, parent, idInParent):(.'
   s += f'\nsuper ().__init__ (dispatcher, parent, idInParent)'
   s += f'\nself.inputs={inputs}'
   s += f'\nself.outputs={outputs}'
-  s +=  '\n' + initcode + '.).)'
+  s +=  '\n' + initcode + '.)'
   return (s)
 
 def mkCommonBodyHead (component):
@@ -128,10 +134,13 @@ def mkCommonBodyHead (component):
   idkey = component ["id"]
   inputs = component ["inputs"]
   outputs = component ["outputs"]
+  print ()
+  print (component["synccode"])
+  print ()
   code = unescapeCode (component["synccode"])
   handlercode = filteronsonly (code)
 
-  s = f'def react (self, inputMessage):(.'
+  s = f'\ndef react (self, inputMessage):(.'
   s += '\nif (False):(.\npass.)'
   s += handlercode
   return (s)

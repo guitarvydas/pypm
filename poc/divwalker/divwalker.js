@@ -4,9 +4,9 @@ var ohm = require ('ohm-js');
 divwalker {
 text = macro+
 macro =
-  | applySyntactic<DivSection>
+  | lex_DivSection
   | notdiv
-DivSection = "<div>" macro* "</div>"
+lex_DivSection = spaces "<div>" macro* "</div>"
 notdiv = ~"<div>" ~"</div>" any
 }
 `;
@@ -14,7 +14,7 @@ notdiv = ~"<div>" ~"</div>" any
   const actualfmt = String.raw`
 text [@macro] = [[~{macro}]]
 macro [x] = [[~{x}]]
-DivSection [kdiv @macro kenddiv] = [[~{macro}\n]]
+lex_DivSection [ws1 kdiv @macro kenddiv] = [[~{macro}\n]]
 notdiv [c] = [[~{c}]]
 `;
 
