@@ -43,8 +43,7 @@ def indenter (s):
   return r
 
 def filterinitsonly (s):
-  r0 = js (["./parseinit.bash"], s)
-  r = indenter (r0)
+  r = js (["./parseinit.bash"], s)
   return r
 
 def filteronsonly (s):
@@ -109,15 +108,15 @@ def printCommonInit (component, outf, cls):
   code = unescapeCode (component["synccode"])
   initcode = filterinitsonly (code)
 
-  print (file=outf)
-  print (f'class _{name} (mpos.{cls}):', file=outf)
-  print (file=outf)
-  print (f'    def __init__ (self, dispatcher, parent, idInParent):', file=outf)
-  print (f'        super ().__init__ (dispatcher, parent, idInParent)', file=outf)
-  print (f'        self.inputs={inputs}', file=outf)
-  print (f'        self.outputs={outputs}', file=outf)
-  print ( '        #inits', file=outf)
-  print ( '        ' + initcode, file=outf)
+  s = ''
+  s += f'class _{name} (mpos.{cls}):(.'
+  s += f'\ndef __init__ (self, dispatcher, parent, idInParent):(.'
+  s += f'\nsuper ().__init__ (dispatcher, parent, idInParent)'
+  s += f'\nself.inputs={inputs}'
+  s += f'\nself.outputs={outputs}'
+  s +=  '\n' + initcode + '.).)'
+  s = indenter (s)
+  print (s, file=outf)
 
 def printCommonBodyHead (component, outf):
 
@@ -128,11 +127,7 @@ def printCommonBodyHead (component, outf):
   code = unescapeCode (component["synccode"])
   handlercode = filteronsonly (code)
 
-  # print (f'    def react (self, inputMessage):(.', file=outf)
-  # print ('#handlers', file=outf)
-  # print ('if (False):(.\npass.)', end='', file=outf)
   s = f'def react (self, inputMessage):(.'
-  s += '\n#handlers'
   s += '\nif (False):(.\npass.)'
   s += handlercode
   s = indenter (s)
@@ -146,7 +141,9 @@ def printCommonBodyTail (component, outf):
   outputs = component ["outputs"]
   code = unescapeCode (component["synccode"])
 
-  print (f'        return super ().react (inputMessage).)', file=outf)
+  print (f'\nreturn super ().react (inputMessage).)', file=outf)
+  s = f'\nreturn super ().react (inputMessage).)'
+  print (s, file=outf)
   
 
 def printLeafScript (component, outf):

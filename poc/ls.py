@@ -5,21 +5,15 @@ import mpos
 import dispatcher
 
 class _ls (mpos.Leaf):
+  def __init__ (self, dispatcher, parent, idInParent):
+    super ().__init__ (dispatcher, parent, idInParent)
+    self.inputs=['iterate', 'directory']
+    self.outputs=['filename']
+    self.dirname=''
+    
 
-    def __init__ (self, dispatcher, parent, idInParent):
-        super ().__init__ (dispatcher, parent, idInParent)
-        self.inputs=['iterate', 'directory']
-        self.outputs=['filename']
-        #inits
-        *** indenter ***
-
-self.dirname=''
-
-
-*** indenter ***
 
 def react (self, inputMessage):
-  #handlers
   if (False):
     pass
   elif (message.port == "directory"):
@@ -35,4 +29,7 @@ def react (self, inputMessage):
           pass
     
   
-        return super ().react (inputMessage).)
+
+return super ().react (inputMessage).)
+
+return super ().react (inputMessage).)
