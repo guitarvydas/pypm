@@ -1,1 +1,13 @@
-[ [ {"children": [], "connections": [], "id":"cell_6", "inputs": [], "name":"Omit%20Comments", "outputs": [], "synccode":""} ] ]
+[
+  [
+    {
+      "children": [],
+      "connections": [],
+      "id":"cell_6",
+      "inputs": ["text" ],
+      "name":"Omit Comments",
+      "outputs": ["text" ],
+      "synccode":"-"
+    }
+  ]
+]

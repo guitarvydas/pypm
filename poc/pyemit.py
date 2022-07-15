@@ -137,6 +137,10 @@ def mkCommonBodyHead (component):
   code = unescapeCode (component["synccode"])
   handlercode = filteronsonly (code)
 
+  bad = (None != re.search ('FAILED', code)) | (None != re.search ('FAILED', handlercode))
+  if (bad):
+    raise Exception ('parse failure')
+  
   s = f'\ndef react (self, inputMessage):(.'
   s += '\nif (False):(.\npass.)'
   s += handlercode

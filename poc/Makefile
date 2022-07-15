@@ -12,8 +12,9 @@ all: ls.py omitcomments.py
 full : $(NODEMODULES) tools all
 
 dev:
-	touch ls.drawio
-	make ls.py
+	touch dev.drawio
+	make dev.py
+
 
 node_modules/ohm-js:
 	npm install ohm-js
@@ -32,6 +33,10 @@ tools:
 	(cd ./das2j ; make)
 	echo '* ** *' done tools
 
+dev.json : dev.drawio
+	./generate.bash $(TOOLS) dev.drawio
+	mv out.json dev.json
+
 ls.json : ls.drawio
 	./generate.bash $(TOOLS) ls.drawio
 	mv out.json ls.json
@@ -42,6 +47,9 @@ omitcomments.json : omitcomments.drawio
 
 ls.py : ls.json
 	./transpile2py.bash ls.drawio ls.json
+
+dev.py : dev.json
+	./transpile2py.bash dev.drawio dev.json
 
 omitcomments.py : omitcomments.json
 	./transpile2py.bash omitcomments.drawio omitcomments.json

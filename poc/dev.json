@@ -1,0 +1,13 @@
+[
+  [
+    {
+      "children": [],
+      "connections": [],
+      "id":"cell_6",
+      "inputs": ["iterate", "directory" ],
+      "name":"dev",
+      "outputs": ["filename" ],
+      "synccode":"&lt;div&gt;&lt;div&gt;initially {⟪self.dirname = ''⟫}&lt;/div&gt;&lt;div&gt;on ➢❲dev❳ {&lt;span&gt;⟪xyz&lt;/span&gt;&lt;span&gt;⟫}&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;&lt;/span&gt;&lt;br&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;"
+    }
+  ]
+]

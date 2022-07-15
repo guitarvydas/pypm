@@ -58,8 +58,8 @@ diagram_fact(synonym, cell_6, yHWN_XODvyVebYNQqBD7__2).
 diagram_fact(synonym, cell_7, yHWN_XODvyVebYNQqBD7__3).
 diagram_fact(synonym, cell_8, yHWN_XODvyVebYNQqBD7__4).
 diagram_fact(synonym, cell_9, yHWN_XODvyVebYNQqBD7__5).
-diagram_fact(value, cell_10, "&lt;div&gt;&lt;div&gt;&lt;div&gt;initially {⟪self.dirname = ''⟫}&lt;/div&gt;&lt;div&gt;on ➢❲directory❳ {⟪self.dirname = message.data⟫}&lt;/div&gt;&lt;div&gt;on ➢❲iterate❳ {⟪&lt;/div&gt;&lt;div&gt;files = os.listdir (self.dirname)&lt;/div&gt;&lt;div&gt;for fname in files:&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; name = self.dirname + '/' + fname&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; if (os.path.isfile (name)):&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; self.send (self, 'filename', name, message)&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; else:&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; pass&lt;/div&gt;&lt;div&gt;⟫}&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;&amp;nbsp;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;").
-diagram_fact(value, cell_6, "ls").
+diagram_fact(value, cell_10, "&lt;div&gt;&lt;div&gt;initially {⟪self.dirname = ''⟫}&lt;/div&gt;&lt;div&gt;on ➢❲dev❳ {&lt;span&gt;⟪xyz&lt;/span&gt;&lt;span&gt;⟫}&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;&lt;/span&gt;&lt;br&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;").
+diagram_fact(value, cell_6, "dev").
 diagram_fact(value, cell_7, "filename").
 diagram_fact(value, cell_8, "iterate").
 diagram_fact(value, cell_9, "directory").
@@ -75,19 +75,19 @@ diagram_fact(whiteSpace, cell_6, "wrap").
 diagram_fact(whiteSpace, cell_7, "wrap").
 diagram_fact(whiteSpace, cell_8, "wrap").
 diagram_fact(whiteSpace, cell_9, "wrap").
-diagram_fact(width, cell_10, 280).
-diagram_fact(width, cell_6, 390).
+diagram_fact(width, cell_10, 335).
+diagram_fact(width, cell_6, 450).
 diagram_fact(width, cell_7, 40).
 diagram_fact(width, cell_8, 40).
 diagram_fact(width, cell_9, 40).
 diagram_fact(x, cell_10, 1285).
 diagram_fact(x, cell_6, 1230).
-diagram_fact(x, cell_7, 1600).
+diagram_fact(x, cell_7, 1660).
 diagram_fact(x, cell_8, 1210).
 diagram_fact(x, cell_9, 1280).
 diagram_fact(y, cell_10, 80).
 diagram_fact(y, cell_6, 47.5).
-diagram_fact(y, cell_7, 153.75).
+diagram_fact(y, cell_7, 140).
 diagram_fact(y, cell_8, 140).
 diagram_fact(y, cell_9, 30).
 das_fact(kind,cell_10,rectangle).
@@ -97,8 +97,8 @@ das_fact(kind,cell_6,rectangle).
 das_fact(kind,cell_7,ellipse).
 das_fact(kind,cell_8,ellipse).
 das_fact(kind,cell_9,ellipse).
-das_fact(name, cell_10, "&lt;div&gt;&lt;div&gt;&lt;div&gt;initially {⟪self.dirname = ''⟫}&lt;/div&gt;&lt;div&gt;on ➢❲directory❳ {⟪self.dirname = message.data⟫}&lt;/div&gt;&lt;div&gt;on ➢❲iterate❳ {⟪&lt;/div&gt;&lt;div&gt;files = os.listdir (self.dirname)&lt;/div&gt;&lt;div&gt;for fname in files:&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; name = self.dirname + '/' + fname&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; if (os.path.isfile (name)):&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; self.send (self, 'filename', name, message)&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; else:&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; pass&lt;/div&gt;&lt;div&gt;⟫}&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;&amp;nbsp;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;").
-das_fact(name, cell_6, "ls").
+das_fact(name, cell_10, "&lt;div&gt;&lt;div&gt;initially {⟪self.dirname = ''⟫}&lt;/div&gt;&lt;div&gt;on ➢❲dev❳ {&lt;span&gt;⟪xyz&lt;/span&gt;&lt;span&gt;⟫}&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;&lt;/span&gt;&lt;br&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;").
+das_fact(name, cell_6, "dev").
 das_fact(name, cell_7, "filename").
 das_fact(name, cell_8, "iterate").
 das_fact(name, cell_9, "directory").
@@ -111,16 +111,16 @@ das_fact(color,cell_8,"green").
 das_fact(color,cell_9,"green").
 das_fact(bbL,cell_10,1285).
   das_fact(bbT,cell_10,80).
-  das_fact(bbR,cell_10,1565).
+  das_fact(bbR,cell_10,1620).
   das_fact(bbB,cell_10,240).
 das_fact(bbL,cell_6,1230).
   das_fact(bbT,cell_6,47.5).
-  das_fact(bbR,cell_6,1620).
+  das_fact(bbR,cell_6,1680).
   das_fact(bbB,cell_6,260).
-das_fact(bbL,cell_7,1600).
-  das_fact(bbT,cell_7,153.75).
-  das_fact(bbR,cell_7,1640).
-  das_fact(bbB,cell_7,193.75).
+das_fact(bbL,cell_7,1660).
+  das_fact(bbT,cell_7,140).
+  das_fact(bbR,cell_7,1700).
+  das_fact(bbB,cell_7,180).
 das_fact(bbL,cell_8,1210).
   das_fact(bbT,cell_8,140).
   das_fact(bbR,cell_8,1250).
@@ -140,4 +140,4 @@ das_fact(direct_contains,cell_6,cell_10).
 das_fact(direct_contains,cell_6,cell_7).
 das_fact(direct_contains,cell_6,cell_8).
 das_fact(direct_contains,cell_6,cell_9).
-das_fact(codebox,cell_10,"&lt;div&gt;&lt;div&gt;&lt;div&gt;initially {⟪self.dirname = ''⟫}&lt;/div&gt;&lt;div&gt;on ➢❲directory❳ {⟪self.dirname = message.data⟫}&lt;/div&gt;&lt;div&gt;on ➢❲iterate❳ {⟪&lt;/div&gt;&lt;div&gt;files = os.listdir (self.dirname)&lt;/div&gt;&lt;div&gt;for fname in files:&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; name = self.dirname + '/' + fname&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; if (os.path.isfile (name)):&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; self.send (self, 'filename', name, message)&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; else:&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; pass&lt;/div&gt;&lt;div&gt;⟫}&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;&amp;nbsp;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;").
+das_fact(codebox,cell_10,"&lt;div&gt;&lt;div&gt;initially {⟪self.dirname = ''⟫}&lt;/div&gt;&lt;div&gt;on ➢❲dev❳ {&lt;span&gt;⟪xyz&lt;/span&gt;&lt;span&gt;⟫}&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;&lt;/span&gt;&lt;br&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;").

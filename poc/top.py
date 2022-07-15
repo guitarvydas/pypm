@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import dispatcher
-import ls
+import dev
 disp = dispatcher.Dispatcher ()
-top = ls._ls (disp, None, '')
+top = dev._dev (disp, None, '')
 top.kickstart ()
 disp.dispatch ()
