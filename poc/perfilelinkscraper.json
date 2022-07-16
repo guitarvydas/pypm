@@ -46,10 +46,10 @@
 	},
 	{
 	  "receivers": [ {"receiver": {"component":"MD File Reader", "port":"filename"}} ],
-	  "senders": [ {"sender": {"component":"per file link scraper", "port":"filename"}} ]
+	  "senders": [ {"sender": {"component":"perfilelinkscraper", "port":"filename"}} ]
 	},
 	{
-	  "receivers": [ {"receiver": {"component":"per file link scraper", "port":"[links]"}} ],
+	  "receivers": [ {"receiver": {"component":"perfilelinkscraper", "port":"[links]"}} ],
 	  "senders": [ {"sender": {"component":"Link Scraper", "port":"[links]"}} ]
 	},
 	{
@@ -59,7 +59,7 @@
       ],
       "id":"cell_6",
       "inputs": ["filename" ],
-      "name":"per file link scraper",
+      "name":"perfilelinkscraper",
       "outputs": ["[links]" ],
       "synccode":""
     }

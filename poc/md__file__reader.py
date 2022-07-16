@@ -11,7 +11,7 @@ class _md__file__reader (mpos.Leaf):
     self.outputs=['text']
     
     
-  
+    
   def react (self, inputMessage):
     if (False):
       pass

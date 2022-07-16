@@ -11,7 +11,7 @@ class _link__scraper (mpos.Leaf):
     self.outputs=['[links]']
     result = []
     
-  
+    
   def react (self, inputMessage):
     if (False):
       pass

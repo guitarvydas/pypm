@@ -2,7 +2,7 @@ var ohm = require ('ohm-js');
 
   const grammar = String.raw`
 inits {
-text = macro+
+text = macro*
 macro =
   | lex_RawClause
   | other

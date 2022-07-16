@@ -137,7 +137,7 @@ def mkCommonInit (component, cls):
   s += f'\nsuper ().__init__ (dispatcher, parent, idInParent)'
   s += f'\nself.inputs={inputs}'
   s += f'\nself.outputs={outputs}'
-  s +=  '\n' + initcode + '.)'
+  s +=  '\n' + initcode
   s += rawcode
   return (s)
 
@@ -182,6 +182,7 @@ def mkLeafScript (component):
     s += mkCommonHeader (component)
     s += mkCommonImports (component)
     s += mkCommonInit (component, "Leaf")
+    s += '.)'
     s += mkCommonBodyHead (component)
     s += mkCommonBodyTail (component)
     return (s)
@@ -223,7 +224,7 @@ def formatConnection (i, senderList, receiverList, selfname):
     receivers.append ("mpos.Receiver ('" +  component + "', '" + port +  "')")
   sstr = ", ".join(senders)
   rstr = ", ".join(receivers)
-  retstr = f'conn{i} = mpos.Connector ([{sstr}], [{rstr}])'
+  retstr = f'\nconn{i} = mpos.Connector ([{sstr}], [{rstr}])'
   return retstr
 
 def mkContainerScript (component):
@@ -241,7 +242,8 @@ def mkContainerScript (component):
 
   s += mkCommonImports (component)
   for child in component ["children"]:
-    s += f'import {child}'
+    name = pythonifyname (child)
+    s += f'\nimport {name}'
 
   s += mkCommonInit (component, "Container")
 
@@ -252,7 +254,8 @@ def mkContainerScript (component):
   
   j = 0
   for childname in children:
-    s += f'        child{j} = {childname}._{childname} (dispatcher, self, \'{childname}\')'
+    name = pythonifyname (childname)
+    s += f'\nchild{j} = {name}._{name} (dispatcher, self, \'{childname}\')'
     j += 1
 
   i = 0
@@ -269,9 +272,11 @@ def mkContainerScript (component):
     
   mchildren = formatMap (children)
   
-  s += f'        self.connections = [ {", ".join (connectornames)} ]'
-  s += '        self.children = {' + f'{", ".join(mchildren)}' + '}'
+  s += f'\nself.connections = [ {", ".join (connectornames)} ]'
+  s += '\nself.children = {' + f'{", ".join(mchildren)}' + '}'
 
+  s += '.)'
+  
   return (s)
   
 

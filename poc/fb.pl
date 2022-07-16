@@ -319,7 +319,7 @@ diagram_fact(value, cell_26, "&lt;div&gt;&lt;div&gt;&lt;div&gt;raw {⟪&lt;/div&
 diagram_fact(value, cell_27, "&lt;div&gt;&lt;div&gt;on ➢❲text❳ {⟪&lt;/div&gt;&lt;div&gt;&amp;nbsp; result = re.sub (r'%5C#.*%5Cn', '%5Cn', message.data)&lt;/div&gt;&lt;div&gt;&amp;nbsp; self.send (self, 'text', result, message)&lt;/div&gt;&lt;div&gt;⟫}&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;").
 diagram_fact(value, cell_28, "&lt;div&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;on ➢❲[text]❳ {⟪&lt;/div&gt;&lt;div&gt;if (re.search (r'%5C.md$', message.data)):&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; f = open (message.data, 'r')&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; result = f.read ()&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; self.send (self, 'text', result, message)&lt;/div&gt;&lt;div&gt;else:&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; self.send (self, 'text', '', message)&lt;/div&gt;&lt;div&gt;⟫}&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;").
 diagram_fact(value, cell_29, "&lt;div&gt;&lt;div&gt;initially {⟪result = []⟫}&lt;/div&gt;&lt;div&gt;on ➢❲[text]❳ {⟪&lt;/div&gt;&lt;div&gt;for line in message.data:&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; result += re.findall ('(%5C[%5C[[^%5C]]+%5C]%5C])',line)&lt;/div&gt;&lt;div&gt;self.send (self, '[links]', result, message)&lt;/div&gt;&lt;div&gt;⟫}&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;").
-diagram_fact(value, cell_6, "per file link scraper").
+diagram_fact(value, cell_6, "perfilelinkscraper").
 diagram_fact(value, cell_7, "MD File Reader").
 diagram_fact(value, cell_8, "filename").
 diagram_fact(vertex, cell_10, 1).
@@ -468,7 +468,7 @@ das_fact(name, cell_26, "&lt;div&gt;&lt;div&gt;&lt;div&gt;raw {⟪&lt;/div&gt;&l
 das_fact(name, cell_27, "&lt;div&gt;&lt;div&gt;on ➢❲text❳ {⟪&lt;/div&gt;&lt;div&gt;&amp;nbsp; result = re.sub (r'%5C#.*%5Cn', '%5Cn', message.data)&lt;/div&gt;&lt;div&gt;&amp;nbsp; self.send (self, 'text', result, message)&lt;/div&gt;&lt;div&gt;⟫}&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;").
 das_fact(name, cell_28, "&lt;div&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;on ➢❲[text]❳ {⟪&lt;/div&gt;&lt;div&gt;if (re.search (r'%5C.md$', message.data)):&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; f = open (message.data, 'r')&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; result = f.read ()&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; self.send (self, 'text', result, message)&lt;/div&gt;&lt;div&gt;else:&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; self.send (self, 'text', '', message)&lt;/div&gt;&lt;div&gt;⟫}&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;").
 das_fact(name, cell_29, "&lt;div&gt;&lt;div&gt;initially {⟪result = []⟫}&lt;/div&gt;&lt;div&gt;on ➢❲[text]❳ {⟪&lt;/div&gt;&lt;div&gt;for line in message.data:&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; result += re.findall ('(%5C[%5C[[^%5C]]+%5C]%5C])',line)&lt;/div&gt;&lt;div&gt;self.send (self, '[links]', result, message)&lt;/div&gt;&lt;div&gt;⟫}&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;").
-das_fact(name, cell_6, "per file link scraper").
+das_fact(name, cell_6, "perfilelinkscraper").
 das_fact(name, cell_7, "MD File Reader").
 das_fact(name, cell_8, "filename").
 das_fact(color,cell_10,"yellow").
@@ -660,11 +660,11 @@ das_fact(connection, cell_6, cell_17).
 das_fact(sender, cell_17, sender{component:"Omit Comments",port:"text"}).
 das_fact(receiver, cell_17, receiver{component:"Omit Code Quotes",port:"text"}).
 das_fact(connection, cell_6, cell_19).
-das_fact(sender, cell_19, sender{component:"per file link scraper",port:"filename"}).
+das_fact(sender, cell_19, sender{component:"perfilelinkscraper",port:"filename"}).
 das_fact(receiver, cell_19, receiver{component:"MD File Reader",port:"filename"}).
 das_fact(connection, cell_6, cell_24).
 das_fact(sender, cell_24, sender{component:"Link Scraper",port:"[links]"}).
-das_fact(receiver, cell_24, receiver{component:"per file link scraper",port:"[links]"}).
+das_fact(receiver, cell_24, receiver{component:"perfilelinkscraper",port:"[links]"}).
 das_fact(connection, cell_6, cell_9).
 das_fact(sender, cell_9, sender{component:"MD File Reader",port:"text"}).
 das_fact(receiver, cell_9, receiver{component:"Omit Comments",port:"text"}).

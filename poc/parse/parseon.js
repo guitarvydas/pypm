@@ -2,7 +2,7 @@ var ohm = require ('ohm-js');
 
   const grammar = String.raw`
 divwalker {
-text = macro+
+text = macro*
 macro =
   | applySyntactic<Div> -- rec
   | notdiv  -- bottom  
