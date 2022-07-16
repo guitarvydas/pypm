@@ -1,4 +1,7 @@
 initially{⟪self.dirname=''⟫}
+raw {⟪
+print ('raw')
+⟫}
 on➢❲directory❳{⟪self.dirname=message.data⟫}
 on➢❲iterate❳{⟪
   files=os.listdir(self.dirname)

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import dispatcher
-import omitcomments
+import linkscraper
 disp = dispatcher.Dispatcher ()
-top = omitcomments._omitcomments (disp, None, '')
+top = linkscraper._linkscraper (disp, None, '')
 top.kickstart ()
 disp.dispatch ()

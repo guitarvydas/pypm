@@ -1,4 +1,6 @@
-on ➢❲text❳ {⟪
-  result = re.sub (r'\#.*\n', '\n', message.data)
-  self.send (self, 'text', result, message)
+initially {⟪result = []⟫}
+on ➢❲[text]❳ {⟪
+for line in message.data:
+    result += re.findall ('(\[\[[^\]]+\]\])',line)
+self.send (self, '[links]', result, message)
 ⟫}

@@ -7,7 +7,7 @@
       "inputs": ["iterate", "directory" ],
       "name":"dev",
       "outputs": ["filename" ],
-      "synccode":"&lt;div&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;initially {⟪self.dirname = ''⟫}&lt;/div&gt;&lt;div&gt;on ➢❲dev❳ {⟪result = re.sub (r'%5C#.*%5Cn', '%5Cn', message.data)⟫}&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;"
+      "synccode":"&lt;div&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;initially {⟪'init'⟫}&lt;/div&gt;&lt;div&gt;raw {⟪&amp;nbsp;&lt;/div&gt;&lt;div&gt;print ('raw')&amp;nbsp;&lt;/div&gt;&lt;div&gt;⟫}&lt;/div&gt;&lt;div&gt;on ➢❲text❳ {⟪&lt;/div&gt;&lt;div&gt;if (message.port == 'text'):&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; text = message.data.split ('%5Cn')&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; result = rmCodeQuotesState0 (text)&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; self.send (self, '[text]', result, message)&lt;/div&gt;&lt;div&gt;⟫}&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;"
     }
   ]
 ]

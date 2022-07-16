@@ -1,43 +1,25 @@
 var ohm = require ('ohm-js');
 
   const grammar = String.raw`
-divwalker {
+inits {
 text = macro+
 macro =
-  | applySyntactic<Div> -- rec
-  | notdiv  -- bottom  
-Div = "<div>" macro* "</div>"
-notdiv = ~"<div>" ~"</div>" any
-}inits {
-text = macro+
-macro =
-  | lex_OnClause
+  | lex_RawClause
   | other
-lex_OnClause = spaces tOn spaces portname spaces "{" verbatim "}"
+lex_RawClause = spaces "raw" spaces "{" verbatim "}"
 verbatim = "⟪" notverbatim+ "⟫"
 notverbatim = ~"⟪" ~"⟫" any
-other = ~tOn any
-tOn = "on" ~alnum
-portname = "➢" "❲" name "❳"
-name = nameFirst nameRest*
-nameFirst = letter | "["
-nameRest = alnum | "_" | "[" | "]"
+other = ~"raw" any
 }
-
 `;
 
   const actualfmt = String.raw`
 text [@macro] = [[~{macro}]]
 macro [x] = [[~{x}]]
-lex_OnClause [ws1 kon ws2 portname ws3 lb verbatim rb] = [[\nelif (message.port == "~{portname}"):(.\n~{verbatim}.)]]
+lex_RawClause [ws1 kraw ws2 lb verbatim rb] = [[~{verbatim}]]
 verbatim [lb @notverbatim rb] = [[~{notverbatim}]]
 notverbatim [c] = [[~{c}]]
 other [c] = [[]]
-portname [kport lb name rb] = [[~{name}]]
-name [nameFirst @nameRest] = [[~{nameFirst}~{nameRest}]]
-nameFirst [c] = [[~{c}]]
-nameRest [c] = [[~{c}]]
-tOn [kon] = [[~{kon}]]
 `;
 
   var pipelineSuccess;

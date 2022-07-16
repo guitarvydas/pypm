@@ -7,7 +7,7 @@ NODEMODULES=\
 # change this for your own environment
 TOOLS=.
 
-all: ls.py omitcomments.py
+all: ls.py omitcomments.py omitcodequotes.py linkscraper.py
 
 full : $(NODEMODULES) tools all
 
@@ -45,6 +45,14 @@ omitcomments.json : omitcomments.drawio
 	./generate.bash $(TOOLS) omitcomments.drawio
 	mv out.json omitcomments.json
 
+omitcodequotes.json : omitcodequotes.drawio
+	./generate.bash $(TOOLS) omitcodequotes.drawio
+	mv out.json omitcodequotes.json
+
+linkscraper.json : linkscraper.drawio
+	./generate.bash $(TOOLS) linkscraper.drawio
+	mv out.json linkscraper.json
+
 ls.py : ls.json
 	./transpile2py.bash ls.drawio ls.json
 
@@ -53,6 +61,12 @@ dev.py : dev.json
 
 omitcomments.py : omitcomments.json
 	./transpile2py.bash omitcomments.drawio omitcomments.json
+
+omitcodequotes.py : omitcodequotes.json
+	./transpile2py.bash omitcodequotes.drawio omitcodequotes.json
+
+linkscraper.py : linkscraper.json
+	./transpile2py.bash linkscraper.drawio linkscraper.json
 
 # topls.py : ls.json transpile2py.bash pyemit.py
 # 	echo '* * * ' transpile2py.bash

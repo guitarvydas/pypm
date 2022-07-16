@@ -58,6 +58,10 @@ def filteronsonly (s):
   r = js (["./parseon.bash"], s)
   return r
 
+def filterrawsonly (s):
+  r = js (["./parseraw.bash"], s)
+  return r
+
 
 def unescapeCode (s):
   code = html.unescape (s)
@@ -119,6 +123,7 @@ def mkCommonInit (component, cls):
   outputs = component ["outputs"]
   code = unescapeCode (component["synccode"])
   initcode = filterinitsonly (code)
+  rawcode = filterrawsonly (code)
 
   s = ''
   s += f'\nclass _{name} (mpos.{cls}):(.'
@@ -127,6 +132,7 @@ def mkCommonInit (component, cls):
   s += f'\nself.inputs={inputs}'
   s += f'\nself.outputs={outputs}'
   s +=  '\n' + initcode + '.)'
+  s += rawcode
   return (s)
 
 def mkCommonBodyHead (component):

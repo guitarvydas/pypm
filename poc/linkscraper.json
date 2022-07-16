@@ -1,0 +1,13 @@
+[
+  [
+    {
+      "children": [],
+      "connections": [],
+      "id":"cell_6",
+      "inputs": ["[text]" ],
+      "name":"Link Scraper",
+      "outputs": ["[links]" ],
+      "synccode":"&lt;div&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;initially {⟪result = []⟫}&lt;/div&gt;&lt;div&gt;on ➢❲[text]❳ {⟪&lt;/div&gt;&lt;div&gt;for line in message.data:&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; result += re.findall ('(%5C[%5C[[^%5C]]+%5C]%5C])',line)&lt;/div&gt;&lt;div&gt;self.send (self, '[links]', result, message)&lt;/div&gt;&lt;div&gt;⟫}&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;"
+    }
+  ]
+]

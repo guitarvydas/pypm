@@ -9,13 +9,21 @@ class _dev (mpos.Leaf):
     super ().__init__ (dispatcher, parent, idInParent)
     self.inputs=['iterate', 'directory']
     self.outputs=['filename']
-    self.dirname = ''
-    
+    'init'
+     
+  print ('raw') 
+  
+  
   def react (self, inputMessage):
     if (False):
       pass
-    elif (message.port == "dev"):
-      result = re.sub (r'\#.*\n', '\n', message.data)
+    elif (message.port == "text"):
+      
+      if (message.port == 'text'):
+          text = message.data.split ('\n')
+          result = rmCodeQuotesState0 (text)
+          self.send (self, '[text]', result, message)
+      
     
     return super ().react (inputMessage)
 
