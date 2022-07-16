@@ -7,7 +7,7 @@ NODEMODULES=\
 # change this for your own environment
 TOOLS=.
 
-all: ls.py omitcomments.py omitcodequotes.py linkscraper.py
+all: ls.py omitcomments.py omitcodequotes.py linkscraper.py mdfilereader.py
 
 full : $(NODEMODULES) tools all
 
@@ -53,6 +53,10 @@ linkscraper.json : linkscraper.drawio
 	./generate.bash $(TOOLS) linkscraper.drawio
 	mv out.json linkscraper.json
 
+mdfilereader.json : mdfilereader.drawio
+	./generate.bash $(TOOLS) mdfilereader.drawio
+	mv out.json mdfilereader.json
+
 ls.py : ls.json
 	./transpile2py.bash ls.drawio ls.json
 
@@ -67,6 +71,9 @@ omitcodequotes.py : omitcodequotes.json
 
 linkscraper.py : linkscraper.json
 	./transpile2py.bash linkscraper.drawio linkscraper.json
+
+mdfilereader.py : mdfilereader.json
+	./transpile2py.bash mdfilereader.drawio mdfilereader.json
 
 # topls.py : ls.json transpile2py.bash pyemit.py
 # 	echo '* * * ' transpile2py.bash

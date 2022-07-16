@@ -17,10 +17,10 @@ diagram_fact(fillColor, cell_7, "#d5e8d4").
 diagram_fact(fillColor, cell_8, "#fff2cc").
 diagram_fact(fillColor, cell_9, "#f8cecc").
 diagram_fact(gradientColor, cell_6, "#7ea6e0").
-diagram_fact(height, cell_6, 180).
+diagram_fact(height, cell_6, 210).
 diagram_fact(height, cell_7, 40).
 diagram_fact(height, cell_8, 40).
-diagram_fact(height, cell_9, 110).
+diagram_fact(height, cell_9, 140).
 diagram_fact(horizontal, cell_6, 1).
 diagram_fact(html, cell_6, 1).
 diagram_fact(html, cell_7, 1).
@@ -48,10 +48,10 @@ diagram_fact(synonym, cell_6, p7IZcTttrq__my5eBQYlH__1).
 diagram_fact(synonym, cell_7, p7IZcTttrq__my5eBQYlH__2).
 diagram_fact(synonym, cell_8, p7IZcTttrq__my5eBQYlH__3).
 diagram_fact(synonym, cell_9, p7IZcTttrq__my5eBQYlH__4).
-diagram_fact(value, cell_6, "Link Scraper").
+diagram_fact(value, cell_6, "MD File Reader").
 diagram_fact(value, cell_7, "[text]").
 diagram_fact(value, cell_8, "[links]").
-diagram_fact(value, cell_9, "&lt;div&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;initially {⟪result = []⟫}&lt;/div&gt;&lt;div&gt;on ➢❲[text]❳ {⟪&lt;/div&gt;&lt;div&gt;for line in message.data:&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; result += re.findall ('(%5C[%5C[[^%5C]]+%5C]%5C])',line)&lt;/div&gt;&lt;div&gt;self.send (self, '[links]', result, message)&lt;/div&gt;&lt;div&gt;⟫}&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;").
+diagram_fact(value, cell_9, "&lt;div&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;on ➢❲[text]❳ {⟪&lt;/div&gt;&lt;div&gt;if (re.search (r'%5C.md$', message.data)):&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; f = open (message.data, 'r')&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; result = f.read ()&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; self.send (self, 'text', result, message)&lt;/div&gt;&lt;div&gt;else:&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; self.send (self, 'text', '', message)&lt;/div&gt;&lt;div&gt;⟫}&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;").
 diagram_fact(vertex, cell_6, 1).
 diagram_fact(vertex, cell_7, 1).
 diagram_fact(vertex, cell_8, 1).
@@ -80,10 +80,10 @@ das_fact(kind,cell_6,rectangle).
 das_fact(kind,cell_7,ellipse).
 das_fact(kind,cell_8,ellipse).
 das_fact(kind,cell_9,rectangle).
-das_fact(name, cell_6, "Link Scraper").
+das_fact(name, cell_6, "MD File Reader").
 das_fact(name, cell_7, "[text]").
 das_fact(name, cell_8, "[links]").
-das_fact(name, cell_9, "&lt;div&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;initially {⟪result = []⟫}&lt;/div&gt;&lt;div&gt;on ➢❲[text]❳ {⟪&lt;/div&gt;&lt;div&gt;for line in message.data:&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; result += re.findall ('(%5C[%5C[[^%5C]]+%5C]%5C])',line)&lt;/div&gt;&lt;div&gt;self.send (self, '[links]', result, message)&lt;/div&gt;&lt;div&gt;⟫}&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;").
+das_fact(name, cell_9, "&lt;div&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;on ➢❲[text]❳ {⟪&lt;/div&gt;&lt;div&gt;if (re.search (r'%5C.md$', message.data)):&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; f = open (message.data, 'r')&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; result = f.read ()&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; self.send (self, 'text', result, message)&lt;/div&gt;&lt;div&gt;else:&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; self.send (self, 'text', '', message)&lt;/div&gt;&lt;div&gt;⟫}&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;").
 das_fact(color,cell_4,"-").
 das_fact(color,cell_5,"-").
 das_fact(color,cell_6,"-").
@@ -93,7 +93,7 @@ das_fact(color,cell_9,"red").
 das_fact(bbL,cell_6,140).
   das_fact(bbT,cell_6,80).
   das_fact(bbR,cell_6,480).
-  das_fact(bbB,cell_6,260).
+  das_fact(bbB,cell_6,290).
 das_fact(bbL,cell_7,120).
   das_fact(bbT,cell_7,145).
   das_fact(bbR,cell_7,160).
@@ -105,7 +105,7 @@ das_fact(bbL,cell_8,460).
 das_fact(bbL,cell_9,190).
   das_fact(bbT,cell_9,120).
   das_fact(bbR,cell_9,420).
-  das_fact(bbB,cell_9,230).
+  das_fact(bbB,cell_9,260).
 das_fact(direction,cell_7,input).
 das_fact(direction,cell_8,output).
 das_fact(contains,cell_6,cell_9).
@@ -114,4 +114,4 @@ das_fact(contains,cell_6,cell_8).
 das_fact(direct_contains,cell_6,cell_7).
 das_fact(direct_contains,cell_6,cell_8).
 das_fact(direct_contains,cell_6,cell_9).
-das_fact(codebox,cell_9,"&lt;div&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;initially {⟪result = []⟫}&lt;/div&gt;&lt;div&gt;on ➢❲[text]❳ {⟪&lt;/div&gt;&lt;div&gt;for line in message.data:&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; result += re.findall ('(%5C[%5C[[^%5C]]+%5C]%5C])',line)&lt;/div&gt;&lt;div&gt;self.send (self, '[links]', result, message)&lt;/div&gt;&lt;div&gt;⟫}&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;").
+das_fact(codebox,cell_9,"&lt;div&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;on ➢❲[text]❳ {⟪&lt;/div&gt;&lt;div&gt;if (re.search (r'%5C.md$', message.data)):&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; f = open (message.data, 'r')&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; result = f.read ()&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; self.send (self, 'text', result, message)&lt;/div&gt;&lt;div&gt;else:&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; self.send (self, 'text', '', message)&lt;/div&gt;&lt;div&gt;⟫}&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;").

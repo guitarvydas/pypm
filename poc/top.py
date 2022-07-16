@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import dispatcher
-import linkscraper
+import mdfilereader
 disp = dispatcher.Dispatcher ()
-top = linkscraper._linkscraper (disp, None, '')
+top = mdfilereader._mdfilereader (disp, None, '')
 top.kickstart ()
 disp.dispatch ()
