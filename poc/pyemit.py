@@ -64,6 +64,9 @@ def filterrawsonly (s):
 
 
 def unescapeCode (s):
+  if (0 >= len (s)):
+    return ''
+  
   code = html.unescape (s)
   # note that <p .../> and <span .../> and <pre .../> are not handled by the
   # code below (this probably needs a parser - e.g. Ohm-JS - to grok
@@ -96,7 +99,10 @@ def mkCommonHeader (component):
   idkey = component ["id"]
   inputs = component ["inputs"]
   outputs = component ["outputs"]
-  code = unescapeCode (component["synccode"])
+  sc = component ["synccode"]
+  code = ''
+  if (0 >= len (sc)):
+    code = unescapeCode (sc)
 
   s = f'#!/usr/bin/env python3'
   s += f'\n# {fname}'
@@ -181,6 +187,7 @@ def mkLeafScript (component):
     return (s)
   else:
     print ("", file=sys.stderr)
+    print (component)
     print ("*** Diagram Error - leaf contains no code", file=sys.stderr)
     print (component ["name"], file=sys.stderr)
     print ("", file=sys.stderr)

@@ -17,7 +17,7 @@ leaf-dev:
 
 dev:
 	touch perfilelinkscraper.drawio
-	make perfilelinkscraper.json
+	make perfilelinkscraper.py
 
 
 node_modules/ohm-js:

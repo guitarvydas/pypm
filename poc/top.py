@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import dispatcher
-import mdfilereader
+import perfilelinkscraper
 disp = dispatcher.Dispatcher ()
-top = mdfilereader._mdfilereader (disp, None, '')
+top = perfilelinkscraper._perfilelinkscraper (disp, None, '')
 top.kickstart ()
 disp.dispatch ()

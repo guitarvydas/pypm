@@ -1,14 +1,14 @@
 
 #!/usr/bin/env python3
 # md__file__reader.py
-# cell_6
+# cell_7
 import mpos
 import dispatcher
 class _md__file__reader (mpos.Leaf):
   def __init__ (self, dispatcher, parent, idInParent):
     super ().__init__ (dispatcher, parent, idInParent)
-    self.inputs=['[text]']
-    self.outputs=['[links]']
+    self.inputs=['filename']
+    self.outputs=['text']
     
     
   

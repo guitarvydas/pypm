@@ -1,3 +1,7 @@
+diagram_fact(align, cell_26, "left").
+diagram_fact(align, cell_27, "left").
+diagram_fact(align, cell_28, "left").
+diagram_fact(align, cell_29, "left").
 diagram_fact(as, cell_10, "geometry").
 diagram_fact(as, cell_11, "geometry").
 diagram_fact(as, cell_12, "geometry").
@@ -14,6 +18,10 @@ diagram_fact(as, cell_22, "geometry").
 diagram_fact(as, cell_23, "geometry").
 diagram_fact(as, cell_24, "geometry").
 diagram_fact(as, cell_25, "geometry").
+diagram_fact(as, cell_26, "geometry").
+diagram_fact(as, cell_27, "geometry").
+diagram_fact(as, cell_28, "geometry").
+diagram_fact(as, cell_29, "geometry").
 diagram_fact(as, cell_6, "geometry").
 diagram_fact(as, cell_7, "geometry").
 diagram_fact(as, cell_8, "geometry").
@@ -44,6 +52,10 @@ diagram_fact(cell, cell_22, "").
 diagram_fact(cell, cell_23, "").
 diagram_fact(cell, cell_24, "").
 diagram_fact(cell, cell_25, "").
+diagram_fact(cell, cell_26, "").
+diagram_fact(cell, cell_27, "").
+diagram_fact(cell, cell_28, "").
+diagram_fact(cell, cell_29, "").
 diagram_fact(cell, cell_4, "").
 diagram_fact(cell, cell_5, "").
 diagram_fact(cell, cell_6, "").
@@ -109,6 +121,10 @@ diagram_fact(fillColor, cell_21, "#fff2cc").
 diagram_fact(fillColor, cell_22, "#dae8fc").
 diagram_fact(fillColor, cell_23, "#d5e8d4").
 diagram_fact(fillColor, cell_25, "#fff2cc").
+diagram_fact(fillColor, cell_26, "#f8cecc").
+diagram_fact(fillColor, cell_27, "#f8cecc").
+diagram_fact(fillColor, cell_28, "#f8cecc").
+diagram_fact(fillColor, cell_29, "#f8cecc").
 diagram_fact(fillColor, cell_6, "#f5f5f5").
 diagram_fact(fillColor, cell_7, "#dae8fc").
 diagram_fact(fillColor, cell_8, "#d5e8d4").
@@ -118,7 +134,7 @@ diagram_fact(gradientColor, cell_22, "#7ea6e0").
 diagram_fact(gradientColor, cell_6, "#b3b3b3").
 diagram_fact(gradientColor, cell_7, "#7ea6e0").
 diagram_fact(height, cell_10, 40).
-diagram_fact(height, cell_11, 120).
+diagram_fact(height, cell_11, 550).
 diagram_fact(height, cell_12, 40).
 diagram_fact(height, cell_14, 40).
 diagram_fact(height, cell_15, 120).
@@ -126,11 +142,15 @@ diagram_fact(height, cell_16, 40).
 diagram_fact(height, cell_18, 40).
 diagram_fact(height, cell_20, 40).
 diagram_fact(height, cell_21, 40).
-diagram_fact(height, cell_22, 120).
+diagram_fact(height, cell_22, 180).
 diagram_fact(height, cell_23, 40).
 diagram_fact(height, cell_25, 40).
-diagram_fact(height, cell_6, 480).
-diagram_fact(height, cell_7, 120).
+diagram_fact(height, cell_26, 460).
+diagram_fact(height, cell_27, 80).
+diagram_fact(height, cell_28, 140).
+diagram_fact(height, cell_29, 110).
+diagram_fact(height, cell_6, 890).
+diagram_fact(height, cell_7, 250).
 diagram_fact(height, cell_8, 40).
 diagram_fact(horizontal, cell_11, 1).
 diagram_fact(horizontal, cell_15, 1).
@@ -153,6 +173,10 @@ diagram_fact(html, cell_22, 1).
 diagram_fact(html, cell_23, 1).
 diagram_fact(html, cell_24, 1).
 diagram_fact(html, cell_25, 1).
+diagram_fact(html, cell_26, 1).
+diagram_fact(html, cell_27, 1).
+diagram_fact(html, cell_28, 1).
+diagram_fact(html, cell_29, 1).
 diagram_fact(html, cell_6, 1).
 diagram_fact(html, cell_7, 1).
 diagram_fact(html, cell_8, 1).
@@ -195,6 +219,10 @@ diagram_fact(parent, cell_22, id_1).
 diagram_fact(parent, cell_23, id_1).
 diagram_fact(parent, cell_24, id_1).
 diagram_fact(parent, cell_25, id_1).
+diagram_fact(parent, cell_26, id_1).
+diagram_fact(parent, cell_27, id_1).
+diagram_fact(parent, cell_28, id_1).
+diagram_fact(parent, cell_29, id_1).
 diagram_fact(parent, cell_5, id_0).
 diagram_fact(parent, cell_6, id_1).
 diagram_fact(parent, cell_7, id_1).
@@ -213,6 +241,10 @@ diagram_fact(rounded, cell_17, 0).
 diagram_fact(rounded, cell_19, 0).
 diagram_fact(rounded, cell_22, 1).
 diagram_fact(rounded, cell_24, 0).
+diagram_fact(rounded, cell_26, 0).
+diagram_fact(rounded, cell_27, 0).
+diagram_fact(rounded, cell_28, 0).
+diagram_fact(rounded, cell_29, 0).
 diagram_fact(rounded, cell_6, 1).
 diagram_fact(rounded, cell_7, 1).
 diagram_fact(rounded, cell_9, 0).
@@ -233,6 +265,10 @@ diagram_fact(strokeColor, cell_21, "#d6b656").
 diagram_fact(strokeColor, cell_22, "#6c8ebf").
 diagram_fact(strokeColor, cell_23, "#82b366").
 diagram_fact(strokeColor, cell_25, "#d6b656").
+diagram_fact(strokeColor, cell_26, "#b85450").
+diagram_fact(strokeColor, cell_27, "#b85450").
+diagram_fact(strokeColor, cell_28, "#b85450").
+diagram_fact(strokeColor, cell_29, "#b85450").
 diagram_fact(strokeColor, cell_6, "#666666").
 diagram_fact(strokeColor, cell_7, "#6c8ebf").
 diagram_fact(strokeColor, cell_8, "#82b366").
@@ -252,6 +288,10 @@ diagram_fact(synonym, cell_22, id_6_Qxa0QYoAU7xpzLT97k__17).
 diagram_fact(synonym, cell_23, id_6_Qxa0QYoAU7xpzLT97k__18).
 diagram_fact(synonym, cell_24, id_6_Qxa0QYoAU7xpzLT97k__19).
 diagram_fact(synonym, cell_25, id_6_Qxa0QYoAU7xpzLT97k__20).
+diagram_fact(synonym, cell_26, id_BAIMJiiR0i6siftUDlsX__1).
+diagram_fact(synonym, cell_27, id_BAIMJiiR0i6siftUDlsX__2).
+diagram_fact(synonym, cell_28, id_BAIMJiiR0i6siftUDlsX__3).
+diagram_fact(synonym, cell_29, id_BAIMJiiR0i6siftUDlsX__5).
 diagram_fact(synonym, cell_4, id_0).
 diagram_fact(synonym, cell_5, id_1).
 diagram_fact(synonym, cell_6, id_6_Qxa0QYoAU7xpzLT97k__1).
@@ -275,6 +315,10 @@ diagram_fact(value, cell_21, "[links]").
 diagram_fact(value, cell_22, "Link Scraper").
 diagram_fact(value, cell_23, "[text]").
 diagram_fact(value, cell_25, "[links]").
+diagram_fact(value, cell_26, "&lt;div&gt;&lt;div&gt;&lt;div&gt;raw {⟪&lt;/div&gt;&lt;div&gt;def rmCodeQuotesState0 (textList):&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; if (0 == len (textList)):&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; return []&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; else:&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; first = textList [0];&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; rest = textList [1:]&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; if (first == '```'):&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; return rmCodeQuotesState1 (rest)&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; else:&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; return [first] + rmCodeQuotesState0 (rest)&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;&amp;nbsp;&lt;/div&gt;&lt;div&gt;def rmCodeQuotesState1 (textList):&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; if (0 == len (textList)):&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; return []&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; else:&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; first = textList [0];&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; rest = textList [1:]&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; if (first == '```'):&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; return rmCodeQuotesState0 (rest)&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; else:&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; return rmCodeQuotesState1 (rest)&lt;/div&gt;&lt;div&gt;⟫}&lt;/div&gt;&lt;div&gt;on ➢❲text❳ {⟪&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; text = message.data.split ('%5Cn')&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; result = rmCodeQuotesState0 (text)&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; self.send (self, '[text]', result, message)&lt;/div&gt;&lt;div&gt;⟫}&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;").
+diagram_fact(value, cell_27, "&lt;div&gt;&lt;div&gt;on ➢❲text❳ {⟪&lt;/div&gt;&lt;div&gt;&amp;nbsp; result = re.sub (r'%5C#.*%5Cn', '%5Cn', message.data)&lt;/div&gt;&lt;div&gt;&amp;nbsp; self.send (self, 'text', result, message)&lt;/div&gt;&lt;div&gt;⟫}&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;").
+diagram_fact(value, cell_28, "&lt;div&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;on ➢❲[text]❳ {⟪&lt;/div&gt;&lt;div&gt;if (re.search (r'%5C.md$', message.data)):&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; f = open (message.data, 'r')&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; result = f.read ()&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; self.send (self, 'text', result, message)&lt;/div&gt;&lt;div&gt;else:&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; self.send (self, 'text', '', message)&lt;/div&gt;&lt;div&gt;⟫}&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;").
+diagram_fact(value, cell_29, "&lt;div&gt;&lt;div&gt;initially {⟪result = []⟫}&lt;/div&gt;&lt;div&gt;on ➢❲[text]❳ {⟪&lt;/div&gt;&lt;div&gt;for line in message.data:&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; result += re.findall ('(%5C[%5C[[^%5C]]+%5C]%5C])',line)&lt;/div&gt;&lt;div&gt;self.send (self, '[links]', result, message)&lt;/div&gt;&lt;div&gt;⟫}&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;").
 diagram_fact(value, cell_6, "per file link scraper").
 diagram_fact(value, cell_7, "MD File Reader").
 diagram_fact(value, cell_8, "filename").
@@ -290,12 +334,20 @@ diagram_fact(vertex, cell_21, 1).
 diagram_fact(vertex, cell_22, 1).
 diagram_fact(vertex, cell_23, 1).
 diagram_fact(vertex, cell_25, 1).
+diagram_fact(vertex, cell_26, 1).
+diagram_fact(vertex, cell_27, 1).
+diagram_fact(vertex, cell_28, 1).
+diagram_fact(vertex, cell_29, 1).
 diagram_fact(vertex, cell_6, 1).
 diagram_fact(vertex, cell_7, 1).
 diagram_fact(vertex, cell_8, 1).
 diagram_fact(verticalAlign, cell_11, "top").
 diagram_fact(verticalAlign, cell_15, "top").
 diagram_fact(verticalAlign, cell_22, "top").
+diagram_fact(verticalAlign, cell_26, "top").
+diagram_fact(verticalAlign, cell_27, "top").
+diagram_fact(verticalAlign, cell_28, "top").
+diagram_fact(verticalAlign, cell_29, "top").
 diagram_fact(verticalAlign, cell_6, "top").
 diagram_fact(verticalAlign, cell_7, "top").
 diagram_fact(whiteSpace, cell_10, "wrap").
@@ -310,51 +362,67 @@ diagram_fact(whiteSpace, cell_21, "wrap").
 diagram_fact(whiteSpace, cell_22, "wrap").
 diagram_fact(whiteSpace, cell_23, "wrap").
 diagram_fact(whiteSpace, cell_25, "wrap").
+diagram_fact(whiteSpace, cell_26, "wrap").
+diagram_fact(whiteSpace, cell_27, "wrap").
+diagram_fact(whiteSpace, cell_28, "wrap").
+diagram_fact(whiteSpace, cell_29, "wrap").
 diagram_fact(whiteSpace, cell_6, "wrap").
 diagram_fact(whiteSpace, cell_7, "wrap").
 diagram_fact(whiteSpace, cell_8, "wrap").
 diagram_fact(width, cell_10, 40).
-diagram_fact(width, cell_11, 120).
+diagram_fact(width, cell_11, 310).
 diagram_fact(width, cell_12, 40).
 diagram_fact(width, cell_14, 40).
-diagram_fact(width, cell_15, 120).
+diagram_fact(width, cell_15, 310).
 diagram_fact(width, cell_16, 40).
 diagram_fact(width, cell_18, 40).
 diagram_fact(width, cell_20, 40).
 diagram_fact(width, cell_21, 40).
-diagram_fact(width, cell_22, 120).
+diagram_fact(width, cell_22, 320).
 diagram_fact(width, cell_23, 40).
 diagram_fact(width, cell_25, 40).
-diagram_fact(width, cell_6, 760).
-diagram_fact(width, cell_7, 120).
+diagram_fact(width, cell_26, 250).
+diagram_fact(width, cell_27, 250).
+diagram_fact(width, cell_28, 230).
+diagram_fact(width, cell_29, 230).
+diagram_fact(width, cell_6, 1560).
+diagram_fact(width, cell_7, 320).
 diagram_fact(width, cell_8, 40).
-diagram_fact(x, cell_10, 260).
-diagram_fact(x, cell_11, 600).
-diagram_fact(x, cell_12, 580).
-diagram_fact(x, cell_14, 700).
-diagram_fact(x, cell_15, 380).
-diagram_fact(x, cell_16, 360).
-diagram_fact(x, cell_18, 480).
+diagram_fact(x, cell_10, 460).
+diagram_fact(x, cell_11, 1170).
+diagram_fact(x, cell_12, 1150).
+diagram_fact(x, cell_14, 1460).
+diagram_fact(x, cell_15, 720).
+diagram_fact(x, cell_16, 700).
+diagram_fact(x, cell_18, 1010).
 diagram_fact(x, cell_20, 40).
-diagram_fact(x, cell_21, 800).
-diagram_fact(x, cell_22, 160).
-diagram_fact(x, cell_23, 140).
-diagram_fact(x, cell_25, 260).
+diagram_fact(x, cell_21, 1600).
+diagram_fact(x, cell_22, 150).
+diagram_fact(x, cell_23, 130).
+diagram_fact(x, cell_25, 450).
+diagram_fact(x, cell_26, 1200).
+diagram_fact(x, cell_27, 750).
+diagram_fact(x, cell_28, 210).
+diagram_fact(x, cell_29, 190).
 diagram_fact(x, cell_6, 60).
 diagram_fact(x, cell_7, 160).
 diagram_fact(x, cell_8, 140).
-diagram_fact(y, cell_10, 120).
-diagram_fact(y, cell_11, 80).
-diagram_fact(y, cell_12, 120).
-diagram_fact(y, cell_14, 120).
-diagram_fact(y, cell_15, 80).
-diagram_fact(y, cell_16, 120).
-diagram_fact(y, cell_18, 120).
+diagram_fact(y, cell_10, 130).
+diagram_fact(y, cell_11, 90).
+diagram_fact(y, cell_12, 130).
+diagram_fact(y, cell_14, 140).
+diagram_fact(y, cell_15, 90).
+diagram_fact(y, cell_16, 130).
+diagram_fact(y, cell_18, 130).
 diagram_fact(y, cell_20, 120).
-diagram_fact(y, cell_21, 400).
-diagram_fact(y, cell_22, 360).
-diagram_fact(y, cell_23, 400).
-diagram_fact(y, cell_25, 400).
+diagram_fact(y, cell_21, 750).
+diagram_fact(y, cell_22, 700).
+diagram_fact(y, cell_23, 740).
+diagram_fact(y, cell_25, 750).
+diagram_fact(y, cell_26, 140).
+diagram_fact(y, cell_27, 120).
+diagram_fact(y, cell_28, 140).
+diagram_fact(y, cell_29, 740).
 diagram_fact(y, cell_6, 40).
 diagram_fact(y, cell_7, 80).
 diagram_fact(y, cell_8, 120).
@@ -374,6 +442,10 @@ das_fact(kind,cell_22,rectangle).
 das_fact(kind,cell_23,ellipse).
 das_fact(kind,cell_24,edge).
 das_fact(kind,cell_25,ellipse).
+das_fact(kind,cell_26,rectangle).
+das_fact(kind,cell_27,rectangle).
+das_fact(kind,cell_28,rectangle).
+das_fact(kind,cell_29,rectangle).
 das_fact(kind,cell_4,rectangle).
 das_fact(kind,cell_5,rectangle).
 das_fact(kind,cell_6,rectangle).
@@ -392,6 +464,10 @@ das_fact(name, cell_21, "[links]").
 das_fact(name, cell_22, "Link Scraper").
 das_fact(name, cell_23, "[text]").
 das_fact(name, cell_25, "[links]").
+das_fact(name, cell_26, "&lt;div&gt;&lt;div&gt;&lt;div&gt;raw {⟪&lt;/div&gt;&lt;div&gt;def rmCodeQuotesState0 (textList):&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; if (0 == len (textList)):&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; return []&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; else:&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; first = textList [0];&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; rest = textList [1:]&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; if (first == '```'):&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; return rmCodeQuotesState1 (rest)&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; else:&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; return [first] + rmCodeQuotesState0 (rest)&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;&amp;nbsp;&lt;/div&gt;&lt;div&gt;def rmCodeQuotesState1 (textList):&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; if (0 == len (textList)):&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; return []&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; else:&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; first = textList [0];&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; rest = textList [1:]&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; if (first == '```'):&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; return rmCodeQuotesState0 (rest)&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; else:&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; return rmCodeQuotesState1 (rest)&lt;/div&gt;&lt;div&gt;⟫}&lt;/div&gt;&lt;div&gt;on ➢❲text❳ {⟪&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; text = message.data.split ('%5Cn')&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; result = rmCodeQuotesState0 (text)&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; self.send (self, '[text]', result, message)&lt;/div&gt;&lt;div&gt;⟫}&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;").
+das_fact(name, cell_27, "&lt;div&gt;&lt;div&gt;on ➢❲text❳ {⟪&lt;/div&gt;&lt;div&gt;&amp;nbsp; result = re.sub (r'%5C#.*%5Cn', '%5Cn', message.data)&lt;/div&gt;&lt;div&gt;&amp;nbsp; self.send (self, 'text', result, message)&lt;/div&gt;&lt;div&gt;⟫}&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;").
+das_fact(name, cell_28, "&lt;div&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;on ➢❲[text]❳ {⟪&lt;/div&gt;&lt;div&gt;if (re.search (r'%5C.md$', message.data)):&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; f = open (message.data, 'r')&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; result = f.read ()&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; self.send (self, 'text', result, message)&lt;/div&gt;&lt;div&gt;else:&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; self.send (self, 'text', '', message)&lt;/div&gt;&lt;div&gt;⟫}&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;").
+das_fact(name, cell_29, "&lt;div&gt;&lt;div&gt;initially {⟪result = []⟫}&lt;/div&gt;&lt;div&gt;on ➢❲[text]❳ {⟪&lt;/div&gt;&lt;div&gt;for line in message.data:&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; result += re.findall ('(%5C[%5C[[^%5C]]+%5C]%5C])',line)&lt;/div&gt;&lt;div&gt;self.send (self, '[links]', result, message)&lt;/div&gt;&lt;div&gt;⟫}&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;").
 das_fact(name, cell_6, "per file link scraper").
 das_fact(name, cell_7, "MD File Reader").
 das_fact(name, cell_8, "filename").
@@ -411,68 +487,88 @@ das_fact(color,cell_22,"-").
 das_fact(color,cell_23,"green").
 das_fact(color,cell_24,"-").
 das_fact(color,cell_25,"yellow").
+das_fact(color,cell_26,"red").
+das_fact(color,cell_27,"red").
+das_fact(color,cell_28,"red").
+das_fact(color,cell_29,"red").
 das_fact(color,cell_4,"-").
 das_fact(color,cell_5,"-").
 das_fact(color,cell_6,"-").
 das_fact(color,cell_7,"-").
 das_fact(color,cell_8,"green").
 das_fact(color,cell_9,"-").
-das_fact(bbL,cell_10,260).
-  das_fact(bbT,cell_10,120).
-  das_fact(bbR,cell_10,300).
-  das_fact(bbB,cell_10,160).
-das_fact(bbL,cell_11,600).
-  das_fact(bbT,cell_11,80).
-  das_fact(bbR,cell_11,720).
-  das_fact(bbB,cell_11,200).
-das_fact(bbL,cell_12,580).
-  das_fact(bbT,cell_12,120).
-  das_fact(bbR,cell_12,620).
-  das_fact(bbB,cell_12,160).
-das_fact(bbL,cell_14,700).
-  das_fact(bbT,cell_14,120).
-  das_fact(bbR,cell_14,740).
-  das_fact(bbB,cell_14,160).
-das_fact(bbL,cell_15,380).
-  das_fact(bbT,cell_15,80).
-  das_fact(bbR,cell_15,500).
-  das_fact(bbB,cell_15,200).
-das_fact(bbL,cell_16,360).
-  das_fact(bbT,cell_16,120).
-  das_fact(bbR,cell_16,400).
-  das_fact(bbB,cell_16,160).
-das_fact(bbL,cell_18,480).
-  das_fact(bbT,cell_18,120).
-  das_fact(bbR,cell_18,520).
-  das_fact(bbB,cell_18,160).
+das_fact(bbL,cell_10,460).
+  das_fact(bbT,cell_10,130).
+  das_fact(bbR,cell_10,500).
+  das_fact(bbB,cell_10,170).
+das_fact(bbL,cell_11,1170).
+  das_fact(bbT,cell_11,90).
+  das_fact(bbR,cell_11,1480).
+  das_fact(bbB,cell_11,640).
+das_fact(bbL,cell_12,1150).
+  das_fact(bbT,cell_12,130).
+  das_fact(bbR,cell_12,1190).
+  das_fact(bbB,cell_12,170).
+das_fact(bbL,cell_14,1460).
+  das_fact(bbT,cell_14,140).
+  das_fact(bbR,cell_14,1500).
+  das_fact(bbB,cell_14,180).
+das_fact(bbL,cell_15,720).
+  das_fact(bbT,cell_15,90).
+  das_fact(bbR,cell_15,1030).
+  das_fact(bbB,cell_15,210).
+das_fact(bbL,cell_16,700).
+  das_fact(bbT,cell_16,130).
+  das_fact(bbR,cell_16,740).
+  das_fact(bbB,cell_16,170).
+das_fact(bbL,cell_18,1010).
+  das_fact(bbT,cell_18,130).
+  das_fact(bbR,cell_18,1050).
+  das_fact(bbB,cell_18,170).
 das_fact(bbL,cell_20,40).
   das_fact(bbT,cell_20,120).
   das_fact(bbR,cell_20,80).
   das_fact(bbB,cell_20,160).
-das_fact(bbL,cell_21,800).
-  das_fact(bbT,cell_21,400).
-  das_fact(bbR,cell_21,840).
-  das_fact(bbB,cell_21,440).
-das_fact(bbL,cell_22,160).
-  das_fact(bbT,cell_22,360).
-  das_fact(bbR,cell_22,280).
-  das_fact(bbB,cell_22,480).
-das_fact(bbL,cell_23,140).
-  das_fact(bbT,cell_23,400).
-  das_fact(bbR,cell_23,180).
-  das_fact(bbB,cell_23,440).
-das_fact(bbL,cell_25,260).
-  das_fact(bbT,cell_25,400).
-  das_fact(bbR,cell_25,300).
-  das_fact(bbB,cell_25,440).
+das_fact(bbL,cell_21,1600).
+  das_fact(bbT,cell_21,750).
+  das_fact(bbR,cell_21,1640).
+  das_fact(bbB,cell_21,790).
+das_fact(bbL,cell_22,150).
+  das_fact(bbT,cell_22,700).
+  das_fact(bbR,cell_22,470).
+  das_fact(bbB,cell_22,880).
+das_fact(bbL,cell_23,130).
+  das_fact(bbT,cell_23,740).
+  das_fact(bbR,cell_23,170).
+  das_fact(bbB,cell_23,780).
+das_fact(bbL,cell_25,450).
+  das_fact(bbT,cell_25,750).
+  das_fact(bbR,cell_25,490).
+  das_fact(bbB,cell_25,790).
+das_fact(bbL,cell_26,1200).
+  das_fact(bbT,cell_26,140).
+  das_fact(bbR,cell_26,1450).
+  das_fact(bbB,cell_26,600).
+das_fact(bbL,cell_27,750).
+  das_fact(bbT,cell_27,120).
+  das_fact(bbR,cell_27,1000).
+  das_fact(bbB,cell_27,200).
+das_fact(bbL,cell_28,210).
+  das_fact(bbT,cell_28,140).
+  das_fact(bbR,cell_28,440).
+  das_fact(bbB,cell_28,280).
+das_fact(bbL,cell_29,190).
+  das_fact(bbT,cell_29,740).
+  das_fact(bbR,cell_29,420).
+  das_fact(bbB,cell_29,850).
 das_fact(bbL,cell_6,60).
   das_fact(bbT,cell_6,40).
-  das_fact(bbR,cell_6,820).
-  das_fact(bbB,cell_6,520).
+  das_fact(bbR,cell_6,1620).
+  das_fact(bbB,cell_6,930).
 das_fact(bbL,cell_7,160).
   das_fact(bbT,cell_7,80).
-  das_fact(bbR,cell_7,280).
-  das_fact(bbB,cell_7,200).
+  das_fact(bbR,cell_7,480).
+  das_fact(bbB,cell_7,330).
 das_fact(bbL,cell_8,140).
   das_fact(bbT,cell_8,120).
   das_fact(bbR,cell_8,180).
@@ -487,6 +583,9 @@ das_fact(direction,cell_21,output).
 das_fact(direction,cell_23,input).
 das_fact(direction,cell_25,output).
 das_fact(direction,cell_8,input).
+das_fact(contains,cell_11,cell_26).
+das_fact(contains,cell_15,cell_27).
+das_fact(contains,cell_22,cell_29).
 das_fact(contains,cell_6,cell_10).
 das_fact(contains,cell_6,cell_11).
 das_fact(contains,cell_6,cell_12).
@@ -497,8 +596,13 @@ das_fact(contains,cell_6,cell_18).
 das_fact(contains,cell_6,cell_22).
 das_fact(contains,cell_6,cell_23).
 das_fact(contains,cell_6,cell_25).
+das_fact(contains,cell_6,cell_26).
+das_fact(contains,cell_6,cell_27).
+das_fact(contains,cell_6,cell_28).
+das_fact(contains,cell_6,cell_29).
 das_fact(contains,cell_6,cell_7).
 das_fact(contains,cell_6,cell_8).
+das_fact(contains,cell_7,cell_28).
 das_fact(contains,cell_11,cell_12).
 das_fact(contains,cell_11,cell_14).
 das_fact(contains,cell_15,cell_16).
@@ -516,13 +620,20 @@ das_fact(indirect_contains,cell_6,cell_16).
 das_fact(indirect_contains,cell_6,cell_18).
 das_fact(indirect_contains,cell_6,cell_23).
 das_fact(indirect_contains,cell_6,cell_25).
+das_fact(indirect_contains,cell_6,cell_26).
+das_fact(indirect_contains,cell_6,cell_27).
+das_fact(indirect_contains,cell_6,cell_28).
+das_fact(indirect_contains,cell_6,cell_29).
 das_fact(indirect_contains,cell_6,cell_8).
 das_fact(direct_contains,cell_11,cell_12).
 das_fact(direct_contains,cell_11,cell_14).
+das_fact(direct_contains,cell_11,cell_26).
 das_fact(direct_contains,cell_15,cell_16).
 das_fact(direct_contains,cell_15,cell_18).
+das_fact(direct_contains,cell_15,cell_27).
 das_fact(direct_contains,cell_22,cell_23).
 das_fact(direct_contains,cell_22,cell_25).
+das_fact(direct_contains,cell_22,cell_29).
 das_fact(direct_contains,cell_6,cell_11).
 das_fact(direct_contains,cell_6,cell_15).
 das_fact(direct_contains,cell_6,cell_20).
@@ -530,6 +641,7 @@ das_fact(direct_contains,cell_6,cell_21).
 das_fact(direct_contains,cell_6,cell_22).
 das_fact(direct_contains,cell_6,cell_7).
 das_fact(direct_contains,cell_7,cell_10).
+das_fact(direct_contains,cell_7,cell_28).
 das_fact(direct_contains,cell_7,cell_8).
 das_fact(direct_contains,cell_6,cell_13).
 das_fact(direct_contains,cell_6,cell_17).
@@ -537,6 +649,10 @@ das_fact(direct_contains,cell_6,cell_24).
 das_fact(direct_contains,cell_6,cell_9).
 das_fact(direct_contains,cell_6,cell_19).
 das_fact(direct_contains,cell_6,cell_24).
+das_fact(codebox,cell_26,"&lt;div&gt;&lt;div&gt;&lt;div&gt;raw {⟪&lt;/div&gt;&lt;div&gt;def rmCodeQuotesState0 (textList):&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; if (0 == len (textList)):&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; return []&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; else:&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; first = textList [0];&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; rest = textList [1:]&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; if (first == '```'):&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; return rmCodeQuotesState1 (rest)&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; else:&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; return [first] + rmCodeQuotesState0 (rest)&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;&amp;nbsp;&lt;/div&gt;&lt;div&gt;def rmCodeQuotesState1 (textList):&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; if (0 == len (textList)):&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; return []&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; else:&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; first = textList [0];&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; rest = textList [1:]&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; if (first == '```'):&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; return rmCodeQuotesState0 (rest)&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; else:&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; return rmCodeQuotesState1 (rest)&lt;/div&gt;&lt;div&gt;⟫}&lt;/div&gt;&lt;div&gt;on ➢❲text❳ {⟪&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; text = message.data.split ('%5Cn')&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; result = rmCodeQuotesState0 (text)&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; self.send (self, '[text]', result, message)&lt;/div&gt;&lt;div&gt;⟫}&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;").
+das_fact(codebox,cell_27,"&lt;div&gt;&lt;div&gt;on ➢❲text❳ {⟪&lt;/div&gt;&lt;div&gt;&amp;nbsp; result = re.sub (r'%5C#.*%5Cn', '%5Cn', message.data)&lt;/div&gt;&lt;div&gt;&amp;nbsp; self.send (self, 'text', result, message)&lt;/div&gt;&lt;div&gt;⟫}&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;").
+das_fact(codebox,cell_28,"&lt;div&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;on ➢❲[text]❳ {⟪&lt;/div&gt;&lt;div&gt;if (re.search (r'%5C.md$', message.data)):&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; f = open (message.data, 'r')&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; result = f.read ()&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; self.send (self, 'text', result, message)&lt;/div&gt;&lt;div&gt;else:&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; self.send (self, 'text', '', message)&lt;/div&gt;&lt;div&gt;⟫}&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;").
+das_fact(codebox,cell_29,"&lt;div&gt;&lt;div&gt;initially {⟪result = []⟫}&lt;/div&gt;&lt;div&gt;on ➢❲[text]❳ {⟪&lt;/div&gt;&lt;div&gt;for line in message.data:&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; result += re.findall ('(%5C[%5C[[^%5C]]+%5C]%5C])',line)&lt;/div&gt;&lt;div&gt;self.send (self, '[links]', result, message)&lt;/div&gt;&lt;div&gt;⟫}&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;").
 das_fact(connection, cell_6, cell_13).
 das_fact(sender, cell_13, sender{component:"Omit Code Quotes",port:"[text]"}).
 das_fact(receiver, cell_13, receiver{component:"Link Scraper",port:"[text]"}).

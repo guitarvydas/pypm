@@ -1,7 +1,7 @@
 
 #!/usr/bin/env python3
 # omit__comments.py
-# cell_6
+# cell_15
 import mpos
 import dispatcher
 class _omit__comments (mpos.Leaf):
