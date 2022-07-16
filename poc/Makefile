@@ -11,9 +11,13 @@ all: ls.py omitcomments.py omitcodequotes.py linkscraper.py mdfilereader.py
 
 full : $(NODEMODULES) tools all
 
-dev:
+leaf-dev:
 	touch dev.drawio
 	make dev.py
+
+dev:
+	touch perfilelinkscraper.drawio
+	make perfilelinkscraper.json
 
 
 node_modules/ohm-js:
@@ -57,6 +61,13 @@ mdfilereader.json : mdfilereader.drawio
 	./generate.bash $(TOOLS) mdfilereader.drawio
 	mv out.json mdfilereader.json
 
+# Containers
+perfilelinkscraper.json : perfilelinkscraper.drawio
+	./generate.bash $(TOOLS) perfilelinkscraper.drawio
+	mv out.json perfilelinkscraper.json
+
+
+
 ls.py : ls.json
 	./transpile2py.bash ls.drawio ls.json
 
@@ -74,6 +85,11 @@ linkscraper.py : linkscraper.json
 
 mdfilereader.py : mdfilereader.json
 	./transpile2py.bash mdfilereader.drawio mdfilereader.json
+
+# Containers
+perfilelinkscraper.py : perfilelinkscraper.json
+	./transpile2py.bash perfilelinkscraper.drawio perfilelinkscraper.json
+
 
 # topls.py : ls.json transpile2py.bash pyemit.py
 # 	echo '* * * ' transpile2py.bash

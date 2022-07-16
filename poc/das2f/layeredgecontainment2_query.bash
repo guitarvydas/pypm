@@ -23,8 +23,8 @@ das_fact(kind,Parent,rectangle),
 das_fact(direct_contains,Parent,Source),
 true.
 query:-
-(bagof([Parent,Edge],query_helper(Parent,Edge),Bag),
-json_write(user_output,Bag,[width(128)])
+(setof([Parent,Edge],query_helper(Parent,Edge),Set),
+json_write(user_output,Set,[width(128)])
 )
 ;
 json_write(user_output,[],[width(123)]).

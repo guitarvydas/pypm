@@ -18,8 +18,8 @@ das_fact(kind,E,ellipse),
 containsport(R,E),
 true.
 query:-
-(bagof([R,E],query_helper(R,E),Bag),
-json_write(user_output,Bag,[width(128)])
+(setof([R,E],query_helper(R,E),Set),
+json_write(user_output,Set,[width(128)])
 )
 ;
 json_write(user_output,[],[width(123)]).

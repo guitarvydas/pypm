@@ -14,8 +14,8 @@ das_fact(color,Codebox,"red"),
 valueof(Codebox,Code),
 true.
 query:-
-(bagof([Codebox,Code],query_helper(Codebox,Code),Bag),
-json_write(user_output,Bag,[width(128)])
+(setof([Codebox,Code],query_helper(Codebox,Code),Set),
+json_write(user_output,Set,[width(128)])
 )
 ;
 json_write(user_output,[],[width(123)]).

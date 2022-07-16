@@ -17,8 +17,8 @@ diagram_fact(cell,ID,_),
 (diagram_fact(fillColor, ID, "#d5e8d4")  -> Color = "green";diagram_fact(fillColor, ID, "%23d5e8d4")  -> Color = "green";diagram_fact(fillColor, ID, "#fff2cc")  -> Color = "yellow";diagram_fact(fillColor, ID, "%23fff2cc")  -> Color = "yellow";diagram_fact(fillColor, ID, "#f8cecc")  -> Color = "red";diagram_fact(fillColor, ID, "%23f8cecc")  -> Color = "red";diagram_fact(fillColor, ID, "#9673A6")  -> Color = "purple";diagram_fact(fillColor, ID, "%239673A6")  -> Color = "purple"; Color = "-"),
 true.
 query:-
-(bagof([ID,Color],query_helper(ID,Color),Bag),
-json_write(user_output,Bag,[width(128)])
+(setof([ID,Color],query_helper(ID,Color),Set),
+json_write(user_output,Set,[width(128)])
 )
 ;
 json_write(user_output,[],[width(123)]).

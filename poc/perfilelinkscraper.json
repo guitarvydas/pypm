@@ -1,0 +1,78 @@
+[
+  [
+    {
+      "children": [],
+      "connections": [],
+      "id":"cell_11",
+      "inputs": ["text" ],
+      "name":"Omit Code Quotes",
+      "outputs": ["[text]" ],
+      "synccode":""
+    }
+  ],
+  [
+    {
+      "children": [],
+      "connections": [],
+      "id":"cell_15",
+      "inputs": ["text" ],
+      "name":"Omit Comments",
+      "outputs": ["text" ],
+      "synccode":""
+    }
+  ],
+  [
+    {
+      "children": [],
+      "connections": [],
+      "id":"cell_22",
+      "inputs": ["[text]" ],
+      "name":"Link Scraper",
+      "outputs": ["[links]" ],
+      "synccode":""
+    }
+  ],
+  [
+    {
+      "children": ["Omit Code Quotes", "Omit Comments", "Link Scraper", "MD File Reader" ],
+      "connections": [
+	{
+	  "receivers": [ {"receiver": {"component":"Link Scraper", "port":"[text]"}} ],
+	  "senders": [ {"sender": {"component":"Omit Code Quotes", "port":"[text]"}} ]
+	},
+	{
+	  "receivers": [ {"receiver": {"component":"Omit Code Quotes", "port":"text"}} ],
+	  "senders": [ {"sender": {"component":"Omit Comments", "port":"text"}} ]
+	},
+	{
+	  "receivers": [ {"receiver": {"component":"MD File Reader", "port":"filename"}} ],
+	  "senders": [ {"sender": {"component":"per file link scraper", "port":"filename"}} ]
+	},
+	{
+	  "receivers": [ {"receiver": {"component":"per file link scraper", "port":"[links]"}} ],
+	  "senders": [ {"sender": {"component":"Link Scraper", "port":"[links]"}} ]
+	},
+	{
+	  "receivers": [ {"receiver": {"component":"Omit Comments", "port":"text"}} ],
+	  "senders": [ {"sender": {"component":"MD File Reader", "port":"text"}} ]
+	}
+      ],
+      "id":"cell_6",
+      "inputs": ["filename" ],
+      "name":"per file link scraper",
+      "outputs": ["[links]" ],
+      "synccode":""
+    }
+  ],
+  [
+    {
+      "children": [],
+      "connections": [],
+      "id":"cell_7",
+      "inputs": ["filename" ],
+      "name":"MD File Reader",
+      "outputs": ["text" ],
+      "synccode":""
+    }
+  ]
+]

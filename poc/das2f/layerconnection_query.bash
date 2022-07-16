@@ -16,8 +16,8 @@ targetof(Edge,Receiver),
 das_fact(direct_contains,Parent,Edge),
 true.
 query:-
-(bagof([Parent,Edge,Sender,Receiver],query_helper(Parent,Edge,Sender,Receiver),Bag),
-json_write(user_output,Bag,[width(128)])
+(setof([Parent,Edge,Sender,Receiver],query_helper(Parent,Edge,Sender,Receiver),Set),
+json_write(user_output,Set,[width(128)])
 )
 ;
 json_write(user_output,[],[width(123)]).

@@ -16,8 +16,8 @@ das_fact(contains,Parent,X),
 das_fact(contains,X,Child),
 true.
 query:-
-(bagof([Parent,Child],query_helper(Parent,Child),Bag),
-json_write(user_output,Bag,[width(128)])
+(setof([Parent,Child],query_helper(Parent,Child),Set),
+json_write(user_output,Set,[width(128)])
 )
 ;
 json_write(user_output,[],[width(123)]).

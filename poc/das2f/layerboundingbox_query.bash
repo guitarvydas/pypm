@@ -21,8 +21,8 @@ Right is X+W,
 Bottom is Y+H,
 true.
 query:-
-(bagof([ID,X,Y,Right,Bottom],query_helper(ID,X,Y,Right,Bottom),Bag),
-json_write(user_output,Bag,[width(128)])
+(setof([ID,X,Y,Right,Bottom],query_helper(ID,X,Y,Right,Bottom),Set),
+json_write(user_output,Set,[width(128)])
 )
 ;
 json_write(user_output,[],[width(123)]).
