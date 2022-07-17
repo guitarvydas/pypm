@@ -15,16 +15,17 @@ class Dispatcher:
 
     def dispatch1 (self):
         for instance in self.registry:
-            if instance.readyP ():
+            if self.runnableP (instance):
                 message = instance.popFirstInput ()
                 outputs = self.invokeComponent (instance, message)
                 self.dumpOutputBucket (instance, outputs)
                  
-
+    def runnableP (self, instance):
+        return instance.readyP () and (False == instance.busyP ())
 
     def anyComponentReadyP (self):
         for instance in self.registry:
-            if instance.readyP ():
+            if self.runnableP (instance):
                 return True
         return False
 
