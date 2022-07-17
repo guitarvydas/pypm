@@ -10,17 +10,17 @@ class _link__scraper (mpos.Leaf):
     super ().__init__ (dispatcher, parent, idInParent)
     self.inputs=['[text]']
     self.outputs=['[links]']
-    result = []
+    self.result = []
     
-    
+  
   def react (self, message):
     if (False):
       pass
     elif (message.tag == "[text]"):
       
       for line in message.data:
-          result += re.findall ('(\[\[[^\]]+\]\])',line)
-      self.send ('[links]', result)
+          self.result += re.findall ('(\[\[[^\]]+\]\])',line)
+      self.send ('[links]', self.result)
       
     else:
       print (self.idInParent + ": internal error unrecognized message: " + message.tag)

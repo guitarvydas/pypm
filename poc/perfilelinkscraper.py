@@ -16,7 +16,6 @@ class _perfilelinkscraper (mpos.Container):
     self.outputs=['[links]']
     
     
-    
     child0 = omit__code__quotes._omit__code__quotes (dispatcher, self, 'Omit Code Quotes')
     child1 = omit__comments._omit__comments (dispatcher, self, 'Omit Comments')
     child2 = link__scraper._link__scraper (dispatcher, self, 'Link Scraper')
@@ -28,4 +27,6 @@ class _perfilelinkscraper (mpos.Container):
     conn4 = mpos.Connector ([mpos.Sender ('MD File Reader', 'text')], [mpos.Receiver ('Omit Comments', 'text')])
     self.connections = [ conn0, conn1, conn2, conn3, conn4 ]
     self.children = {'Omit Code Quotes':child0, 'Omit Comments':child1, 'Link Scraper':child2, 'MD File Reader':child3}
+  
+  
 

@@ -172,7 +172,10 @@ class Container (Component):
         for r in receivers:
             msg = InputMessage (r.component, r.tag, m.data)
             instance = self.mapNameToInstance (r.component)
-            instance.enqueueInput (msg)
+            if (instance != self):
+                instance.enqueueInput (msg)
+            else:
+                self.send (self.idInParent, r.tag, m.data)
         
     def findConnectionBasedOnMessage (self, m):
         for conn in self.connections:

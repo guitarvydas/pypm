@@ -12,7 +12,7 @@ class _omit__comments (mpos.Leaf):
     self.outputs=['text']
     
     
-    
+  
   def react (self, message):
     if (False):
       pass

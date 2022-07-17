@@ -122,15 +122,15 @@ def mkCommonImports (component):
   s += "\nimport re"
   return (s)
 
-def mkCommonInit (component, cls):
+def mkBeginCommonInit (component, cls):
 
   name = component["name"]
-  idkey = component ["id"]
+  # idkey = component ["id"]
   inputs = component ["inputs"]
   outputs = component ["outputs"]
   code = unescapeCode (component["synccode"])
   initcode = filterinitsonly (code)
-  rawcode = filterrawsonly (code)
+  # rawcode = filterrawsonly (code)
 
   s = ''
   s += f'\nclass _{name} (mpos.{cls}):(.'
@@ -138,8 +138,24 @@ def mkCommonInit (component, cls):
   s += f'\nsuper ().__init__ (dispatcher, parent, idInParent)'
   s += f'\nself.inputs={inputs}'
   s += f'\nself.outputs={outputs}'
-  s +=  '\n' + initcode
-  s += rawcode
+  if (0 < len (initcode)):
+    s += '\n' + initcode
+  return (s)
+
+def mkEndCommonInit (component, cls):
+  return '.)'
+
+def mkCommonRaw (component):
+
+  # name = component["name"]
+  # idkey = component ["id"]
+  # inputs = component ["inputs"]
+  # outputs = component ["outputs"]
+  code = unescapeCode (component["synccode"])
+  # initcode = filterinitsonly (code)
+  rawcode = filterrawsonly (code)
+
+  s = rawcode
   return (s)
 
 def mkCommonBodyHead (component):
@@ -183,8 +199,9 @@ def mkLeafScript (component):
     s = ''
     s += mkCommonHeader (component)
     s += mkCommonImports (component)
-    s += mkCommonInit (component, "Leaf")
-    s += '.)'
+    s += mkBeginCommonInit (component, "Leaf")
+    s += mkEndCommonInit (component, "Leaf")
+    s += mkCommonRaw (component)
     s += mkCommonBodyHead (component)
     s += mkCommonBodyTail (component)
     return (s)
@@ -247,7 +264,7 @@ def mkContainerScript (component):
     name = pythonifyname (child)
     s += f'\nimport {name}'
 
-  s += mkCommonInit (component, "Container")
+  s += mkBeginCommonInit (component, "Container")
 
   # # uncomment to see json structure
   # # print (file)
@@ -277,8 +294,9 @@ def mkContainerScript (component):
   s += f'\nself.connections = [ {", ".join (connectornames)} ]'
   s += '\nself.children = {' + f'{", ".join(mchildren)}' + '}'
 
-  s += '.)'
-  
+  s += mkEndCommonInit (component, "Container")
+  s += '\n' + mkCommonRaw (component)
+
   return (s)
   
 
