@@ -20,8 +20,8 @@ connectionsof(RID,Connections),
 Component = component{id:RID, name:Name, inputs:Inputs, outputs:Outputs, children:Children, connections:Connections, synccode:Code},
 true.
 query:-
-(bagof([Component],query_helper(Component),Bag),
-json_write(user_output,Bag,[width(128)])
+(setof([Component],query_helper(Component),Set),
+json_write(user_output,Set,[width(128)])
 )
 ;
 json_write(user_output,[],[width(123)]).

@@ -7,7 +7,7 @@ NODEMODULES=\
 # change this for your own environment
 TOOLS=.
 
-all: perfilelinkscraper.py
+all: pm.py
 
 full : $(NODEMODULES) tools all
 
@@ -67,6 +67,10 @@ perfilelinkscraper.json : perfilelinkscraper.drawio
 	./generate.bash $(TOOLS) perfilelinkscraper.drawio
 	mv out.json perfilelinkscraper.json
 
+pm.json : pm.drawio
+	./generate.bash $(TOOLS) pm.drawio
+	mv out.json pm.json
+
 
 
 ls.py : ls.json
@@ -91,6 +95,9 @@ mdfilereader.py : mdfilereader.json
 perfilelinkscraper.py : perfilelinkscraper.json
 	./transpile2py.bash perfilelinkscraper.drawio perfilelinkscraper.json
 
+pm.py : pm.json
+	./transpile2py.bash pm.drawio pm.json
+
 
 # topls.py : ls.json transpile2py.bash pyemit.py
 # 	echo '* * * ' transpile2py.bash
@@ -99,7 +106,7 @@ perfilelinkscraper.py : perfilelinkscraper.json
 # 	mv top.py topls.py
 # 	chmod a+x topls.py
 
-clean:
+dontuse-clean:
 	(cd ./dr ; make clean)
 	(cd ./prep ; make clean)
 	(cd ./d2f ; make clean)
