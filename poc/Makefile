@@ -16,8 +16,9 @@ leaf-dev:
 	make dev.py
 
 dev:
-	touch perfilelinkscraper.drawio
-	make perfilelinkscraper.py
+	echo this bootstrap version does not support container.in -> container.out
+	touch dev.drawio
+	#make dev.py
 
 
 node_modules/ohm-js:
