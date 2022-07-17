@@ -20,15 +20,12 @@ class _perfilelinkscraper (mpos.Container):
     child1 = omit__comments._omit__comments (dispatcher, self, 'Omit Comments')
     child2 = link__scraper._link__scraper (dispatcher, self, 'Link Scraper')
     child3 = md__file__reader._md__file__reader (dispatcher, self, 'MD File Reader')        
-    conn0 = mpos.Connector ([mpos.Sender ('MD File Reader', 'text')], [mpos.Receiver ('Omit Comments', 'text')])        
+    conn0 = mpos.Connector ([mpos.Sender ('Link Scraper', '[links]')], [mpos.Receiver ('', '[links]')])        
     conn1 = mpos.Connector ([mpos.Sender ('Omit Code Quotes', '[text]')], [mpos.Receiver ('Link Scraper', '[text]')])        
-    conn2 = mpos.Connector ([mpos.Sender ('Omit Comments', 'text')], [mpos.Receiver ('Omit Code Quotes', 'text')])        
-    conn3 = mpos.Connector ([mpos.Sender ('', 'filename')], [mpos.Receiver ('MD File Reader', 'filename')])        
-    conn4 = mpos.Connector ([mpos.Sender ('', 'filename')], [mpos.Receiver ('MD File Reader', 'filename')])        
-    conn5 = mpos.Connector ([mpos.Sender ('', 'filename')], [mpos.Receiver ('MD File Reader', 'filename')])        
-    conn6 = mpos.Connector ([mpos.Sender ('', 'filename')], [mpos.Receiver ('MD File Reader', 'filename')])        
-    conn7 = mpos.Connector ([mpos.Sender ('Link Scraper', '[links]')], [mpos.Receiver ('', '[links]')])
-    self.connections = [ conn0, conn1, conn2, conn3, conn4, conn5, conn6, conn7 ]
+    conn2 = mpos.Connector ([mpos.Sender ('', 'filename')], [mpos.Receiver ('MD File Reader', 'filename')])        
+    conn3 = mpos.Connector ([mpos.Sender ('MD File Reader', 'text')], [mpos.Receiver ('Omit Comments', 'text')])        
+    conn4 = mpos.Connector ([mpos.Sender ('Omit Comments', 'text')], [mpos.Receiver ('Omit Code Quotes', 'text')])
+    self.connections = [ conn0, conn1, conn2, conn3, conn4 ]
     self.children = {'Omit Code Quotes':child0, 'Omit Comments':child1, 'Link Scraper':child2, 'MD File Reader':child3}
   
   

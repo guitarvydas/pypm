@@ -37,24 +37,12 @@
       "children": ["perfilelinkscraper" ],
       "connections": [
 	{
-	  "receivers": [ {"receiver": {"component":"MD File Reader", "port":"filename"}} ],
-	  "senders": [ {"sender": {"component":"perfilelinkscraper", "port":"filename"}} ]
-	},
-	{
-	  "receivers": [ {"receiver": {"component":"MD File Reader", "port":"filename"}} ],
-	  "senders": [ {"sender": {"component":"perfilelinkscraper", "port":"filename"}} ]
-	},
-	{
-	  "receivers": [ {"receiver": {"component":"MD File Reader", "port":"filename"}} ],
-	  "senders": [ {"sender": {"component":"perfilelinkscraper", "port":"filename"}} ]
-	},
-	{
-	  "receivers": [ {"receiver": {"component":"MD File Reader", "port":"filename"}} ],
-	  "senders": [ {"sender": {"component":"perfilelinkscraper", "port":"filename"}} ]
-	},
-	{
 	  "receivers": [ {"receiver": {"component":"pm", "port":"[links]"}} ],
 	  "senders": [ {"sender": {"component":"perfilelinkscraper", "port":"[links]"}} ]
+	},
+	{
+	  "receivers": [ {"receiver": {"component":"MD File Reader", "port":"filename"}} ],
+	  "senders": [ {"sender": {"component":"perfilelinkscraper", "port":"filename"}} ]
 	},
 	{
 	  "receivers": [ {"receiver": {"component":"perfilelinkscraper", "port":"filename"}} ],
@@ -73,36 +61,24 @@
       "children": ["Omit Code Quotes", "Omit Comments", "Link Scraper", "MD File Reader" ],
       "connections": [
 	{
-	  "receivers": [ {"receiver": {"component":"Omit Comments", "port":"text"}} ],
-	  "senders": [ {"sender": {"component":"MD File Reader", "port":"text"}} ]
+	  "receivers": [ {"receiver": {"component":"perfilelinkscraper", "port":"[links]"}} ],
+	  "senders": [ {"sender": {"component":"Link Scraper", "port":"[links]"}} ]
 	},
 	{
 	  "receivers": [ {"receiver": {"component":"Link Scraper", "port":"[text]"}} ],
 	  "senders": [ {"sender": {"component":"Omit Code Quotes", "port":"[text]"}} ]
 	},
 	{
+	  "receivers": [ {"receiver": {"component":"MD File Reader", "port":"filename"}} ],
+	  "senders": [ {"sender": {"component":"perfilelinkscraper", "port":"filename"}} ]
+	},
+	{
+	  "receivers": [ {"receiver": {"component":"Omit Comments", "port":"text"}} ],
+	  "senders": [ {"sender": {"component":"MD File Reader", "port":"text"}} ]
+	},
+	{
 	  "receivers": [ {"receiver": {"component":"Omit Code Quotes", "port":"text"}} ],
 	  "senders": [ {"sender": {"component":"Omit Comments", "port":"text"}} ]
-	},
-	{
-	  "receivers": [ {"receiver": {"component":"MD File Reader", "port":"filename"}} ],
-	  "senders": [ {"sender": {"component":"perfilelinkscraper", "port":"filename"}} ]
-	},
-	{
-	  "receivers": [ {"receiver": {"component":"MD File Reader", "port":"filename"}} ],
-	  "senders": [ {"sender": {"component":"perfilelinkscraper", "port":"filename"}} ]
-	},
-	{
-	  "receivers": [ {"receiver": {"component":"MD File Reader", "port":"filename"}} ],
-	  "senders": [ {"sender": {"component":"perfilelinkscraper", "port":"filename"}} ]
-	},
-	{
-	  "receivers": [ {"receiver": {"component":"MD File Reader", "port":"filename"}} ],
-	  "senders": [ {"sender": {"component":"perfilelinkscraper", "port":"filename"}} ]
-	},
-	{
-	  "receivers": [ {"receiver": {"component":"perfilelinkscraper", "port":"[links]"}} ],
-	  "senders": [ {"sender": {"component":"Link Scraper", "port":"[links]"}} ]
 	}
       ],
       "id":"cell_7",

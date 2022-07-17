@@ -14,13 +14,10 @@ class _pm (mpos.Container):
     
     
     child0 = perfilelinkscraper._perfilelinkscraper (dispatcher, self, 'perfilelinkscraper')        
-    conn0 = mpos.Connector ([mpos.Sender ('perfilelinkscraper', 'filename')], [mpos.Receiver ('MD File Reader', 'filename')])        
+    conn0 = mpos.Connector ([mpos.Sender ('perfilelinkscraper', '[links]')], [mpos.Receiver ('', '[links]')])        
     conn1 = mpos.Connector ([mpos.Sender ('perfilelinkscraper', 'filename')], [mpos.Receiver ('MD File Reader', 'filename')])        
-    conn2 = mpos.Connector ([mpos.Sender ('perfilelinkscraper', 'filename')], [mpos.Receiver ('MD File Reader', 'filename')])        
-    conn3 = mpos.Connector ([mpos.Sender ('perfilelinkscraper', 'filename')], [mpos.Receiver ('MD File Reader', 'filename')])        
-    conn4 = mpos.Connector ([mpos.Sender ('perfilelinkscraper', '[links]')], [mpos.Receiver ('', '[links]')])        
-    conn5 = mpos.Connector ([mpos.Sender ('', 'filename')], [mpos.Receiver ('perfilelinkscraper', 'filename')])
-    self.connections = [ conn0, conn1, conn2, conn3, conn4, conn5 ]
+    conn2 = mpos.Connector ([mpos.Sender ('', 'filename')], [mpos.Receiver ('perfilelinkscraper', 'filename')])
+    self.connections = [ conn0, conn1, conn2 ]
     self.children = {'perfilelinkscraper':child0}
   
   
