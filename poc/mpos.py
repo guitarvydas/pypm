@@ -141,6 +141,8 @@ class Component:
         def hasOutputsP (self):
             return (0 < len (self.outputBucket))
 
+        def outputsAsList (self):
+            return self.outputBucket
 
         def panic (self, message):
             print ("\n*****")
