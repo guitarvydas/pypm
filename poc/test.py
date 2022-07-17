@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 import dispatcher
-import re
+import mpos
 import perfilelinkscraper
 disp = dispatcher.Dispatcher ()
 top = perfilelinkscraper._perfilelinkscraper (disp, None, '')
-top.kickstart ()
+m = mpos.InputMessage ('', 'filename', 'test.md')
+top.enqueueInput (m)
 disp.dispatch ()
+print (top)

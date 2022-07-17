@@ -4,6 +4,7 @@
 # cell_15
 import mpos
 import dispatcher
+import re
 class _omit__comments (mpos.Leaf):
   def __init__ (self, dispatcher, parent, idInParent):
     super ().__init__ (dispatcher, parent, idInParent)
@@ -12,14 +13,15 @@ class _omit__comments (mpos.Leaf):
     
     
     
-  def react (self, inputMessage):
+  def react (self, message):
     if (False):
       pass
-    elif (message.port == "text"):
+    elif (message.tag == "text"):
       
         result = re.sub (r'\#.*\n', '\n', message.data)
-        self.send (self, 'text', result, message)
+        self.send ('text', result)
       
-    
-    return super ().react (inputMessage)
+    else:
+      print (self.idInParent + ": internal error unrecognized message: " + message.tag)
+    return super ().react (message)
 

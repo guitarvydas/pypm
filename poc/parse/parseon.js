@@ -29,7 +29,7 @@ nameRest = alnum | "_" | "[" | "]"
   const actualfmt = String.raw`
 text [@macro] = [[~{macro}]]
 macro [x] = [[~{x}]]
-lex_OnClause [ws1 kon ws2 portname ws3 lb verbatim rb] = [[\nelif (message.port == "~{portname}"):(.\n~{verbatim}.)]]
+lex_OnClause [ws1 kon ws2 portname ws3 lb verbatim rb] = [[\nelif (message.tag == "~{portname}"):(.\n~{verbatim}.)]]
 verbatim [lb @notverbatim rb] = [[~{notverbatim}]]
 notverbatim [c] = [[~{c}]]
 other [c] = [[]]

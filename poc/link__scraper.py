@@ -4,6 +4,7 @@
 # cell_22
 import mpos
 import dispatcher
+import re
 class _link__scraper (mpos.Leaf):
   def __init__ (self, dispatcher, parent, idInParent):
     super ().__init__ (dispatcher, parent, idInParent)
@@ -12,15 +13,16 @@ class _link__scraper (mpos.Leaf):
     result = []
     
     
-  def react (self, inputMessage):
+  def react (self, message):
     if (False):
       pass
-    elif (message.port == "[text]"):
+    elif (message.tag == "[text]"):
       
       for line in message.data:
           result += re.findall ('(\[\[[^\]]+\]\])',line)
-      self.send (self, '[links]', result, message)
+      self.send ('[links]', result)
       
-    
-    return super ().react (inputMessage)
+    else:
+      print (self.idInParent + ": internal error unrecognized message: " + message.tag)
+    return super ().react (message)
 

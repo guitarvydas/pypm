@@ -7,7 +7,7 @@ NODEMODULES=\
 # change this for your own environment
 TOOLS=.
 
-all: ls.py omitcomments.py omitcodequotes.py linkscraper.py mdfilereader.py
+all: perfilelinkscraper.py
 
 full : $(NODEMODULES) tools all
 

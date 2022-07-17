@@ -119,6 +119,7 @@ def mkCommonImports (component):
 
   s = "\nimport mpos"
   s += "\nimport dispatcher"
+  s += "\nimport re"
   return (s)
 
 def mkCommonInit (component, cls):
@@ -159,9 +160,10 @@ def mkCommonBodyHead (component):
     print (handlercode)
     raise Exception ('parse failure on handler')
   
-  s = f'\ndef react (self, inputMessage):(.'
+  s = f'\ndef react (self, message):(.'
   s += '\nif (False):(.\npass.)'
   s += handlercode
+  s += f'else:(.\nprint (self.idInParent + ": internal error unrecognized message: " + message.tag).)'
   return (s)
 
 def mkCommonBodyTail (component):
@@ -172,7 +174,7 @@ def mkCommonBodyTail (component):
   outputs = component ["outputs"]
   code = unescapeCode (component["synccode"])
 
-  s = f'\nreturn super ().react (inputMessage).)'
+  s = f'\nreturn super ().react (message).)'
   return (s)
   
 
@@ -301,6 +303,7 @@ for componentArray in data:
 with open ('top.py', 'w') as top:
   print (f'#!/usr/bin/env python3', file=top)
   print (f'import dispatcher', file=top)
+  print (f'import re', file=top)
   print (f'import {sys.argv [2]}', file=top)
   print (f'disp = dispatcher.Dispatcher ()', file=top)
   print (f"top = {sys.argv[2]}._{sys.argv [2]} (disp, None, '')", file=top)

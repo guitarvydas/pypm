@@ -4,6 +4,7 @@
 # cell_7
 import mpos
 import dispatcher
+import re
 class _md__file__reader (mpos.Leaf):
   def __init__ (self, dispatcher, parent, idInParent):
     super ().__init__ (dispatcher, parent, idInParent)
@@ -12,18 +13,19 @@ class _md__file__reader (mpos.Leaf):
     
     
     
-  def react (self, inputMessage):
+  def react (self, message):
     if (False):
       pass
-    elif (message.port == "[text]"):
+    elif (message.tag == "filename"):
       
       if (re.search (r'\.md$', message.data)):
           f = open (message.data, 'r')
           result = f.read ()
-          self.send (self, 'text', result, message)
+          self.send ('text', result)
       else:
-          self.send (self, 'text', '', message)
+          self.send ('text', '')
       
-    
-    return super ().react (inputMessage)
+    else:
+      print (self.idInParent + ": internal error unrecognized message: " + message.tag)
+    return super ().react (message)
 

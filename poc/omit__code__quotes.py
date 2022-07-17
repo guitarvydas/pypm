@@ -4,6 +4,7 @@
 # cell_11
 import mpos
 import dispatcher
+import re
 class _omit__code__quotes (mpos.Leaf):
   def __init__ (self, dispatcher, parent, idInParent):
     super ().__init__ (dispatcher, parent, idInParent)
@@ -18,9 +19,9 @@ class _omit__code__quotes (mpos.Leaf):
             first = textList [0];
             rest = textList [1:]
             if (first == '```'):
-                return rmCodeQuotesState1 (rest)
+                return self.rmCodeQuotesState1 (rest)
             else:
-                return [first] + rmCodeQuotesState0 (rest)
+                return [first] + self.rmCodeQuotesState0 (rest)
             
     def rmCodeQuotesState1 (textList):
         if (0 == len (textList)):
@@ -29,20 +30,21 @@ class _omit__code__quotes (mpos.Leaf):
             first = textList [0];
             rest = textList [1:]
             if (first == '```'):
-                return rmCodeQuotesState0 (rest)
+                return self.rmCodeQuotesState0 (rest)
             else:
-                return rmCodeQuotesState1 (rest)
+                return self.rmCodeQuotesState1 (rest)
     
     
-  def react (self, inputMessage):
+  def react (self, message):
     if (False):
       pass
-    elif (message.port == "text"):
+    elif (message.tag == "text"):
       
           text = message.data.split ('\n')
-          result = rmCodeQuotesState0 (text)
-          self.send (self, '[text]', result, message)
+          result = self.rmCodeQuotesState0 (text)
+          self.send ('[text]', result)
       
-    
-    return super ().react (inputMessage)
+    else:
+      print (self.idInParent + ": internal error unrecognized message: " + message.tag)
+    return super ().react (message)
 

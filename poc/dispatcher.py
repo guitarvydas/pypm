@@ -29,6 +29,7 @@ class Dispatcher:
         return False
 
     def invokeComponent (self, instance, message):
+        print (f'invoking {instance.idInParent}')
         instance.clearOutputBucket ()
         assert (instance.idInParent == message.component), "internal error - message.component.id should be the same as the instance.idInParent"
         return instance.react (message)
