@@ -5,13 +5,16 @@
 import mpos
 import dispatcher
 import re
-class _omit__code__quotes (mpos.Leaf):
+class _omit__code__quotes (mpos.Container):
   def __init__ (self, dispatcher, parent, idInParent):
     super ().__init__ (dispatcher, parent, idInParent)
     self.inputs=['text']
     self.outputs=['[text]']
     
     
+    self.connections = [  ]
+    self.children = {}
+  
   def rmCodeQuotesState0 (self, textList):
       if (0 == len (textList)):
           return []
@@ -35,16 +38,4 @@ class _omit__code__quotes (mpos.Leaf):
               return self.rmCodeQuotesState1 (rest)
   
   
-  def react (self, message):
-    if (False):
-      pass
-    elif (message.tag == "text"):
-      
-          text = message.data.split ('\n')
-          result = self.rmCodeQuotesState0 (text)
-          self.send ('[text]', result)
-      
-    else:
-      print (self.idInParent + ": internal error unrecognized message: " + message.tag)
-    return super ().react (message)
 

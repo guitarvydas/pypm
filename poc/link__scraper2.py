@@ -5,24 +5,15 @@
 import mpos
 import dispatcher
 import re
-class _link__scraper2 (mpos.Leaf):
+class _link__scraper2 (mpos.Container):
   def __init__ (self, dispatcher, parent, idInParent):
     super ().__init__ (dispatcher, parent, idInParent)
     self.inputs=['[text]', '[text]']
     self.outputs=['[links]']
     self.result = []
     
+    self.connections = [  ]
+    self.children = {}
   
-  def react (self, message):
-    if (False):
-      pass
-    elif (message.tag == "[text]"):
-      
-      for line in message.data:
-          self.result += re.findall ('(\[\[[^\]]+\]\])',line)
-      self.send ('[links]', self.result)
-      
-    else:
-      print (self.idInParent + ": internal error unrecognized message: " + message.tag)
-    return super ().react (message)
+  
 
