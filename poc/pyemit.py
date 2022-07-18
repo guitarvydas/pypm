@@ -10,7 +10,7 @@ with open(sys.argv[1]) as f:
   data = json.load(f)
 
 def isContainer (component):
-  if (0 < len (component["children"])):
+  if (0 <= len (component["children"])):
       return True
   else:
       return False

@@ -11,19 +11,16 @@ all: pm.py
 
 full : $(NODEMODULES) tools all
 
-leaf-dev:
-	touch dev.drawio
-	make dev.py
-
-old-dev:
+straighthrough:
+	# not tried...
 	echo this bootstrap version does not support container.in -> container.out
-	touch dev.drawio
-	#make dev.py
+	touch straighthrough.drawio
+	#make straightthrough.py
 
 
 dev:
-	touch pm.drawio
-	make pm.py
+	touch dev.drawio
+	make dev.py
 
 node_modules/ohm-js:
 	npm install ohm-js
