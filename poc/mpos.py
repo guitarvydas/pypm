@@ -154,7 +154,8 @@ class Component:
             self.panic (message)
 
 class Leaf (Component):
-    pass
+    def busyP (self):
+        return False
 
 class Container (Component):
     def __init__ (self, dispatcher, parent, debugID):
@@ -164,11 +165,16 @@ class Container (Component):
 
     def busyP (self):
         for child in self.children:
-            if child.busyP ():
+            if self.children [child].busyP ():
                 return True
         return False
 
-    def propagateInputToChildren (self, m):
+    def rewriteInputMessageForSelf (self, message):
+        m = InputMessage ('', message.tag, message.data)
+        return m
+    
+    def propagateInputToChildren (self, message):
+        m = self.rewriteInputMessageForSelf (message)
         conn = self.findConnectionBasedOnMessage (m)
         receivers = conn.getReceivers ()
         for r in receivers:
@@ -183,7 +189,7 @@ class Container (Component):
         for conn in self.connections:
             if (conn.containsSenderP (m.sender ())):
                 return conn
-        self.panic (f"MPOS: internal error in findConnectionBasedOnMessage tag={m.getTag ()}")
+        self.panic (f"MPOS: internal error in findConnectionBasedOnMessage id={self.idInParent} tag={m.getTag ()}")
 
     def mapNameToInstance (self, localName):
         if (localName == ''):

@@ -15,16 +15,17 @@ class Dispatcher:
 
     def dispatch1 (self):
         for instance in self.registry:
-            if instance.readyP ():
+            if self.runnableP (instance):
                 message = instance.popFirstInput ()
                 outputs = self.invokeComponent (instance, message)
                 self.dumpOutputBucket (instance, outputs)
                  
-
+    def runnableP (self, instance):
+        return instance.readyP () and (False == instance.busyP ())
 
     def anyComponentReadyP (self):
         for instance in self.registry:
-            if instance.readyP ():
+            if self.runnableP (instance):
                 return True
         return False
 
@@ -38,20 +39,19 @@ class Dispatcher:
         if senderinstance:
          if senderinstance.hasOutputsP ():
                 container = senderinstance.getContainer ()
-                for outputMessage in outputBucket:
-                    connection = container.findConnectionBasedOnMessage (outputMessage) # <<< search is based on instance id within Container
-                    receiversList = connection.getReceivers ()
-                    for receiver in receiversList:
-                        receiverinstance = container.mapNameToInstance (receiver.component)
-                        if (receiverinstance != senderinstance.parent):
-                            inputMessage = self.mapOutputMessageToInputMessage (outputMessage, receiver)
-                            receiverinstance.enqueueInput (inputMessage)
-                        else:
-                            # child sends output to output of container
-                            receiverinstance.send (receiver.tag, outputMessage.data)
-        else:
-            for m in outputBucket:
-                print (m) # top level has no container, just dump message to stdout
+                if container:
+                    for outputMessage in outputBucket:
+                        connection = container.findConnectionBasedOnMessage (outputMessage) # <<< search is based on instance id within Container
+                        receiversList = connection.getReceivers ()
+                        for receiver in receiversList:
+                            receiverinstance = container.mapNameToInstance (receiver.component)
+                            if (receiverinstance != senderinstance.parent):
+                                inputMessage = self.mapOutputMessageToInputMessage (outputMessage, receiver)
+                                receiverinstance.enqueueInput (inputMessage)
+                            else:   
+                                # child sends output to output of container
+                                receiverinstance.send (receiver.tag, outputMessage.data)
+                    self.dumpOutputBucket (container, container.outputBucket)
 
 
     def mapOutputMessageToInputMessage (self, outputMessage, receiver):
