@@ -276,28 +276,32 @@ function getGlueGrammar () {
 var ohm = require ('ohm-js');
 
   const grammar = String.raw`
-divwalker {
-text = macro+
+inits {
+text = macro*
 macro =
-  | lex_DivSection
-  | notdiv
-lex_DivSection = spaces "<div>" macro* "</div>"
-notdiv = ~"<div>" ~"</div>" any
+  | lex_RawClause
+  | other
+lex_RawClause = spaces "raw" spaces "{" verbatim "}"
+verbatim = "⟪" notverbatim+ "⟫"
+notverbatim = ~"⟪" ~"⟫" any
+other = ~"raw" any
 }
 `;
 
   const actualfmt = String.raw`
 text [@macro] = [[~{macro}]]
 macro [x] = [[~{x}]]
-lex_DivSection [ws1 kdiv @macro kenddiv] = [[~{macro}\n]]
-notdiv [c] = [[~{c}]]
+lex_RawClause [ws1 kraw ws2 lb verbatim rb] = [[~{verbatim}]]
+verbatim [lb @notverbatim rb] = [[~{notverbatim}]]
+notverbatim [c] = [[~{c}]]
+other [c] = [[]]
 `;
 
   var pipelineSuccess;
   var errorMessages = '';
   
   function transpile (fmt) {
-      let [success, transpiled, jssemantics] = transpile1 (srctext, grammar, fmt, "divwalker", "transpile1");
+      let [success, transpiled, jssemantics] = transpile1 (srctext, grammar, fmt, "inits", "transpile1");
       if (success) {
           return (transpiled);
       } else {
@@ -314,11 +318,6 @@ notdiv [c] = [[~{c}]]
       errorMessages += '\n' + message;
       pipelineSuccess = false;
   }
-
-  var testsrctext = String.raw`
-<div><div><div>initially {⟪self.dirname = ''⟫}</div><div>on ➢❲directory❳ {⟪self.dirname = message.data⟫}</div><div>on ➢❲iterate❳ {⟪</div><div>&nbsp; &nbsp; files = os.listdir (self.dirname)</div><div>&nbsp; &nbsp; for fname in files:</div><div>&nbsp; &nbsp; &nbsp; &nbsp; name = self.dirname + '/' + fname</div><div>&nbsp; &nbsp; &nbsp; &nbsp; if (os.path.isfile (name)):</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; self.send (self, 'filename', name, message)</div><div>&nbsp; &nbsp; &nbsp; &nbsp; else:</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; pass</div><div>⟫}</div><div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</div></div></div><div><br></div>
-
-`;
 
 var argv = require('yargs/yargs')(process.argv.slice(2)).argv;
 var srctext = require ('fs').readFileSync (argv._[0]);
