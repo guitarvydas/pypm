@@ -8,7 +8,7 @@ import re
 class _link__scraper2 (mpos.Leaf):
   def __init__ (self, dispatcher, parent, idInParent):
     super ().__init__ (dispatcher, parent, idInParent)
-    self.inputs=['[text]']
+    self.inputs=['[text]', '[text]']
     self.outputs=['[links]']
     self.result = []
     

@@ -46,6 +46,7 @@ ${support.popContext ()}
       CellContent_withContent [kopen @as kgt @graphicDetails kclose] = [[]]
       CellContent_withoutContent [kopen @as kclose] = [[]]
         Attribute_id    [kid keq s] = [[${support.setID (s)}]]
+        Attribute_group     [kid      ] = [[${support.appendIDAttribute ('group', "1")}]]
         Attribute_parent    [kid keq s] = [[${support.appendIDAttribute ('parent', s)}]]
         Attribute_source    [kid keq s] = [[${support.appendIDAttribute ('source', s)}]]
         Attribute_target    [kid keq s] = [[${support.appendIDAttribute ('target', s)}]]
