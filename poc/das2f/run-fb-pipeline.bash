@@ -76,7 +76,11 @@ mdfile=${dr}/dr-edgecontainment.md
 fname=`basename -s '.md' $mdfile`
 temp=temp_${RANDOM}
 
-${das2fdir}/a-${fname} | ${das2fdir}/b-${fname} 2> $temp
+# ${das2fdir}/a-${fname} | ${das2fdir}/b-${fname} 2> $temp
+set -x
+pwd
+${das2fdir}/a-${fname} >/tmp/a
+${das2fdir}/b-${fname} 2> $temp </tmp/a
 
 #./check-errors.bash
 if grep -q failure <$temp

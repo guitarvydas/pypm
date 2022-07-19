@@ -1,0 +1,19 @@
+\lambda
+λ
+\ẹot
+«
+»
+(global-bind-key "a" (self-insert-command 1 "ė"))
+
+aaaaaaAAAAA
+aaaa
+
+(self-insert-command 1 'ė)
+(self-insert-command 1 'Z)
+(global-set-key (kbd "C-c C-a") #\Z)
+(global-set-key (kbd "C-c b") "ė")
+XXėė
+
+ėėėėė⟪asdf⟫⟪⟫
+
+

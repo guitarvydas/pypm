@@ -1,22 +1,22 @@
 [
   [
     {
-      "children": ["perfilelinkscraper" ],
+      "children": ["INNERCONTAINER" ],
       "connections": [
 	{
-	  "receivers": [ {"receiver": {"component":"pm", "port":"[links]"}} ],
-	  "senders": [ {"sender": {"component":"perfilelinkscraper", "port":"[links]"}} ]
+	  "receivers": [ {"receiver": {"component":"OUTERCONTAINER", "port":"[links]"}} ],
+	  "senders": [ {"sender": {"component":"INNERCONTAINER", "port":"[links]"}} ]
 	},
 	{
-	  "receivers": [ {"receiver": {"component":"perfilelinkscraper", "port":"filename"}} ],
-	  "senders": [ {"sender": {"component":"pm", "port":"filename"}} ]
+	  "receivers": [ {"receiver": {"component":"INNERCONTAINER", "port":"filename"}} ],
+	  "senders": [ {"sender": {"component":"OUTERCONTAINER", "port":"filename"}} ]
 	}
       ],
       "id":"cell_6",
       "inputs": ["filename" ],
-      "name":"pm",
+      "name":"OUTERCONTAINER",
       "outputs": ["[links]", "text" ],
-      "synccode":"&lt;div&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;on ➢❲filename❳ {⟪&lt;/div&gt;&lt;div&gt;if (re.search (r'%5C.md$', message.data)):&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; f = open (message.data, 'r')&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; result = f.read ()&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; self.send ('text', result)&lt;/div&gt;&lt;div&gt;else:&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; self.send ('text', '')&lt;/div&gt;&lt;div&gt;⟫}&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;"
+      "synccode":"// LEAF"
     }
   ],
   [
@@ -25,7 +25,7 @@
       "connections": [],
       "id":"cell_7",
       "inputs": ["filename" ],
-      "name":"perfilelinkscraper",
+      "name":"INNERCONTAINER",
       "outputs": ["[links]" ],
       "synccode":""
     }

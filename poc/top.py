@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 import dispatcher
 import re
-import pm
+import dev
 disp = dispatcher.Dispatcher ()
-top = pm._pm (disp, None, '')
+top = dev._dev (disp, None, '')
 top.kickstart ()
 disp.dispatch ()

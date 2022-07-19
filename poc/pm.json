@@ -1,119 +1,99 @@
 [
   [
     {
-      "children": [],
-      "connections": [
-	{
-	  "receivers": [ {"receiver": {"component":"", "port":"[links]"}} ],
-	  "senders": [ {"sender": {"component":"", "port":"[links]"}} ]
-	},
-	{
-	  "receivers": [ {"receiver": {"component":"", "port":"[links]"}} ],
-	  "senders": [ {"sender": {"component":"Link Scraper", "port":"[links]"}} ]
-	}
-      ],
+      "children": ["MD File Reader3" ],
+      "connections": [],
       "id":"cell_11",
-      "inputs": ["text", "text" ],
-      "name":"",
-      "outputs": ["text", "[text]", "text", "[links]", "[links]" ],
+      "inputs": [],
+      "name":"MD File Reader",
+      "outputs": [],
       "synccode":""
     }
   ],
   [
     {
-      "children": [],
+      "children": ["Omit Code Quotes3" ],
       "connections": [],
-      "id":"cell_13",
-      "inputs": ["filename" ],
-      "name":"MD File Reader",
-      "outputs": ["text" ],
-      "synccode":"&lt;div&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;on ➢❲filename❳ {⟪&lt;/div&gt;&lt;div&gt;if (re.search (r'%5C.md$', message.data)):&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; f = open (message.data, 'r')&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; result = f.read ()&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; self.send ('text', result)&lt;/div&gt;&lt;div&gt;else:&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; self.send ('text', '')&lt;/div&gt;&lt;div&gt;⟫}&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;"
-    }
-  ],
-  [
-    {
-      "children": [],
-      "connections": [],
-      "id":"cell_16",
-      "inputs": ["text" ],
+      "id":"cell_14",
+      "inputs": [],
       "name":"Omit Code Quotes",
-      "outputs": ["[text]" ],
-      "synccode":"&lt;div&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;raw {⟪&lt;/div&gt;&lt;div&gt;def rmCodeQuotesState0 (self, textList):&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; if (0 == len (textList)):&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; return []&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; else:&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; first = textList [0];&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; rest = textList [1:]&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; if (first == '```'):&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; return self.rmCodeQuotesState1 (rest)&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; else:&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; return [first] + self.rmCodeQuotesState0 (rest)&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;&amp;nbsp;&lt;/div&gt;&lt;div&gt;def rmCodeQuotesState1 (self, textList):&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; if (0 == len (textList)):&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; return []&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; else:&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; first = textList [0];&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; rest = textList [1:]&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; if (first == '```'):&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; return self.rmCodeQuotesState0 (rest)&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; else:&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; return self.rmCodeQuotesState1 (rest)&lt;/div&gt;&lt;div&gt;⟫}&lt;/div&gt;&lt;div&gt;on ➢❲text❳ {⟪&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; text = message.data.split ('%5Cn')&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; result = self.rmCodeQuotesState0 (text)&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; self.send ('[text]', result)&lt;/div&gt;&lt;div&gt;⟫}&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;"
+      "outputs": [],
+      "synccode":""
     }
   ],
   [
     {
-      "children": [],
+      "children": ["Omit Comments3" ],
       "connections": [],
-      "id":"cell_19",
-      "inputs": ["text" ],
+      "id":"cell_17",
+      "inputs": [],
       "name":"Omit Comments",
-      "outputs": ["text" ],
-      "synccode":"&lt;div&gt;&lt;div&gt;&lt;div&gt;on ➢❲text❳ {⟪&lt;/div&gt;&lt;div&gt;&amp;nbsp; result = re.sub (r'%5C#.*%5Cn', '%5Cn', message.data)&lt;/div&gt;&lt;div&gt;&amp;nbsp; self.send ('text', result)&lt;/div&gt;&lt;div&gt;⟫}&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;"
+      "outputs": [],
+      "synccode":""
     }
   ],
   [
     {
-      "children": [],
+      "children": ["Link Scraper3" ],
       "connections": [],
-      "id":"cell_27",
-      "inputs": ["[text]" ],
+      "id":"cell_25",
+      "inputs": [],
       "name":"Link Scraper",
-      "outputs": ["[links]" ],
-      "synccode":"&lt;div&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;initially {⟪self.result = []⟫}&lt;/div&gt;&lt;div&gt;on ➢❲[text]❳ {⟪&lt;/div&gt;&lt;div&gt;for line in message.data:&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; self.result += re.findall ('(%5C[%5C[[^%5C]]+%5C]%5C])',line)&lt;/div&gt;&lt;div&gt;self.send ('[links]', self.result)&lt;/div&gt;&lt;div&gt;⟫}&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;"
+      "outputs": [],
+      "synccode":""
     }
   ],
   [
     {
-      "children": ["", "MD File Reader", "Omit Code Quotes", "Omit Comments", "Link Scraper" ],
+      "children": ["MD File Reader" ],
+      "connections": [],
+      "id":"cell_36",
+      "inputs": [],
+      "name":"MD File Reader3",
+      "outputs": [],
+      "synccode":""
+    }
+  ],
+  [
+    {
+      "children": ["Omit Code Quotes" ],
+      "connections": [],
+      "id":"cell_39",
+      "inputs": [],
+      "name":"Omit Code Quotes3",
+      "outputs": [],
+      "synccode":""
+    }
+  ],
+  [
+    {
+      "children": ["Omit Comments" ],
+      "connections": [],
+      "id":"cell_42",
+      "inputs": [],
+      "name":"Omit Comments3",
+      "outputs": [],
+      "synccode":""
+    }
+  ],
+  [
+    {
+      "children": ["Link Scraper" ],
+      "connections": [],
+      "id":"cell_50",
+      "inputs": [],
+      "name":"Link Scraper3",
+      "outputs": [],
+      "synccode":""
+    }
+  ],
+  [
+    {
+      "children": ["" ],
       "connections": [
 	{
-	  "receivers": [ {"receiver": {"component":"", "port":"[links]"}} ],
-	  "senders": [ {"sender": {"component":"", "port":"[links]"}} ]
-	},
-	{
 	  "receivers": [ {"receiver": {"component":"pm", "port":"[links]"}} ],
-	  "senders": [ {"sender": {"component":"", "port":"[links]"}} ]
-	},
-	{
-	  "receivers": [ {"receiver": {"component":"", "port":"[links]"}} ],
-	  "senders": [ {"sender": {"component":"Link Scraper", "port":"[links]"}} ]
-	},
-	{
-	  "receivers": [ {"receiver": {"component":"Link Scraper", "port":"[text]"}} ],
-	  "senders": [ {"sender": {"component":"", "port":"[text]"}} ]
-	},
-	{
-	  "receivers": [ {"receiver": {"component":"Link Scraper", "port":"[text]"}} ],
-	  "senders": [ {"sender": {"component":"Omit Code Quotes", "port":"[text]"}} ]
-	},
-	{
-	  "receivers": [ {"receiver": {"component":"", "port":"text"}} ],
-	  "senders": [ {"sender": {"component":"", "port":"text"}} ]
-	},
-	{
-	  "receivers": [ {"receiver": {"component":"Omit Code Quotes", "port":"text"}} ],
-	  "senders": [ {"sender": {"component":"", "port":"text"}} ]
-	},
-	{
-	  "receivers": [ {"receiver": {"component":"Omit Comments", "port":"text"}} ],
-	  "senders": [ {"sender": {"component":"", "port":"text"}} ]
-	},
-	{
-	  "receivers": [ {"receiver": {"component":"", "port":"text"}} ],
-	  "senders": [ {"sender": {"component":"MD File Reader", "port":"text"}} ]
-	},
-	{
-	  "receivers": [ {"receiver": {"component":"Omit Comments", "port":"text"}} ],
-	  "senders": [ {"sender": {"component":"MD File Reader", "port":"text"}} ]
-	},
-	{
-	  "receivers": [ {"receiver": {"component":"", "port":"text"}} ],
-	  "senders": [ {"sender": {"component":"Omit Comments", "port":"text"}} ]
-	},
-	{
-	  "receivers": [ {"receiver": {"component":"Omit Code Quotes", "port":"text"}} ],
-	  "senders": [ {"sender": {"component":"Omit Comments", "port":"text"}} ]
+	  "senders": [ {"sender": {"component":"[links]", "port":"[links]"}} ]
 	}
       ],
       "id":"cell_6",
@@ -122,5 +102,6 @@
       "outputs": ["[links]" ],
       "synccode":""
     }
-  ]
+  ],
+  [ {"children": [], "connections": [], "id":"cell_9", "inputs": [], "name":"", "outputs": [], "synccode":""} ]
 ]
