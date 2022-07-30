@@ -1,54 +1,31 @@
-# Mesage =
-# | Wrapper -- encapsulated
-# | Leaf    -- bottom
+# Message =
+# | Sender Port Message State Trail -- encapsulated
+# | Base                            -- bottom
 
 
-class Datum:
+class BaseMessage:
     def __init__ (self, data):
         self.data = data
-    def eval (self):
+    def value (self):
         return self.data
-
-class Message:
-    def __init__ (self, sender, port, data, trail):
-        self.sender = Datum (sender)
-        self.port = Datum (port)
-        self.data = Datum (data)
-        self.trail = Datum (trail)
-
-class LeafMessage:
-    def __init__ (self, sender, data, trail):
-        self.sender = sender
-        self.data = data
-        self.status = '?'
-        self.trail = trail
     def __repr__ (self):
-        return "{%s, <%s>,'%s'}" % (self.status, self.port, self.data)
+        return "%s" % (self.data)
 
-class Message (LeafMessage):
+class Message (BaseMessage):
     def __init__ (self, sender, port, data, trail):
+        super ().__init__ (data)
         self.sender = sender
         self.port = port
-        self.data = data
-        self.status = '?'
         self.trail = trail
+        self.state = '?'
     def __repr__ (self):
-        statusChar = '?'
-        if self.status == 'input':
-            statusChar = 'i'
-        if self.status == 'output':
-            statusChar = 'o'
-        return "{%s, <%s>,'%s'}" % (statusChar, self.port, self.data)
+        return "{%s, %s, '%s','%s'}" % (self.state, self.sender.name,
+                                        self.port, super ().__repr__)
 
-class InputMessage (Message):
-    def __init__ (self, port, data, trail):
-        super ().__init__ (self, port, data, trail)
-    
-
-class OutputMessage (Message):
-    def __init__ (self, port, data, trail):
-        super ().__init__ (self, port, data, trail)
-    def __repr__ (self):
-        return "{o, <%s>,'%s'}" % (self.port, self.data)
-
-        
+    def updateState (self, newState):
+        if (newState == 'input'):
+            self.state = 'input'
+        elif (newState == 'output'):
+            self.state = 'output'
+        else:
+            raise Exception ("illegal state for Message {newState}")

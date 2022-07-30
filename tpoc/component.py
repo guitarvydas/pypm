@@ -1,75 +1,70 @@
-from doctest import OutputChecker
 from message import Message, OutputMessage
 from fifo import FIFO
+from stackoffunctions import STACKofFUNCTIONS
+
 class Component:
     def __init__ (self, parent, instanceName):
         self.parent = parent
-        self.name = instanceName
+        self.instanceName = instanceName
         self.inputq = FIFO ()
         self.outputq = FIFO ()
-        self.state = 'default'
-        self.exitStack = [self.EmptyExit]
+        self.state = '?'
+        self.exitStack = STACKofFUNCTIONS ()
         self.debugStep = False
         self.debugReset = True
-    def send (self, portname, data, causingMessage):
-        trail = [causingMessage, causingMessage.trail]
-        self.outputQueue.append (OutputMessage (self, portname, data, trail))
-    def outputs (self):
-        # this could be done more efficiently
-        # map all output values into a single dict,
-        #    overriding each key/value pair with the most recent value at that key
-        # (TODO: should this return a stack of values (alist) for each key instead
-        #    of 1 value for each key?)
-        resultdict = {}
-        for message in self.outputq ():
-            resultdict [message.port] = message.data
-        self.outputq = FIFO ()
-        return resultdict
 
-    def dequeueInput (self):
-        return self.inputq.dequeue ()
-    
+    # external
+    def step (self):
+        ...
+    def reset (self):
+        for ...
     def inject (self, message):
         self.inputq.enqueue (message)
-
-    def EmptyEntry (self):
-        pass
-    def EmptyExit (self):
-        pass
-
-    def on (self, message, listOfConditions):
-        port = message.port
-        for cond in listOfConditions:
-            state = cond[0]
-            port = cond [1]
-            handler = cond [2]
-            if self.state == state:
-                if message.port == port:
-                    handler (self, message)
-            else:
-                self.handleNonMatchingMessage (message)
-
-    # must be implemented...
-    def reset (self):
-        raise "reset not implemented"
-    def step (self):
-        raise "step not implemented"
-
-    
-    # internal
-    def inputReadyP (self):
-        return self.inputq.len ()
-
-    def hierarchicalName (self):
-        myname = f'❲{self.name}❳'
-        if self.parent == None:
-            return myname
+    def outputs (self):
+        # return a dictionary of FIFOs, one FIFO per output port
+        resultdict = {}
+        for message in self.outputq ():
+            if None == resultdict [message.port]:
+                resultdict [message.port] = FIFO ()
+            resultdict [message.port].enqueue (message.data)
+        self.outputq = FIFO () # discard outputq
+        return resultdict
+    def isBusy (self):
+        raise Exception ("isBusy not overridden")
+    def on (self, message, transitionList):
+        for transition in transitionList:
+            if (self.state == transition.state and message.port == transition.port):
+                transition.function ()
+                if transition.isNoChange ():
+                    pass
+                else:
+                    self.updateState (transition.state)
+                return
+        self.handleNonMatchingMessage (message)
+    def name (self):
+        if (None == self.parent):
+            return self.instanceName
         else:
-            return f'{self.parent.hierarchicalName ()}/{myname}'
+            return f'{self.parent.name}/{self.instanceName}'
+    def updateState (self, newState, entryFunction):
+        self.exitStack.execAll ()
+        self.exitStack.reset ()
+        entryFunction ()
+        self.state = newState
 
+
+    # internal
+    def dequeueInput (self):
+        return self.inputq.pop ()
+    def send (self, portname, data, causingMessage):
+        trail = [causingMessage, causingMessage.trail]
+        self.outputq.enqueue (Message (self, portname, data, trail))
+        self.outputq.updateState ('output')
     def handleNonMatchingMessage (self, message):
         # normal: just drop the message
         # but, in this POC, raise an error
         print ()
         print (f'unhandled message {message} for {self.hierarchicalName ()}')
         exit ()
+    def enqueueExit (self, function):
+        self.exitStack.push (function)
