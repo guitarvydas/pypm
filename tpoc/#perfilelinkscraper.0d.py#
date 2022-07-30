@@ -46,18 +46,4 @@ class Per_File_Link_Scraper (Container):
         super ().handler (message)
         self.handleSourceMessage (message)
 
-   def step (self):
-       for child in self.children:
-           child.step ()
-       busy = false
-       for child in self.children:
-           busy = busy or child.busy ()
-       if (not busy):
-           self.state = 'default'
-       else:
-           self.state = 'waiting for children'
-           
-   def reset (self):
-       for child in self.children:
-           child.step ()
 

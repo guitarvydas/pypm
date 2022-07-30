@@ -12,14 +12,5 @@ class FIFO:
     def dequeue(self):
         return self._elements.popleft()
 
-fifo = FIFO ()
-fifo.enqueue ("1st")
-fifo.enqueue ("2nd")
-fifo.enqueue ("3rd")
-
-print (fifo)
-print (fifo.dequeue ())
-print (fifo.dequeue ())
-print (fifo.dequeue ())
-#print (fifo.dequeue ())
-
+    def len (self):
+        return len (self._elements)
