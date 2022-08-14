@@ -3,8 +3,26 @@ import component
 
 class Container (Component):
     def __init__ (self, parent, instanceName): 
+        raise "NIY"
         super ().__init__ (parent, instanceName)
         self.failOnNC = True
+   def step (self):
+       for child in self.children:
+           child.step ()
+       busy = false
+       for child in self.children:
+           busy = busy or child.busy ()
+       if (not busy):
+           self.state = 'default'
+       else:
+           self.state = 'waiting for children'
+           
+   def reset (self):
+       for child in self.children:
+           child.step ()
+
+
+
     def step (self):
         super ().step ()
         workDone = False

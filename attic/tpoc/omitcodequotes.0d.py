@@ -16,9 +16,10 @@
 
 
 
+from fifo import FIFO
 from message import Message
 import leaf
-import re
+
 class Omit__Code__Quotes (leaf.Leaf):
     def __init__ (self, parent, name): super ().__init__ (parent, name)
 
@@ -49,6 +50,9 @@ class Omit__Code__Quotes (leaf.Leaf):
         result = self.rmCodeQuotesState0 (text)
         self.send (self, '[text]', result, message)
 
-    def handler (self, message):
+    def step (self, message):
         super ().handler (message)
         self.on (message, ['default', 'text', self.proc_a])
+
+    def reset (self):
+        pass

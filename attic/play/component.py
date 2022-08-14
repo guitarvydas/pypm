@@ -5,8 +5,6 @@ class Component:
         self.name = instanceName
         self.inputq = []
         self.outputq = []
-        self.state = 'default'
-        self.exitStack = [self.EmptyExit]
         self.debugTick = False
         self.debugHandler = True
         self.debugInput = False
@@ -54,10 +52,7 @@ class Component:
         return self.inputQueueNotEmpty ()
     def route (self):
         pass
-
-    def step (self):
-        if (self.debugStep):
-            print (f'   step {self.name}')
-        pass
-    def EmptyExit (self):
+    def tick (self):
+        if (self.debugTick):
+            print (f'   tick {self.name}')
         pass

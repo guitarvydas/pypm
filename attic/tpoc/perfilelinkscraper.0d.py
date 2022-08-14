@@ -35,8 +35,15 @@ class Per_File_Link_Scraper (Container):
         sourceD = Source (omit__code__quotes, '[text]',net4)
         sourceE = Source (link__scraper, '[links]', net5)
         self.sources = [sourceA, sourceB, sourceC, sourceD, sourceE]
+        self.state = 'default'
+        
+    def busy (self):
+        return not self.ready ()
+    def ready (self):
+        return self.state == 'default'
+    
     def handler (self, message):
         super ().handler (message)
         self.handleSourceMessage (message)
 
-            
+

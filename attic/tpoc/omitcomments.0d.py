@@ -15,6 +15,7 @@
 # }
 
 
+from fifo import FIFO
 from message import Message
 import leaf
 import re
@@ -26,6 +27,9 @@ class Omit__Comments (leaf.Leaf):
         result = re.sub (r'\#.*\n', '\n', message.data)
         self.send (self, 'text', result, message)
 
-    def handler (self, message):
+    def step (self, message):
         super ().handler (message)
         self.on (message, ['default', 'text', self.proc_a])
+
+    def reset (self):
+        pass

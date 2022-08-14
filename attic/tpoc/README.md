@@ -1,4 +1,4 @@
-Textual Proof of Concept
+# Textual Proof of Concept
 
 - of 0D components written in Python 
 
@@ -47,3 +47,31 @@ there is probably the need for output port delegation (upward from yellow 50% do
 
 WARTS in POC (Proof of Concept):
 - Omit__Code__Quotes should be a character-by-character state machine, but is implemented as a set of mutually recursive functions (that form a larger state machine)
+
+# Discussion
+A StateMachine can contain other sub-StateMachines as well as States (see Harel's StateCharts).
+
+Changing the state of a state machine is done in 3 steps:
+1. exit current state
+2. enter next state
+3. set .state variable (a memo).
+
+A StateMachine is a synchronous lump of code.  If it has sub-StateMachines, then those sub-StateMachines must be exited in a stack-like manner (deepest first).
+
+Diving deeper into a StateMachine (i.e. entering its sub-StateMachine) does not exit the current state, but, simply pushes more info onto the exit stack and the state stack.
+
+The State of a StateMachine is a stack of state name stacks.  The outer-most name is the name of the top-most state that the machine is in.  The top-most state might be decomposed into smaller sub-StateMachines and those names appear on the State stack
+
+---
+
+MachineName = 
+  | StateName MachineName
+  | StateName
+
+---
+
+MachineName =
+  | CompoundMachineName
+  | StateName
+
+CompoundMachineName = StateName MachineName
