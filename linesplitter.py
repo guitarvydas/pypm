@@ -1,11 +1,11 @@
 import re
+
 from filtercomponent import FilterComponent
 
-class OmitComments (FilterComponent):
+class LineSplitter (FilterComponent):
     def handle (self, message):
         data = message.data
-        result = re.sub (r'\#.*\n', '\n', data ["input text"])
-        data ["text"] = result
+        data ['lines'] = data ['md text'].split ('\n')
 
     def __init__ (self, parent, name):
         super ().__init__ (parent, name, self.handle)

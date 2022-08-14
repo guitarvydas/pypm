@@ -1,15 +1,17 @@
-from mdfilereader import MDFileReader
 from message import Message
 
-mdfr = MDFileReader (None, 'markdown file reader')
+from linesplitter import LineSplitter
+
+lines = LineSplitter (None, 'line splitter')
 data = { 
     'base directory' : '/Users/tarvydas/Dropbox/ps',
     'suffix' : 'md',
-    'source filename' : 'test.md', 
-    'target filename' : 'out.test.md'
+    'source filename' : 'test2.md', 
+    'target filename' : 'out.test.md',
+    'md text' : '[[test]] abc def\nghi jkl\nmno [[link2]] pqr\n'
 }
-mdfr.inject (Message (None, 'begin', data, None))
+lines.inject (Message (None, 'begin', data, None))
 print ('injected')
-mdfr.run ()
+lines.run ()
 print ('done:')
 print (data)

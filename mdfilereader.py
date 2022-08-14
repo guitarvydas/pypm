@@ -7,7 +7,7 @@ class MDFileReader (ProcedureComponent):
         if (re.search (r'\.md$', data ["source filename"])):
             f = open (data ["source filename"], 'r')
             result = f.read ()
-            data ["input text"] = result
+            data ["md text"] = result
 
     def __init__ (self, parent, name):
         super ().__init__ (parent, name, self.handle)
