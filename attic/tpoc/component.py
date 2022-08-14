@@ -2,26 +2,32 @@ from message import Message, OutputMessage
 from fifo import FIFO
 from stackoffunctions import STACKofFUNCTIONS
 
+defaultStateName = '?'
+
 class Component:
-    def __init__ (self, parent, instanceName):
+    def __init__ (self, parent, instanceName, initialState):
         self.parent = parent
         self.instanceName = instanceName
         self.inputq = FIFO ()
         self.outputq = FIFO ()
-        self.state = '?'
+        self.state = initialState
+        self.initialState.fenter ()
         self.exitStack = STACKofFUNCTIONS ()
-        self.debugStep = False
-        self.debugReset = True
+        self.exitState.push (initialState.fexit)
+        self.defaultEntry = defaultEntry
+        self.defaultExit = defaultExit
+        self.defaultEntry ()
 
     # external
-    def step (self):
-        ...
+    def step (self, message):
+        self.state.fhandler (message)
     def reset (self):
-        for ...
+        self.updateState (self, '', self.defaultEntry)
     def inject (self, message):
         self.inputq.enqueue (message)
     def outputs (self):
         # return a dictionary of FIFOs, one FIFO per output port
+        self.exitDefault ()
         resultdict = {}
         for message in self.outputq ():
             if None == resultdict [message.port]:
@@ -33,7 +39,8 @@ class Component:
         raise Exception ("isBusy not overridden")
     def on (self, message, transitionList):
         for transition in transitionList:
-            if (self.state == transition.state and message.port == transition.port):
+            if (self.state.name == transition.state.name):
+                and message.port == transition.port):
                 transition.function ()
                 if transition.isNoChange ():
                     pass
@@ -46,10 +53,13 @@ class Component:
             return self.instanceName
         else:
             return f'{self.parent.name}/{self.instanceName}'
-    def updateState (self, newState, entryFunction):
+    def updateState (self, newState, entryFunction, exitFunction):
+        # jump "across" to another state,
+        # exit current state and all sub-states in LIFO order (exit deepest children first)
         self.exitStack.execAll ()
         self.exitStack.reset ()
         entryFunction ()
+        self.exitStack.push (exitFunction)
         self.state = newState
 
 
@@ -68,3 +78,10 @@ class Component:
         exit ()
     def enqueueExit (self, function):
         self.exitStack.push (function)
+    def exitDefault (self):
+        self.defaultExit ()
+    def dive (self, newState, entryFunction, exitFunction):
+        # dive into sub-machine, do not exit current state(s)
+        entryFunction ()
+        self.exitStack.push (exitFunction)
+        self.state = newState

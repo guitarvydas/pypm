@@ -1,22 +1,32 @@
-class Message:
+# Message =
+# | Sender Port Message State Trail -- encapsulated
+# | Base                            -- bottom
+
+
+class BaseMessage:
+    def __init__ (self, data):
+        self.data = data
+    def value (self):
+        return self.data
+    def __repr__ (self):
+        return "%s" % (self.data)
+
+class Message (BaseMessage):
     def __init__ (self, sender, port, data, trail):
+        super ().__init__ (data)
         self.sender = sender
         self.port = port
-        self.data = data
-        self.status = 'deferred'
-        if (isinstance (trail,list) and len(trail) == 0):
-            self.trail = []
-        elif isinstance (trail, list):
-            self.trail = trail
-        else:   
-            raise Exception ("internal error in Message - trail is not empty nor a list")
-            self.trail = trail
-
-
-    def newCopy (self):
-        m = Message (self.sender, self.port, self.data, self.trail)
-        return m
-    
+        self.trail = trail
+        self.state = '?'
     def __repr__ (self):
-        # return "{<%s>,...}" % (self.port)
-        return "{<%s>,'%s'}" % (self.port, self.data)
+        #return "<%s, '%s', '%s', %s>" % (self.sender.name (), self.port, self.data, self.trail)
+        # .sender and .trail are included for debug, omit them for __repr__ (for now)
+        return "<'%s','%s'>" % (self.port, self.data)
+
+    def updateState(self, newState):
+        if (newState == 'input'):
+            self.state = 'input'
+        elif (newState == 'output'):
+            self.state = 'output'
+        else:
+            raise Exception ("illegal state for Message {newState}")
