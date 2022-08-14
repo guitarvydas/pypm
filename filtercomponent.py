@@ -1,7 +1,7 @@
 from hsm import HSM
 from state import State
 
-class ProcedureComponent (HSM):
+class FilterComponent (HSM):
     def Noop (self):
         pass
 
