@@ -2,8 +2,8 @@ from component import Component
 
 debugHSM = True
 class HSM (Component):
-    def __init__ (self, parent, instanceName, enter, exit, defaultStateName, states):
-        super ().__init__ (parent, instanceName)
+    def __init__ (self, parent, name, enter, exit, defaultStateName, states):
+        super ().__init__ (parent, name)
         self._machineEnter = enter
         self._machineExit = exit
         self._state = None
@@ -64,7 +64,7 @@ class HSM (Component):
 
     # a raw state machine always completes a step when handle() is called
     # and is never busy
-    # (This is different for composite state machines, like Containers)
+    # (This is different for composite state machines)
     def step (self):
         pass
     

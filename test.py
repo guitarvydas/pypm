@@ -1,17 +1,17 @@
 from message import Message
 
-from linesplitter import LineSplitter
+from perfilelinkscraper import PerFileLinkScraper
 
-lines = LineSplitter (None, 'line splitter')
 data = { 
     'base directory' : '/Users/tarvydas/Dropbox/ps',
     'suffix' : 'md',
-    'source filename' : 'test2.md', 
+    'source filename' : 'test.md', 
     'target filename' : 'out.test.md',
     'md text' : '[[test]] abc def\nghi jkl\nmno [[link2]] pqr\n'
 }
-lines.inject (Message (None, 'begin', data, None))
+pfls = PerFileLinkScraper (None, 'per file link scraper', data)
+pfls.inject (Message (None, '', data, None))
 print ('injected')
-lines.run ()
+pfls.run ()
 print ('done:')
-print (data)
+print (data ["[links]"])
