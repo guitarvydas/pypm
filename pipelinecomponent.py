@@ -49,6 +49,7 @@ class PipelineComponent (HSM):
             else:
                 active = self.sequence.pop (0)
                 active.handle (Message (self, '', self.data, message))
+                active.run ()
                 
             return True
         else:
