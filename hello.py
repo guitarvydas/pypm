@@ -1,0 +1,12 @@
+import re
+
+from filtercomponent import FilterComponent
+
+class Hello (FilterComponent):
+    def handle (self, message):
+        data = message.data
+        data ['out'].append ('hello')
+
+    def __init__ (self, parent, name, data):
+        super ().__init__ (parent, name, self.handle)
+        self.data = data
