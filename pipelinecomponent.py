@@ -30,7 +30,8 @@ class PipelineComponent (HSM):
         for descriptor in self.pipeline:
             clss = descriptor ["clss"]
             name = descriptor ["name"]
-            sequence.append (clss (self, name))
+            data = self.data
+            sequence.append (clss (self, name, data))
         return sequence
             
     def enter_SEQ (self):

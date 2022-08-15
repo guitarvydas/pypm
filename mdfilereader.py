@@ -9,5 +9,6 @@ class MDFileReader (ProcedureComponent):
             result = f.read ()
             data ["md text"] = result
 
-    def __init__ (self, parent, name):
+    def __init__ (self, parent, name, data):
         super ().__init__ (parent, name, self.handle)
+        self.data = data

@@ -11,5 +11,6 @@ class LinkScraper (FilterComponent):
             result += re.findall ('(\[\[[^\]]+\]\])',line)
         data ['[links]'] = result
 
-    def __init__ (self, parent, name):
+    def __init__ (self, parent, name, data):
         super ().__init__ (parent, name, self.handle)
+        self.data = data
