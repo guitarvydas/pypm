@@ -19,14 +19,22 @@ class PipelineComponent (HSM):
 
     def handle_IDLE (self, message):
         if message.port == '': 
-            self.sequence = self.pipeline
             self.next ('seq')
             return True
         else:
             return False
         
 ## state SEQ:
+    def instantiatePipeline (self):
+        sequence = []
+        for descriptor in self.pipeline:
+            clss = descriptor ["clss"]
+            name = descriptor ["name"]
+            sequence.append (clss (self, name))
+        return sequence
+            
     def enter_SEQ (self):
+        self.sequence = self.instantiatePipeline ()
         self.send ('state', '<seq>', None)
 
     def exit_SEQ (self):

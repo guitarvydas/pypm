@@ -41,7 +41,7 @@ class HSM (Component):
 
     def handle (self, message):
         if debugHSM:
-            print (f'? {self.name ()}')
+            print (f'<handle {self.name ()} />')
         r = self._state.handle (message)
         assert r and (r == True or r == False)
         if not r:
