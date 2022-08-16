@@ -30,7 +30,10 @@ class PipelineComponent (HSM):
         for descriptor in self.pipeline:
             clss = descriptor ["clss"]
             name = descriptor ["name"]
-            instanceData = descriptor ['instanceData']
+            if 'instanceData' in descriptor:
+                instanceData = descriptor ['instanceData']
+            else:
+                instanceData = ''
             data = self.data
             sequence.append (clss (self, name, data, instanceData))
         return sequence

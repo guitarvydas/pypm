@@ -7,6 +7,7 @@ class LineSplitter (FilterComponent):
         data = message.data
         data ['lines'] = data ['md text'].split ('\n')
 
-    def __init__ (self, parent, name, data):
+    def __init__ (self, parent, name, data, instanceData):
         super ().__init__ (parent, name, self.handle)
         self.data = data
+        self.instanceData = instanceData
