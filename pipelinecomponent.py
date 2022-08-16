@@ -30,7 +30,9 @@ class PipelineComponent (HSM):
         for descriptor in self.pipeline:
             clss = descriptor ["clss"]
             name = descriptor ["name"]
-            sequence.append (clss (self, name))
+            instanceData = descriptor ['instanceData']
+            data = self.data
+            sequence.append (clss (self, name, data, instanceData))
         return sequence
             
     def enter_SEQ (self):
@@ -47,7 +49,8 @@ class PipelineComponent (HSM):
                 self.next ('idle')
             else:
                 active = self.sequence.pop (0)
-                active.handle (Message (self, '', self.data, message))
+                active.handle (Message (self, '', self.data,  message))
+                active.run ()
                 
             return True
         else:
