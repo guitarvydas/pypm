@@ -9,7 +9,7 @@ data = {
     'target filename' : 'out.test.md',
     'md text' : '[[test]] abc def\nghi jkl\nmno [[link2]] pqr\n'
 }
-wpfls = WrapperPerFileLinkScraper (None, 'wrapper per file link scraper', data)
+wpfls = WrapperPerFileLinkScraper (None, 'wrapper per file link scraper', data, '')
 wpfls.inject (Message (None, '', data, None))
 print ('injected')
 wpfls.run ()

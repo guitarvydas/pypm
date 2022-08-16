@@ -1,6 +1,6 @@
 from message import Message
 
-from perfilelinkscraper import PerFileLinkScraper
+from wrapperfilelinkscraper import WrapperPerFileLinkScraper
 
 data = { 
     'base directory' : '/Users/tarvydas/Dropbox/ps',
@@ -9,9 +9,10 @@ data = {
     'target filename' : 'out.test.md',
     'md text' : '[[test]] abc def\nghi jkl\nmno [[link2]] pqr\n'
 }
-pfls = PerFileLinkScraper (None, 'per file link scraper', data)
-pfls.inject (Message (None, '', data, None))
+wpfls = WrapperPerFileLinkScraper (None, 'wrapper per file link scraper', data, '')
+wpfls.inject (Message (None, '', data, None))
 print ('injected')
-pfls.run ()
+wpfls.run ()
 print ('done:')
-print (data ["[links]"])
+print (data)
+print (wpfls.outputs ())
