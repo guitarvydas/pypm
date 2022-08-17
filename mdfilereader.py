@@ -2,7 +2,7 @@ import re
 from procedurecomponent import ProcedureComponent
 
 class MDFileReader (ProcedureComponent):
-    def handle (self, message):
+    def f1 (self, message):
         data = message.data
         if (re.search (r'\.md$', data ["source filename"])):
             f = open (data ["source filename"], 'r')
@@ -13,3 +13,5 @@ class MDFileReader (ProcedureComponent):
         super ().__init__ (parent, name, self.handle)
         self.data = data
         self.instanceData = instanceData
+        h1 = PortHandler ('filename', self.f1)
+        self.handlerFunctions = [h1]

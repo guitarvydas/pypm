@@ -18,7 +18,33 @@ class Component:
     def isBusy (self):
         raise Exception ("isBusy not overridden")
 
-    # external
+    # exported
+    def Handle (self, message):
+        if self.HandlerChain (message, self.handlerFunctions, self.childMachine):
+            pass
+        else:
+            self.Fail (message)
+
+    def Fail (self, message):
+        raise Exception (f'unhandled message {message.port} for {self.name}')
+
+    def HandlerChain (self, port, message, functionList, childMachine):
+        if 0 == len (handlerFunctions):
+            if childMachine:
+                return childMachine.Handle (message)
+            else:
+                return False
+        else:
+            handler = functionList.pop (0)
+            restOfFunctionList = functionList
+            if (message.port == handler.port):
+                handler.func (self, message)
+                return True
+            else:
+                return self.HandlerChain (port, message, restOfFunctionList, childMachine)
+
+            
+            
     def outputs (self):
         # return a dictionary of FIFOs, one FIFO per output port
         resultdict = {}
@@ -43,7 +69,7 @@ class Component:
     def baseName (self):
         return self._instanceName
 
-    # internal
+    # internal - not exported
     def clearOutputs (self):
         self._outputq = FIFO ()
 
