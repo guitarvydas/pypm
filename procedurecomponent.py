@@ -1,17 +1,10 @@
-from hsm import HSM
-from state import State
+from component import Component
 
-class ProcedureComponent (HSM):
-    def Noop (self):
-        pass
-
-    def defaultHandler (self, message):
-        self.handler (message.data)
+class ProcedureComponent (Component):
+    def __init__ (self, parent, name, handlerFunctions, data, instanceData):
+        super ().__init__ (parent, name)
+        self.data = data
+        self.instanceData = instanceData
+        self.handlerFunctions = handlerFunctions
+        self.subLayer = None
         
-    def __init__ (self, parent, instanceName, handler):
-        self.handler = handler
-        defaultState = State (machine=self, name='default', enter=self.Noop, exit=self.Noop, handle=self.defaultHandler, subMachineClass=None)
-        stateList = [defaultState]
-        super ().__init__ (parent, instanceName, 
-                           enter=None, exit=None,
-                           defaultStateName='default', states=stateList)

@@ -2,9 +2,11 @@ from fifo import FIFO
 from message import Message
 
 class Component:
-    def __init__ (self, parent, name):
+    def __init__ (self, parent, name, env, instanceData):
         self._parent = parent
         self._instanceName = name
+        self._env = env
+        self._instanceData = instanceData
         self._inputq = FIFO ()
         self._outputq = FIFO ()
 
@@ -20,7 +22,7 @@ class Component:
 
     # exported
     def Handle (self, message):
-        if self.HandlerChain (message, self.handlerFunctions, self.childMachine):
+        if self.HandlerChain (message, self.handlerFunctions, self.subLayer):
             pass
         else:
             self.Fail (message)
@@ -28,10 +30,10 @@ class Component:
     def Fail (self, message):
         raise Exception (f'unhandled message {message.port} for {self.name}')
 
-    def HandlerChain (self, port, message, functionList, childMachine):
+    def HandlerChain (self, port, message, functionList, subLayer):
         if 0 == len (handlerFunctions):
-            if childMachine:
-                return childMachine.Handle (message)
+            if subLayer:
+                return subLayer.Handle (message)
             else:
                 return False
         else:
@@ -41,7 +43,7 @@ class Component:
                 handler.func (self, message)
                 return True
             else:
-                return self.HandlerChain (port, message, restOfFunctionList, childMachine)
+                return self.HandlerChain (port, message, restOfFunctionList, subLayer)
 
             
             

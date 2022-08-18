@@ -1,12 +1,11 @@
 from pipelinecomponent import PipelineComponent
 
-from hello import Hello
-from world import World
+from echo import Echo
 
 class HelloWorld (PipelineComponent):
     def __init__ (self, parent, name, data):
-        step1 = { 'clss' : Hello, 'name' : f'h[{name}]', 'instanceData' : 'a' }
-        step1a = { 'clss' : Hello, 'name' : f'h[{name}]','instanceData' : 'a1' }
-        step2 = { 'clss': World, 'name' : f'w[{name}]'  ,'instanceData' : 'c' }
-        pipeline = [step1, step2, step1a]
+        step1 = { 'clss' : Echo, 'name' : f'h1[{name}]', 'instanceData' : 'hello' }
+        step3 = { 'clss' : Echo, 'name' : f'h3[{name}]','instanceData' : 'hello-again' }
+        step2 = { 'clss': Echo, 'name' : f'w[{name}]'  ,'instanceData' : 'world' }
+        pipeline = [step1, step2, step3]
         super ().__init__ (parent, name, data, pipeline)
