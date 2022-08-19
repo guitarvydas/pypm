@@ -1,1 +1,4 @@
-python3 test.py
+echo '*** ' echo.py
+python3 echo.py
+echo '*** ' testecho.py
+python3 testecho.py

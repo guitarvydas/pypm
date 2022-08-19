@@ -3,8 +3,12 @@ from procedurecomponent import ProcedureComponent
 
 class Echo (ProcedureComponent):
     def f1 (self, message):
-        self.send ('stdout', self.instanceData, message)
+        self.send ('stdout', message.data, message)
 
-    def __init__ (self, parent, name, data, instanceData):
+    def __init__ (self, buildEnv, runEnv):
         h1 = PortHandler ('', self.f1)
-        super ().__init__ (parent, name, handlerFunctions=[h1], data=data, instanceData = instanceData)
+        # buildEnv' = cons ([h1], buildEnv)
+        buildEnvPrime = buildEnv.copy ()
+        buildEnvPrime['handlerFunctions'] = [h1]
+        # 
+        super ().__init__ (buildEnv=buildEnvPrime, runEnv=runEnv)

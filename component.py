@@ -2,11 +2,9 @@ from fifo import FIFO
 from message import Message
 
 class Component:
-    def __init__ (self, parent, name, env, instanceData):
-        self._parent = parent
-        self._instanceName = name
-        self._env = env
-        self._instanceData = instanceData
+    def __init__ (self, buildEnv, runEnv):
+        self._buildEnv = buildEnv
+        self._runEnv = runEnv
         self._inputq = FIFO ()
         self._outputq = FIFO ()
 
@@ -22,7 +20,10 @@ class Component:
 
     # exported
     def Handle (self, message):
-        if self.HandlerChain (message, self.handlerFunctions, self.subLayer):
+        sub = None
+        if 'subLayer' in self._buildEnv:
+            sub = self._buildEnv ['subLayer']
+        if self.HandlerChain (message, self._buildEnv ['handlerFunctions'], sub):
             pass
         else:
             self.Fail (message)
@@ -30,8 +31,8 @@ class Component:
     def Fail (self, message):
         raise Exception (f'unhandled message {message.port} for {self.name}')
 
-    def HandlerChain (self, port, message, functionList, subLayer):
-        if 0 == len (handlerFunctions):
+    def HandlerChain (self, message, functionList, subLayer):
+        if 0 == len (functionList):
             if subLayer:
                 return subLayer.Handle (message)
             else:
@@ -40,10 +41,10 @@ class Component:
             handler = functionList.pop (0)
             restOfFunctionList = functionList
             if (message.port == handler.port):
-                handler.func (self, message)
+                handler.func (message)
                 return True
             else:
-                return self.HandlerChain (port, message, restOfFunctionList, subLayer)
+                return self.HandlerChain (message.port, message, restOfFunctionList, subLayer)
 
             
             
@@ -64,12 +65,12 @@ class Component:
         return (not self._inputq.isEmpty ())
     def name (self):
         parentname = ''
-        if self._parent:
-            parentname = self._parent.name () + '/'
-        return f'{parentname}{self._instanceName}'
+        if self._buildEnv.parent:
+            parentname = self._buildEnv.parent.name () + '/'
+        return f'{parentname}{self._runEnv.instanceName}'
 
     def baseName (self):
-        return self._instanceName
+        return self._runEnv.instanceName
 
     # internal - not exported
     def clearOutputs (self):

@@ -1,10 +1,5 @@
-from component import Component
+from leaf import Leaf
 
-class ProcedureComponent (Component):
-    def __init__ (self, parent, name, handlerFunctions, data, instanceData):
-        super ().__init__ (parent, name)
-        self.data = data
-        self.instanceData = instanceData
-        self.handlerFunctions = handlerFunctions
-        self.subLayer = None
-        
+class ProcedureComponent (Leaf):
+    def __init__ (self, buildEnv, runEnv):
+        super ().__init__ (buildEnv, runEnv)
