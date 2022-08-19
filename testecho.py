@@ -23,9 +23,17 @@ from echo import Echo
 #
 buildEnv = {'name': 'echo tester'} 
 runEnv = {'parent': None, 'instanceName': 'instanceE', }
-e = Echo (buildEnv, runEnv)
-e.inject (Message (None, '', 'xyz', None))
+
+h = Echo (buildEnv, runEnv)
+h.inject (Message (None, '', 'hello', None))
 print ('injected')
-outputs = e.run ()
+outputs = h.run ()
 print ('done:')
-print (e.outputs ())
+print (h.outputs ())
+
+w = Echo (buildEnv, runEnv)
+w.inject (Message (None, '', 'world', None))
+print ('injected')
+outputs = w.run ()
+print ('done:')
+print (w.outputs ())
